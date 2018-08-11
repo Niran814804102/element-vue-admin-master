@@ -1,0 +1,24 @@
+{"body": {
+    "id": "BKmeans1533816790180",
+    "user": "ubt",
+    "name": "BKmeans1533816790180",
+    "applicationType": "",
+    "queue": "",
+    "state": "UNACCEPTED",
+    "finalStatus": "",
+    "progress": "",
+    "trackingUi": "",
+    "trackingUrl": "",
+    "clusterId": "",
+    "startedTime": "",
+    "finishedTime": "",
+    "elapsedTime": "",
+    "amContainerLogs": "",
+    "amHostHttpAddress": "",
+    "allocatedMb": "",
+    "allocatedVcores": "",
+    "runningContainers": ""
+  },
+  "code": 200,
+  "message": null
+}

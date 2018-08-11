@@ -1,0 +1,177 @@
+[{
+  "id":1,
+  "name_chn": "西藏自治区",
+  "name_eng": "XiZang ZiZhiQu",
+  "prettyname" :"西藏",
+  "lon": 89.128967,
+  "lat": 31.363567
+}, {
+  "id": 2,
+  "name_chn": "陕西省",
+  "name_eng": "Shaanxi",
+  "prettyname": "陕西",
+  "lon": 109.491875,
+  "lat": 35.854496
+},{
+  "id": 3,
+  "name_chn": "甘肃省",
+  "name_eng": "Gansu",
+  "prettyname": "甘肃",
+  "lon": 102.449091,
+  "lat": 38.096713
+},{
+  "id": 4,
+  "name_chn": "青海省",
+  "name_eng": "Qinghai",
+  "prettyname": "青海",
+  "lon": 96.195344,
+  "lat": 35.49449
+},{
+  "id":5,
+  "name_chn": "澳门特别行政区",
+  "name_eng": "Macao S.A.R.",
+  "prettyname": "澳门",
+  "lon": 113.532285,
+  "lat": 22.195446
+},{
+  "id": 6,
+  "name_chn": "北京市",
+  "name_eng": "Beijing",
+  "prettyname": "北京",
+  "lon": 116.383028,
+  "lat": 39.922302
+},{
+  "id": 7,
+  "name_chn": "宁夏回族自治区",
+  "name_eng": "Ningxia Huizu ZiZhiQu",
+  "prettyname": "宁夏",
+  "lon": 106.144435,
+  "lat": 37.315001
+},{
+  "id": 8,
+  "name_chn": "新疆维吾尔自治区",
+  "name_eng" :"XinJiang Uygur ZiZhiQu",
+  "prettyname": "新疆",
+  "lon": 85.605888,
+  "lat": 42.120078
+},{
+  "id": 9,
+  "name_chn": "台湾省",
+  "name_eng": "Taiwan",
+  "prettyname": "台湾",
+  "lon": 120.950399,
+  "lat": 23.694141
+},{
+  "id": 10,
+  "name_chn": "天津市",
+  "name_eng": "Tianjin",
+  "prettyname": "天津",
+  "lon": 117.197955,
+  "lat": 39.136985
+},{
+  "id": 11,
+  "name_chn": "河北省",
+  "name_eng": "Hebei",
+  "prettyname": "河北",
+  "lon": 115.649035,
+  "lat": 38.60721
+},{
+  "id": 12,
+  "name_chn": "山西省",
+  "name_eng": "Shanxi",
+  "prettyname": "山西",
+  "lon": 112.502446,
+  "lat": 37.860216
+},{
+  "id": 13,
+  "name_chn": "内蒙古自治区",
+  "name_eng": "Inner Mongolia Aut Reg ",
+  "prettyname": "内蒙古",
+  "lon": 114.4022,
+  "lat": 43.460132
+},{
+  "id": 14,
+  "name_chn": "辽宁省",
+  "name_eng": "Liaoning",
+  "prettyname": "辽宁",
+  "lon": 122.741813,
+  "lat": 41.6131
+},{
+  "id": 15,
+  "name_chn": "吉林省",
+  "name_eng": "Jilin",
+  "prettyname": "吉林",
+  "lon": 126.25053,
+  "lat": 43.670142
+},{
+  "id": 16,
+  "name_chn": "黑龙江省",
+  "name_eng": "Heilongjiang",
+  "prettyname": "黑龙江",
+  "lon": 128.034122,
+  "lat": 47.347778
+},{
+  "id": 17,
+  "name_chn": "上海市",
+  "name_eng": "Shanghai",
+  "prettyname": "上海",
+  "lon": 121.476818,
+  "lat": 31.245307
+},{
+  "id": 18,
+  "name_chn": "江苏省",
+  "name_eng": "Jiangsu",
+  "prettyname": "江苏",
+  "lon": 119.356431,
+  "lat": 33.009587
+},{
+  "id": 19,
+  "name_chn": "浙江省",
+  "name_eng": "Zhejiang",
+  "prettyname": "浙江",
+  "lon": 119.946158,
+  "lat": 29.156714
+},{
+  "id": 20,
+  "name_chn": "安徽省",
+  "name_eng": "Anhui",
+  "prettyname": "安徽",
+  "lon": 117.203989,
+  "lat": 31.855237
+}
+,{
+  "id": 21,
+  "name_chn": "福建省",
+  "name_eng": "Fujian",
+  "prettyname": "福建",
+  "lon": 117.973625,
+  "lat": 26.047128
+},{
+  "id": 22,
+  "name_chn": "江西省",
+  "name_eng": "Jiangxi",
+  "prettyname": "江西",
+  "lon": 115.66469,
+  "lat": 27.754324
+},{
+  "id": 23,
+  "name_chn": "山东省",
+  "name_eng": "Shandong",
+  "prettyname": "山东",
+  "lon": 118.51555,
+  "lat": 36.093431
+},{
+  "id": 24,
+  "name_chn": "河南省",
+  "name_eng": "Henan",
+  "prettyname": "河南",
+  "lon": 113.473932,
+  "lat": 34.152672
+},{
+  "id": 25,
+  "name_chn": "湖北省",
+  "name_eng": "Hubei",
+  "prettyname": "湖北",
+  "lon": 112.398046,
+  "lat": 31.205399
+}]
