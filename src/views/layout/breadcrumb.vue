@@ -1,6 +1,6 @@
 <template>
-  <v-breadcrumbs divider=">">
-    <v-icon slot="divider">forward</v-icon>
+  <v-breadcrumbs divider=">>">
+    <!--<v-icon slot="divider">forward</v-icon>-->
     <!--<v-breadcrumbs-item :to="{ path: '/' }">首页</v-breadcrumbs-item>-->
     <v-breadcrumbs-item v-for="item in currentPath"
                         :to="item.name"

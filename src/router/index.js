@@ -8,10 +8,12 @@ import AllProject from '../views/project/allproject.vue'
 import DataDisplay from '../views/project/datadisplay.vue'
 import DataExplore from '../views/project/dataexplore.vue'
 import Data3D from '../views/project/display3d.vue'
-import Form from '../components/form/modelForm.vue'
-import modelCard from '../components/info-card/modelCard.vue'
 import modelcompute from '../views/project/modelcompute.vue'
 import DataView from '../views/appmanage/dataview.vue'
+import test from '../views/project/test.vue'
+import modelSign from'../views/project/modelSign.vue'
+
+
 
 export const loginRouter = {
   path: '/login',
@@ -78,7 +80,7 @@ export const appRouter = [
         title: '数据探索',
         name: 'dataExplorer',
         path: 'dataExplorer',
-        icon: 'fa fa-podcast fa-lg',
+        icon: 'fa fa-eercast fa-lg',
         component: DataExplore
       },
       {
@@ -107,8 +109,14 @@ export const appRouter = [
         title: '数据探索',
         name: 'dataExplorerM',
         path: 'dataExplorerM',
-        icon: 'fa fa-podcast fa-lg',
+        icon: 'fa fa-eercast fa-lg',
         component: DataView
+      },{
+        title: '模型注册',
+        name: 'modelSign',
+        path: 'modelSign',
+        icon: 'fa fa-podcast fa-lg',
+        component: modelSign,
       },{
         title: '模型计算',
         name: 'Model',
@@ -120,7 +128,7 @@ export const appRouter = [
         name: 'dataEditor',
         path: 'dataEditor',
         icon: 'fa fa-pencil-square-o fa-lg',
-        component: DataView
+        component: test
       },{
         title: '数据上图3D',
         name: 'data3DM',

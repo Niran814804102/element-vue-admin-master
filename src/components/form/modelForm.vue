@@ -1,54 +1,47 @@
 <template>
-  <div id="modelForm">
-    <v-app>
-      <v-form ref="form" v-model="valid" lazy-validation >
-        <model-form-text v-show="formVisible"></model-form-text>
-        <v-btn
-          :disabled="!valid"
-          @click="submit"
-        >
-          submit
-        </v-btn>
-        <v-btn @click="clear()" >clear</v-btn>
-      </v-form>
-    </v-app>
+  <div>
+    <el-form ref="formName">
+      <el-form-item   v-for="(item,i) in form_list" :key="item.name" :label="item.name">
+        <el-input  v-model='paramsFormData[i]' :placeholder="'ÇëÊäÈë'+item.name" required:true show-message:true></el-input>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
 <script>
-    import modelFormText from './modelFormText.vue'
-    export default {
+  export default {
       name: "modelForm",
-      components:{
-        "model-form-text": modelFormText
-      },
-      props:{
-        formVisible:{ type: Boolean, default: true }
-      },
-      data(){
-        return { valid: true }
-      },
-      methods: {
-        submit() {
-          if (this.$refs.form.validate()) {
-            // Native form submission is not yet supported
-            this.$axios.post('api/submit', {
-              name: this.missionName,
-              pointFile: this.pointFile,
-              outputFile: this.outputFile,
-              classNum: this.classNum,
-              plusNum:this.plusNum,
-              minNum:this.minNum
-            });
-            this.formVisible=false
-          }
-        },
-        clear() {
-          this.$refs.form.reset()
-          console.log(v.value)
-        }
+    data (){
+      return{
+        paramsFormData:[],
       }
+    },
+    props: {form_list:Array},
+
+    methods: {
+      submit() {
+        let data = {};
+        data.user = "ubt";
+        for(item in this.form){
+
+        }
+      },
+      show(){
+        console.log(this.paramsFormData[0])
+        console.log(this.paramsFormData.length)
+      },
+      clearData() {
+        debugger;
+        this.paramsFormData=[];
+      },
+      submit(){
+        debugger;
+
+      }
+    },
+    mounted(){
     }
+  }
 </script>
 
 <style scoped>

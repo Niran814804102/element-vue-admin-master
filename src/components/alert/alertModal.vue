@@ -42,7 +42,7 @@
             if(newV)
               setTimeout(()=>{
                 this.visible = false;
-              },3000)
+              },2000)
           }
         },
         methods:{

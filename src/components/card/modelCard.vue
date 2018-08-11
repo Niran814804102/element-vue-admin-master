@@ -1,19 +1,19 @@
 <template>
   <div>
-    <div slot="activator" class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()" @click="editRow()" :class="{itemHover:itemHoverIndex==1}">
+    <div slot="activator" class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()" @click="editRow(card.artifactId)" :class="{itemHover:itemHoverIndex==1}">
       <v-card height="220px">
         <v-card-media
-        class="white--text"
-        height="151px"
-        :src="card.url">
-        <v-container fill-height fluid>
-          <v-layout fill-height>
-            <v-flex xs12 align-end flexbox>
-              <!--<span class="headline">Top 10 Australian beaches</span>-->
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-card-media>
+          class="white--text"
+          height="151px"
+          :src="card.url">
+          <v-container fill-height fluid>
+            <v-layout fill-height>
+              <v-flex xs12 align-end flexbox>
+                <!--<span class="headline">Top 10 Australian beaches</span>-->
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-media>
         <div class="data-info">
           <div class="data-info-container">
             <div class="data-name">{{ card.artifactId}}</div>
@@ -23,48 +23,45 @@
         </div>
       </v-card>
     </div>
-    <model-dialog :dialogVisible="dialogVisible" ></model-dialog>
-
   </div>
 </template>
 
 <script>
-  import modelDialog from "../dialog/modelDialog";
+  import vueEven from "../../resource/vueEvent";
   export default {
-      name: "modelCard",
-      props: {
-        card: {type: Object, default: []}
-      },
-      components:{
-        "model-dialog": modelDialog
-      },
-      data(){
-          return {
-            itemHoverIndex : null,
-            dialogVisible:{
-              v:false,
-              clickModalClose:false
-            },
-          }
-      },
-      methods:{
-          mouseEnter(){
-            this.itemHoverIndex = 1;
-          },
-          mouseLeave(){
-            this.itemHoverIndex = null;
-          },
-          getUUIDByID(){
-            this.axios.get('static/json/getUUIDByID.json',{
-              id : this.data.id
-            }).then(res=>{console.log(re.data)}).
-            catch(function(){console.log("get email error")})
-          },
-          editRow() {
-            //TODO 打开地图编辑页面
-            this.dialogVisible.v = true
-          }
+    name: "modelCard",
+    props: {
+      card: {type: Object, default: []}
+    },
+    data(){
+      return {
+        itemHoverIndex : null,
+        artifactId:"123",
+        dialogVisible:{
+          v:false,
+          clickModalClose:false
+        }
       }
+    },
+    methods:{
+      mouseEnter(){
+        this.itemHoverIndex = 1;
+      },
+      mouseLeave(){
+        this.itemHoverIndex = null;
+      },
+      getUUIDByID(){
+        this.axios.get('static/json/getUUIDByID.json',{
+          id : this.data.id
+        }).then(res=>{console.log(re.data)}).
+        catch(function(){console.log("get email error")})
+      },
+      editRow(artifactId) {
+        //TODO 打开地图编辑页面
+        this.dialogVisible.v=true;
+        vueEven.$emit('pop',this.dialogVisible,this.artifactId);
+      }
+    }
   }
 </script>
 

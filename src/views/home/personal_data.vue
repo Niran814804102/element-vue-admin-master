@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import infoCard from '../../components/info-card/infoCard.vue';
+  import infoCard from '../../components/card/infoCard.vue';
   import alertModal from '../../components/alert/alertModal.vue';
   import MapDialog from "../../components/dialog/mapDialog";
 

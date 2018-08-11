@@ -10,6 +10,7 @@
   </el-dialog>
 </template>
 <script>
+  import "../../../static/js/ol-debug.js"
   export default {
     name: "map-dialog",
     props: {
