@@ -69,7 +69,8 @@
           //TODO 在数据中删除
         },
         editRow(index, rows) {
-          this.dialogTitle = rows[index].proName
+          this.dialogTitle=rows[index].proName
+
           this.dialogVisible.v = true
           //TODO 根据所选信息组织数据请求url和参数
           this.queryUrl="static/json/projData/ylsj.json"
