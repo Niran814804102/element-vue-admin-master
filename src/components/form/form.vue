@@ -1,44 +1,44 @@
 <template>
   <div>
-    <el-form ref="formName">
+    <el-form ref="formName" :visible.sync="visible">
+      <h4>模型参数</h4>
       <el-form-item v-for="(item,i) in form_list" :key="item.name" :label="item.name">
-        <el-input v-model='paramsFormData[i]' :placeholder="'������'+item.name" required:true
-                  show-message:true></el-input>
+        <el-input v-model='paramsFormData[i]' :placeholder="'请输入'+item.name" required:true show-message:true></el-input>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+  // import infoCard from '../info-card/infoCard.vue'
   export default {
-    name: "modelForm",
+    name: "myform",
     data() {
       return {
         paramsFormData: [],
       }
     },
-    props: {form_list: Array},
+    props: {
+      form_list: Array,
+      visible: Boolean,
+    },
 
     methods: {
-      submit() {
+      getData() {
         let data = {};
-        data.user = "ubt";
-        for (item in this.form) {
-
+        // data.user = "ubt";
+        for (let index in this.paramsFormData) {
+          data[parseInt(index) + 1] = this.paramsFormData[index];
         }
+        return data;
       },
       show() {
         console.log(this.paramsFormData[0])
         console.log(this.paramsFormData.length)
       },
       clearData() {
-        debugger;
         this.paramsFormData = [];
       },
-      submit() {
-        debugger;
-
-      }
     },
     mounted() {
     }
