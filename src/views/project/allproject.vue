@@ -22,67 +22,82 @@
         @click="showListView()">
         列表
       </el-button>
-
-
     </el-row>
     <el-row>
-      <pro-table
-      :data="allData">
-      </pro-table>
+      <allTable>
+        <!--:data="tasks">-->
+      </allTable>
     </el-row>
 
   </div>
 </template>
 
 <script>
-  import proTable from "../../components/table/proTable";
+  // import proTable from "../../components/table/proTable";
+  import allprojectTable from '../../components/table/allprojectTable'
+
   export default {
-    name:'allproject',
-    components: {proTable},
-    mounted(){
-      this.getAllProjects()
+    name: 'allproject',
+    components: {"allTable": allprojectTable},
+    data() {
+      return {
+        tasks: []   //table数据
+      }
     },
     methods: {
       /**
        * 新建项目
        */
-      newProject(){
+      newProject() {
         //TODO 新建项目
       },
       /**
        *列表信息平铺展示
        */
-      showCardView(){
+      showCardView() {
         //TODO 平铺显示
       },
       /**
        * 平铺信息列表展示
        */
-      showListView(){
+      showListView() {
         //TODO 平铺显示
       },
       /**
        * 获取用户个人所有项目
        * userid  用户id
        */
-      getAllProjects: function(){
+      getAllProjects: function () {
         //TODO 数据查询及处理
-        this.$axios.get('static/json/allProject.json',{
-          params:{ userid: "userid"}
-        }).then(res=>{this.allData = res.data;})
-          .catch(function(){
-            console.log(error);})
+        let obj = this;
+        this.$axios({
+          method: "GET",
+          // url:'http://192.168.240.25/dldsj/parallel/jobs/user',
+          url: '../../../static/json/allProject.json',
+          // params:{ userid: "userid"},
+          // headers: {//设置跨域头
+          //   'Content-Type': 'application/json'
+          // }
+        }).then(res => {
+          obj.tasks = res.data.body;
+          for (let prodata of obj.tasks) {
+            if (prodata.record.state === "FINISHED") {
+
+            }
+          }
+        })
+          .catch(function () {
+            // console.log(error)
+          })
       }
     },
-    data() {
-      return {
-        allData: null   //table数据
-      }
+    mounted() {
+      this.getAllProjects()
     }
   }
 </script>
 <style>
-  .el-input--prefix .el-input__inner{
+  .el-input--prefix .el-input__inner {
     border-radius: 20px;
   }
 </style>
