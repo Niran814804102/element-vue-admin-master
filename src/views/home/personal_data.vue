@@ -3,9 +3,9 @@
     <alert-modal></alert-modal>
     <v-container grid-list-xl text-xs-center>
       <v-layout row wrap>
-          <v-flex xs12 sm6 md4 lg3 v-for="card in cards" :key="card.id">
-            <info-card :card="card" v-on:mapDialogParams="setMapDialogParams"></info-card>
-          </v-flex>
+        <v-flex xs12 sm6 md4 lg3 v-for="card in cards" :key="card.id">
+          <info-card :card="card" v-on:mapDialogParams="setMapDialogParams"></info-card>
+        </v-flex>
       </v-layout>
     </v-container>
     <map-dialog ref="mapdialog"
@@ -15,9 +15,9 @@
 </template>
 
 <script>
-  import infoCard from '../../components/card/infoCard.vue';
-  import alertModal from '../../components/alert/alertModal.vue';
-  import MapDialog from "../../components/dialog/mapDialog";
+  import infoCard from '../../components/card/infoCard.vue'
+  import alertModal from '../../components/alert/alertModal.vue'
+  import MapDialog from "../../components/dialog/mapDialog"
 
   export default {
     name: "perData",
