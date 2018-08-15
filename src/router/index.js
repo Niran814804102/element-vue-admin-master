@@ -8,9 +8,9 @@ import AllProject from '../views/project/allproject.vue'
 import DataDisplay from '../views/project/datadisplay.vue'
 import DataExplore from '../views/project/dataexplore.vue'
 import Data3D from '../views/project/display3d.vue'
+
 import modelcompute from '../views/project/modelcompute.vue'
 import DataView from '../views/appmanage/dataview.vue'
-import test from '../views/project/test.vue'
 import modelSign from'../views/project/modelSign.vue'
 
 
@@ -128,7 +128,7 @@ export const appRouter = [
         name: 'dataEditor',
         path: 'dataEditor',
         icon: 'fa fa-pencil-square-o fa-lg',
-        component: test
+        component: DataView
       },{
         title: '数据上图3D',
         name: 'data3DM',

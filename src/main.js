@@ -10,6 +10,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+
 import Vuelidate from 'vuelidate'
 
 import App from './App'
@@ -24,6 +25,7 @@ Vue.use(Vuex)
 Vue.use(ElementUI)
 Vue.use(Vuetify)
 Vue.use(N3Components)
+
 Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
