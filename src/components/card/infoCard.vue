@@ -1,11 +1,12 @@
 <template>
-  <div class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()"  :class="{itemHover:itemHoverIndex==1}">
+  <div class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()"
+       :class="{itemHover:itemHoverIndex==1}">
     <v-card height="220px">
       <v-card-media
-      class="white--text"
-      height="151px"
-      :src="card.url"
-      @click="openDataResourceOnMap()">
+        class="white--text"
+        height="151px"
+        :src="card.url"
+        @click="openDataResourceOnMap()">
         <v-container fill-height fluid>
           <v-layout fill-height>
             <v-flex xs12 align-end flexbox>
@@ -20,153 +21,158 @@
           <div class="data-count">{{ card.count }}</div>
           <div class="data-date">{{ card.updatedate }}</div>
         </div>
+      </div>
+      <div class="data-option">
+        <div class="data-icon">
+          <i title="数据预览" class="fa fa-table" aria-hidden="true"></i>
         </div>
-        <div class="data-option">
-          <div class="data-icon">
-            <i title="数据预览" class="fa fa-table" aria-hidden="true"></i>
-          </div>
-          <div class="data-icon">
-            <i title="数据上图" class="fa fa-globe" aria-hidden="true"></i>
-          </div>
-          <div class="data-icon">
-            <i :title="favoriteTitle" :class="favoriteClass" @click="chanegeFavorites()" aria-hidden="true"></i>
-          </div>
-          <div class="data-icon">
-            <i title="复制数据UD" class="fa fa-files-o" @click="getUUIDByID()" aria-hidden="true"></i>
-          </div>
+        <div class="data-icon">
+          <i title="数据上图" class="fa fa-globe" aria-hidden="true"></i>
         </div>
+        <div class="data-icon">
+          <i :title="favoriteTitle" :class="favoriteClass" @click="chanegeFavorites()" aria-hidden="true"></i>
+        </div>
+        <div class="data-icon">
+          <i title="复制数据UD" class="fa fa-files-o" @click="getUUIDByID()" aria-hidden="true"></i>
+        </div>
+      </div>
     </v-card>
   </div>
 </template>
 
 <script>
-    import Bus from '../../Bus/bus.js'
-    import MapDialog from "../dialog/mapDialog";
-    export default {
-        name: "infoCard",
-        components:{
-          "map-dialog": MapDialog
-        },
-        props: {
-          card: {type: Object, default: []}
-        },
-        data(){
-            return {
-              itemHoverIndex : null
-            }
-        },
-        computed:{
-          favoriteClass(){
-            return this.card.isFavorite === "true" ? 'fa fa-star fa-star-full-yellow' : 'fa fa-star';
-          },
-          favoriteTitle(){
-            return this.card.isFavorite === "true" ? '取消收藏' : '添加收藏';
-          }
-        },
-        watched:{
-          isFavorite(newV, oldV){
-            this.favoriteClass = newV === "true" ? 'fa fa-star fa-star-full-yellow' : 'fa fa-star';
-            this.favoriteTitle = newV === "true" ? '取消收藏' : '添加收藏';
-          }
-        },
-        methods:{
-            mouseEnter(){
-              this.itemHoverIndex = 1;
-            },
-            mouseLeave(){
-              this.itemHoverIndex = null;
-            },
-            getUUIDByID(){
-              Bus.$emit("alertVisible", true)
-              this.$axios.get('static/json/getUUIDByID.json',{
-                id : this.card.id
-              }).then(res=>{
-                window.clipboardData.setData('Text',res);
-                Bus.$emit("alertType", "success")
-                Bus.$emit("alertDescription", "数据UUID复制成功")
-              }).catch(()=>{
-                Bus.$emit("alertType", "error")
-                Bus.$emit("alertDescription", "数据UUID复制失败")
-              })
+  import Bus from '../../Bus/bus.js'
+  import MapDialog from "../dialog/mapDialog";
 
-            },
-            //修改对应数据的收藏属性，根据当前class判断当前是否收藏，如果收藏，点击后为取消收藏，反之添加收藏
-            chanegeFavorites() {
-              if (this.favoriteClass === "fa fa-star") {
-                // this.$axios.post('/addToFavorites', {
-                //   id: this.card.id,
-                //   user: this.user
-                // }).then(function() {
-                Bus.$emit("alertVisible", true)
-                // if (res.data == "success") {
-                this.card.isFavorite = "true"
-                Bus.$emit("alertType", "success")
-                Bus.$emit("alertDescription", "收藏成功")
-                // }
-                // }).catch(function(){
-                //   this.$emit("alertType", "error")
-                //   this.$emit("alertDescription","收藏失败")
-                // })
-              }
-              else {
-                // this.$axios.post('/removeFromFavorites', {
-                //   id: this.card.id,
-                //   user: this.user
-                // }).then(function() {
-                Bus.$emit("alertVisible", true)
-                // if (res.data == "success"){
-                this.card.isFavorite = "false"
-                Bus.$emit("alertType", "success")
-                Bus.$emit("alertDescription", "取消收藏成功")
-                //   }
-                // }).catch(function(){
-                //   this.$emit("alertType", "error")
-                //   this.$emit("alertDescription","取消收藏失败")
-                // })
-              }
-            },
-            //加载所点击的数据到地图上
-            openDataResourceOnMap(){
-              this.$emit("mapDialogParams", {
-                dialogTitle: this.card.title,
-                dialogVisible: {
-                  v: true,
-                  clickModalClose: false
-                },
-                queryUrl: "static/json/projData/ylsj.json",
-                queryParams: {
-                  "userid":"userid",
-                  "proname":"proname"
-                }
-              });
-            }
+  export default {
+    name: "infoCard",
+    components: {
+      "map-dialog": MapDialog
+    },
+    props: {
+      card: {type: Object, default: []}
+    },
+    data() {
+      return {
+        itemHoverIndex: null
+      }
+    },
+    computed: {
+      favoriteClass() {
+        return this.card.isFavorite === "true" ? 'fa fa-star fa-star-full-yellow' : 'fa fa-star';
+      },
+      favoriteTitle() {
+        return this.card.isFavorite === "true" ? '取消收藏' : '添加收藏';
+      }
+    },
+    watched: {
+      isFavorite(newV, oldV) {
+        this.favoriteClass = newV === "true" ? 'fa fa-star fa-star-full-yellow' : 'fa fa-star';
+        this.favoriteTitle = newV === "true" ? '取消收藏' : '添加收藏';
+      }
+    },
+    methods: {
+      mouseEnter() {
+        this.itemHoverIndex = 1;
+      },
+      mouseLeave() {
+        this.itemHoverIndex = null;
+      },
+      getUUIDByID() {
+        Bus.$emit("alertVisible", true)
+        this.$axios.get('static/json/getUUIDByID.json', {
+          id: this.card.id
+        }).then(res => {
+          window.clipboardData.setData('Text', res);
+          Bus.$emit("alertType", "success")
+          Bus.$emit("alertDescription", "数据UUID复制成功")
+        }).catch(() => {
+          Bus.$emit("alertType", "error")
+          Bus.$emit("alertDescription", "数据UUID复制失败")
+        })
+
+      },
+      //修改对应数据的收藏属性，根据当前class判断当前是否收藏，如果收藏，点击后为取消收藏，反之添加收藏
+      chanegeFavorites() {
+        if (this.favoriteClass === "fa fa-star") {
+          // this.$axios.post('/addToFavorites', {
+          //   id: this.card.id,
+          //   user: this.user
+          // }).then(function() {
+          Bus.$emit("alertVisible", true)
+          // if (res.data == "success") {
+          this.card.isFavorite = "true"
+          Bus.$emit("alertType", "success")
+          Bus.$emit("alertDescription", "收藏成功")
+          // }
+          // }).catch(function(){
+          //   this.$emit("alertType", "error")
+          //   this.$emit("alertDescription","收藏失败")
+          // })
         }
+        else {
+          // this.$axios.post('/removeFromFavorites', {
+          //   id: this.card.id,
+          //   user: this.user
+          // }).then(function() {
+          Bus.$emit("alertVisible", true)
+          // if (res.data == "success"){
+          this.card.isFavorite = "false"
+          Bus.$emit("alertType", "success")
+          Bus.$emit("alertDescription", "取消收藏成功")
+          //   }
+          // }).catch(function(){
+          //   this.$emit("alertType", "error")
+          //   this.$emit("alertDescription","取消收藏失败")
+          // })
+        }
+      },
+      //加载所点击的数据到地图上
+      openDataResourceOnMap() {
+        this.$emit("mapDialogParams", {
+          dialogTitle: this.card.title,
+          dialogVisible: {
+            v: true,
+            clickModalClose: false
+          },
+          queryUrl: "static/json/projData/ylsj.json",
+          queryParams: {
+            "userid": "userid",
+            "proname": "proname"
+          }
+        });
+      }
     }
+  }
 </script>
 
 <style scoped>
-  .itemHover{
+  .itemHover {
     /*box-shadow:0px 0px 1px 0px #313131;*/
-    box-shadow: 0 0 10px 1px rgba(0,0,0,.1);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, .1);
   }
-  .card-container{
+
+  .card-container {
     margin-left: 25px;
     /*padding: 5px 10px 5px 10px;*/
     width: 240px;
   }
-  .data-info{
+
+  .data-info {
     height: 69px;
     padding: 8px 12px 12px;
     overflow: hidden;
     color: #303c46;
     position: relative;
   }
-  .data-info-container{
+
+  .data-info-container {
     height: 100%;
     overflow: hidden;
     position: relative;
   }
-  .data-name{
+
+  .data-name {
     white-space: nowrap;
     text-overflow: ellipsis;
     height: 24px;
@@ -176,7 +182,8 @@
     position: relative;
     margin-right: 102px;
   }
-  .data-count{
+
+  .data-count {
     text-align: left;
     font-size: 12px;
     line-height: 14px;
@@ -184,7 +191,8 @@
     color: #222;
     padding: 10px 0 6px;
   }
-  .data-date{
+
+  .data-date {
     position: absolute;
     right: 2px;
     top: 4px;
@@ -194,12 +202,14 @@
     text-align: left;
     color: #8a9194;
   }
-  .data-option{
+
+  .data-option {
     position: absolute;
     right: 10px;
     bottom: 10px;
   }
-  .data-icon{
+
+  .data-icon {
     margin: 0;
     border: 0;
     padding-right: 3px;
@@ -212,7 +222,8 @@
     display: inline-flex;
 
   }
-  .data-option-container{
+
+  .data-option-container {
     position: absolute;
     z-index: 9;
     width: 118px;
@@ -225,13 +236,15 @@
     color: #8a9194;
     padding: 6px 0;
   }
-  .option-icon{
+
+  .option-icon {
     width: 18px;
     text-align: center;
     float: left;
     margin-right: 6px;
   }
-  .fa-star-full-yellow{
+
+  .fa-star-full-yellow {
     color: #fbbc07
   }
 </style>
