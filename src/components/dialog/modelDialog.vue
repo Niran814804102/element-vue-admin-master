@@ -21,9 +21,8 @@
 </template>
 
 <script>
-  import myForm from '../form/form';
+  import myForm from '../form/modelForm';
   import vueEven from '../../resource/vueEvent.js';
-  import allproject from'../../views/project/allproject'
 
   export default {
     name: "model-dialog",
@@ -42,13 +41,12 @@
       }
     },
     methods: {
-
       initParallelModel() {
         this.$axios({
           method: "GET",
           // params: {artifactId: this.artifactId},
-          url: 'http://192.168.240.25:3000/dldsj/parallel/get/' + this.artifactId,
-          // url:'../../../static/json/modelData.json',
+          // url: 'http://192.168.240.25:3000/dldsj/parallel/get/' + this.artifactId,
+          url:'../../../static/json/perModelData.json',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           }

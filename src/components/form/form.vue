@@ -10,7 +10,6 @@
 </template>
 
 <script>
-  // import infoCard from '../info-card/infoCard.vue'
   export default {
     name: "myform",
     data() {

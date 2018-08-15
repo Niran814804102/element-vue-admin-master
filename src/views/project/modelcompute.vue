@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="tool">
-      <el-button type="primary" icon="el-icon-plus" circle disabled
+      <el-button type="primary" icon="el-icon-plus" circle @click="signDialog()"
       ></el-button>
       <el-button type="primary" icon="el-icon-delete" circle disabled></el-button>
       <el-button type="primary" icon="el-icon-refresh" circle @click="refresh()"></el-button>
@@ -16,14 +16,14 @@
       </v-layout>
     </v-container>
     <v-modelDialog></v-modelDialog>
-    <!--<v-signDialog :visible.sync="signVisible"></v-signDialog>-->
+    <v-signDialog :sign-visible="signVisible"></v-signDialog>
   </div>
 </template>
 
 <script>
   import modelCard from '../../components/card/modelCard.vue';
   import modelDialog from '../../components/dialog/modelDialog.vue';
-  import modelSign from './modelSign.vue';
+  import testDialog from '../../components/dialog/testDialog.vue';
 
   export default {
     name: "modelcompute",
@@ -33,15 +33,16 @@
         modalTitle: "",
         centerDialogVisible: false,
         isVisible: false,
-        // signVisible:{
-        //   v:true
-        // }
+        signVisible:{
+          v:false,
+          clickModalClose:false
+        }
       }
     },
     components: {
       "v-modelCard": modelCard,
       "v-modelDialog": modelDialog,
-      // "v-signDialog":modelSign
+      "v-signDialog":testDialog
     },
     methods: {
       getModelData: function () {
@@ -76,6 +77,9 @@
           .catch(function () {
             console.log(error);
           })
+      },
+      signDialog:function(){
+        this.signVisible.v=true
       }
     },
     mounted: function () {

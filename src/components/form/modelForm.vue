@@ -1,8 +1,9 @@
 <template>
   <div>
     <el-form ref="formName">
+      <h4>模型参数</h4>
       <el-form-item v-for="(item,i) in form_list" :key="item.name" :label="item.name">
-        <el-input v-model='paramsFormData[i]' :placeholder="'������'+item.name" required:true
+        <el-input v-model='paramsFormData[i]' :placeholder="'请输入'+item.name" required:true
                   show-message:true></el-input>
       </el-form-item>
     </el-form>
