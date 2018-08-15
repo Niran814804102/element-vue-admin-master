@@ -10,9 +10,11 @@
   </el-dialog>
 </template>
 <script>
-  import "../../../static/js/ol-debug.js"
+  import "../../../static/js/ol-debug.js";
+  import MapDialog from "../dialog/mapDialog";
   export default {
     name: "map-dialog",
+    components:{MapDialog},
     props: {
       dialogTitle:String,  //dialog标题
       dialogVisible: Object,  //dialog可视化相关，dialogVisible.v代表是否可见，dialogVisible.clickModalClose代表点击框体外区域是否关闭dialog
@@ -111,6 +113,19 @@
 
 </script>
 <style>
+  .el-dialog__body {
+    height: 95%;
+    padding: 0px 20px 20px 20px;
+  }
+
+  .el-dialog__header {
+    height: 5%;
+    font-size:16px;
+    padding: 10px;
+  }
+  .el-dialog__headerbtn{
+    top:15px;
+  }
   .custom-mouse-position{
     position: absolute;
     top: 5px;
