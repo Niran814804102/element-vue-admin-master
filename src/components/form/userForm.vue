@@ -41,7 +41,6 @@
 <script>
   import { required, minLength, maxLength, sameAs, password } from 'vuelidate/lib/validators'
   import md5 from 'js-md5'
-  import { getCookie, setCookie, delCookie } from '../../util/cookie'
 
   export default {
     name: "userForm",

@@ -1,7 +1,5 @@
-import Vue from 'vue';
 import axios from 'axios';
 import { getCookie } from './cookie'
-
 
 // axios 配置
 axios.defaults.timeout = 5000;
@@ -122,10 +120,4 @@ export function put(url, data = {}) {
   })
 }
 
-Vue.prototype.$axios = {
-  get,
-  post,
-  patch,
-  put
-};//定义axios标签
 export default axios;

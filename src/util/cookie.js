@@ -1,4 +1,3 @@
-import Vue from 'vue'
 /**
  * Cookie Processes
  */
@@ -18,13 +17,6 @@ export function setCookie (c_name, value, expires) {
 //删除cookie
 export function delCookie (name) {
   setCookie(name, '', -1)
-};
-
-//定义cookie标签
-Vue.prototype.$cookie = {
-  getCookie,
-  setCookie,
-  delCookie
 };
 
 // export default {

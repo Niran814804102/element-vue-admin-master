@@ -18,6 +18,8 @@ import util from './util/util'
 import resource from './resource'
 import { routers } from './router'
 import Bus from './util/bus'
+import {get, patch, post, put} from './util/axios'
+import {delCookie, getCookie, setCookie} from './util/cookie'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -27,6 +29,18 @@ Vue.use(N3Components)
 Vue.use(Vuelidate)
 
 Vue.prototype.$Bus = Bus;
+Vue.prototype.$axios = {
+  get,
+  post,
+  patch,
+  put
+};//定义axios标签
+Vue.prototype.$cookie = {
+  getCookie,
+  setCookie,
+  delCookie
+};//定义cookie标签
+
 Vue.config.productionTip = false
 
 function guardRoute (to, from, next) {
