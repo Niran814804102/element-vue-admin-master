@@ -14,7 +14,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
   import infoCard from '../../components/card/infoCard.vue'
   import MapDialog from "../../components/dialog/mapDialog"
 
@@ -39,9 +38,7 @@
       "info-card": infoCard,
       "map-dialog": MapDialog
     },
-
     watch: {},
-
     methods: {
       getData: function(){
         this.$axios.get('static/json/personalData.json',{
