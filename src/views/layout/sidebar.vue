@@ -22,11 +22,11 @@
         <el-submenu :index="item.name" v-if="item.children && item.children.length > 0" :key="item.path">
           <template slot="title">
           <i :class="item.icon" :key="item.path" style="width:24px"></i>
-            <span class="sidebar-menu-text">{{ item.title }}</span>
+            <span class="sidebar-menu-text">{{ item.meta.title }}</span>
           </template>
           <el-menu-item :index="child.name"  :route="child" :key="child.name" v-for="child in item.children">
           <i :class="child.icon" :key="item.path" style="width:24px"></i>
-            <span class="sidebar-menu-text" :key="child.name" slot="title">{{ child.title }}</span>
+            <span class="sidebar-menu-text" :key="child.name" slot="title">{{ child.meta.title }}</span>
           </el-menu-item>
         </el-submenu>
       </template>
