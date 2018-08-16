@@ -10,7 +10,8 @@
   </el-dialog>
 </template>
 <script>
-  import "../../../static/js/ol-debug.js"
+  import "../../../static/js/ol-debug.js";
+
   export default {
     name: "map-dialog",
     props: {
@@ -111,6 +112,18 @@
 
 </script>
 <style>
+  .el-dialog__body {
+    height: 95%;
+    padding: 0px 20px 20px 20px;
+  }
+  .el-dialog__header {
+    height: 5%;
+    font-size:16px;
+    padding: 10px;
+  }
+  .el-dialog__headerbtn{
+    top:15px;
+  }
   .custom-mouse-position{
     position: absolute;
     top: 5px;

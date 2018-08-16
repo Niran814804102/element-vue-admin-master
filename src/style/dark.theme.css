@@ -1,9 +1,9 @@
 /*
 refer to http://stevesanderson.github.io/fixed-height-layouts-demo/two-columns.html
 */
-
 body {
-  font-family: Helvetica,Microsoft YaHei,STHeiti STXihei, Microsoft JhengHei,Tohoma, Arial
+  font-family: 'Helvetica Neue', Arial, Sans-Serif;
+  /*font-family: Helvetica,Microsoft YaHei,STHeiti STXihei, Microsoft JhengHei,Tohoma, Arial*/
 }
 
 .header, .footer {

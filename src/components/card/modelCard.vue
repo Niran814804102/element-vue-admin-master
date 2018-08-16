@@ -17,7 +17,7 @@
         <div class="data-info">
           <div class="data-info-container">
             <div class="data-name">{{ card.artifactId}}</div>
-            <div class="data-discribe" style="width: 180px">{{ card.name }}</div>
+            <div class="data-discribe" style="width: 180px;text-align: left">{{ card.name }}</div>
             <div class="data-date">{{ card.date }}</div>
           </div>
         </div>
@@ -28,66 +28,74 @@
 
 <script>
   import vueEven from "../../resource/vueEvent";
+
   export default {
     name: "modelCard",
     props: {
       card: {type: Object, default: []}
     },
-    data(){
+    data() {
       return {
-        itemHoverIndex : null,
-        artifactId:"123",
-        dialogVisible:{
-          v:false,
-          clickModalClose:false
+        itemHoverIndex: null,
+        artifactId: 0,
+        dialogVisible: {
+          v: false,
+          clickModalClose: false
         }
       }
     },
-    methods:{
-      mouseEnter(){
+    computed: {
+      artifactId(){ return this.card.artifactId;}
+    },
+    methods: {
+      mouseEnter() {
         this.itemHoverIndex = 1;
       },
-      mouseLeave(){
+      mouseLeave() {
         this.itemHoverIndex = null;
       },
-      getUUIDByID(){
-        this.$axios.patch('static/json/getUUIDByID.json',{
-          id : this.data.id
-        }).then(res=>{console.log(re)}).
-        catch(function(){console.log("get email error")})
+      getUUIDByID() {
+        let that = this;
+        this.$axios.get('static/json/getUUIDByID.json', {
+          id: that.data.id
+        }).then(res => {
+          console.log(res.data)
+        }).catch(function (err) {
+          console.log(err)
+        })
       },
       editRow(artifactId) {
         //TODO 打开地图编辑页面
-        this.dialogVisible.v=true;
-        vueEven.$emit('pop',this.dialogVisible,this.artifactId);
+        this.dialogVisible.v = true;
+        vueEven.$emit('pop', this.dialogVisible, this.artifactId);
       }
     }
   }
 </script>
 
 <style scoped>
-  .itemHover{
+  .itemHover {
     /*box-shadow:0px 0px 1px 0px #313131;*/
-    box-shadow: 0 0 10px 1px rgba(0,0,0,.1);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, .1);
   }
-  .card-container{
+  .card-container {
     margin-left: 25px;
     /*padding: 5px 10px 5px 10px;*/
     width: 240px;
   }
-  .data-info{
+  .data-info {
     height: 69px;
     padding: 8px 12px 12px;
     overflow: hidden;
     color: #303c46;
     position: relative;
   }
-  .data-info-container{
+  .data-info-container {
     height: 100%;
     overflow: hidden;
     position: relative;
   }
-  .data-name{
+  .data-name {
     white-space: nowrap;
     text-overflow: ellipsis;
     height: 24px;
@@ -97,7 +105,7 @@
     position: relative;
     margin-right: 102px;
   }
-  .data-count{
+  .data-count {
     text-align: left;
     font-size: 12px;
     line-height: 14px;
@@ -105,7 +113,7 @@
     color: #222;
     padding: 10px 0 6px;
   }
-  .data-date{
+  .data-date {
     position: absolute;
     right: 2px;
     top: 4px;
@@ -115,12 +123,12 @@
     text-align: left;
     color: #8a9194;
   }
-  .data-option{
+  .data-option {
     position: absolute;
     right: 10px;
     bottom: 10px;
   }
-  .data-icon{
+  .data-icon {
     margin: 0;
     border: 0;
     padding-right: 3px;
@@ -131,9 +139,8 @@
     -ms-flex-align: center;
     align-items: center;
     display: inline-flex;
-
   }
-  .data-option-container{
+  .data-option-container {
     position: absolute;
     z-index: 9;
     width: 118px;
@@ -146,7 +153,7 @@
     color: #8a9194;
     padding: 6px 0;
   }
-  .option-icon{
+  .option-icon {
     width: 18px;
     text-align: center;
     float: left;

@@ -54,41 +54,41 @@
 </template>
 
 <script>
-    export default {
-      name: "modelFormText",
-      data: () => ({
-        missionName: '',
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => (v && v.length <= 5) || 'Name must be less than 5 characters'
-        ],
-        pointFile: '',
-        fileRules: [
-          v => !!v || 'PointFile is required',
-          v => (v && v.length <= 10) || 'PointFile must be less than 10 characters'
-        ],
-        outputFile: '',
-        outputRules: [
-          v => !!v || 'OutputFile Name is required',
-          v => /.+@.+/.test(v) || 'OutputFile must be valid'
-        ],
-        classNum: '',
-        classRules: [
-          v => !!v || 'ClassNum is required',
-          v => (v && parseInt(v)<= 10) || 'ClassNum must be less than 10'
-        ],
-        plusNum: '',
-        plusRules: [
-          v => !!v || 'PlusNum is required',
-          v => (v && parseInt(v) <= 100) || 'PlusNum must be less than 100'
-        ],
-        minNum: '',
-        minRules: [
-          v => !!v || 'MinNum is required',
-          v => (v && parseFloat(v) <= 10) || 'MinNum must be less than 10'
-        ]
-      }),
-    }
+  export default {
+    name: "modelFormText",
+    data: () => ({
+      missionName: '',
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 5) || 'Name must be less than 5 characters'
+      ],
+      pointFile: '',
+      fileRules: [
+        v => !!v || 'PointFile is required',
+        v => (v && v.length <= 10) || 'PointFile must be less than 10 characters'
+      ],
+      outputFile: '',
+      outputRules: [
+        v => !!v || 'OutputFile Name is required',
+        v => /.+@.+/.test(v) || 'OutputFile must be valid'
+      ],
+      classNum: '',
+      classRules: [
+        v => !!v || 'ClassNum is required',
+        v => (v && parseInt(v) <= 10) || 'ClassNum must be less than 10'
+      ],
+      plusNum: '',
+      plusRules: [
+        v => !!v || 'PlusNum is required',
+        v => (v && parseInt(v) <= 100) || 'PlusNum must be less than 100'
+      ],
+      minNum: '',
+      minRules: [
+        v => !!v || 'MinNum is required',
+        v => (v && parseFloat(v) <= 10) || 'MinNum must be less than 10'
+      ]
+    }),
+  }
 </script>
 
 <style scoped>

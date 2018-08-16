@@ -1,10 +1,10 @@
 <template>
   <div>
     <div id="tool">
-      <el-button type="primary" icon="el-icon-plus" circle @click="signshow()"></el-button>
-      <el-button type="primary" icon="el-icon-delete" circle></el-button>
-      <el-button type="primary" icon="el-icon-refresh" circle></el-button>
-
+      <el-button type="primary" icon="el-icon-plus" circle @click="signDialog()"
+      ></el-button>
+      <el-button type="primary" icon="el-icon-delete" circle disabled></el-button>
+      <el-button type="primary" icon="el-icon-refresh" circle @click="refresh()"></el-button>
     </div>
 
 
@@ -16,50 +16,80 @@
       </v-layout>
     </v-container>
     <v-modelDialog></v-modelDialog>
-    <v-signDialog></v-signDialog>
+    <v-signDialog :sign-visible="signVisible"></v-signDialog>
   </div>
 </template>
 
 <script>
   import modelCard from '../../components/card/modelCard.vue';
   import modelDialog from '../../components/dialog/modelDialog.vue';
-  import signDialog from './modelSign.vue';
+  import testDialog from '../../components/dialog/testDialog.vue';
+
   export default {
     name: "modelcompute",
-    data(){
+    data() {
       return {
         cards: null,
         modalTitle: "",
         centerDialogVisible: false,
-        isVisible:false,
-
+        isVisible: false,
+        signVisible:{
+          v:false,
+          clickModalClose:false
+        }
       }
     },
     components: {
-      "v-modelCard":modelCard,
-      "v-modelDialog":modelDialog,
-      "v-signDialog":signDialog
+      "v-modelCard": modelCard,
+      "v-modelDialog": modelDialog,
+      "v-signDialog":testDialog
     },
     methods: {
-      getModelData: function(){
-        this.$axios.get('static/json/modelData.json',{
-          params:{ userid: "userid"}
-        }).then(res=>{this.cards = res.data.body;})
-          .catch(function(){
-            console.log(error);})
+      getModelData: function () {
+        this.$axios({
+          method: "GET",
+          // params:{ userid: "userid"},
+          // url: 'http://192.168.240.25:3000/dldsj/parallel/get',
+          url:'../../../static/json/modelData.json',
+          headers: {//设置跨域头
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }).then(res => {
+          this.cards = res.data.body;
+        })
+          .catch(function () {
+            console.log(error);
+          })
+      },
+      // editRow:function(){
+      //   this.signVisible.v=true
+      // },
+      refresh: function () {
+        this.$axios({
+          method: "GET",
+          url: 'http://192.168.240.25:3000/dldsj/parallel/get',
+          headers: {//设置跨域头
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }).then(res => {
+          this.cards = res.data.body;
+        })
+          .catch(function () {
+            console.log(error);
+          })
+      },
+      signDialog:function(){
+        this.signVisible.v=true
       }
     },
-    mounted: function(){
+    mounted: function () {
       this.getModelData()
-    },
-    signshow(){
-
     }
   }
 </script>
 
 <style scoped>
- #tool{
-   padding: 0 0 0 10px;
- }
+  #tool {
+    padding: 0 0 0 10px;
+  }
 </style>

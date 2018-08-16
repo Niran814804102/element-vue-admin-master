@@ -2,7 +2,6 @@
   <div>
     <div class="layout-ceiling">
       <v-toolbar height="40px">
-        <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-toolbar-title class="height--text">地理大数据时空解析原型系统</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
@@ -14,18 +13,24 @@
         </v-toolbar-items>
       </v-toolbar>
     </div>
-    <v-container grid-list-xl text-xs-center>
-      <user-dialog :dialogVisible="dialogVisible" ></user-dialog>
-    </v-container>
+
+    <div>
+      <!--container会使面包屑等不显示-->
+      <!--<v-container grid-list-xl text-xs-center>-->
+        <user-dialog :dialogVisible="dialogVisible"></user-dialog>
+      <!--</v-container>-->
+    </div>
+
   </div>
 </template>
+
 <script>
   import userDialog from "../../components/dialog/userDialog";
   import Bus from '../../Bus/bus'
 
   export default {
     name: 'ceiling',
-    components:{
+    components: {
       "user-dialog": userDialog
     },
     data: () => ({
@@ -35,9 +40,9 @@
         '帮助',
         '退出'
       ],
-      dialogVisible:{
-        v:false,
-        clickModalClose:false
+      dialogVisible: {
+        v: false,
+        clickModalClose: false
       }
     }),
     methods:{

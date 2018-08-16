@@ -70,10 +70,10 @@
     //   })
     // },
     computed: {
-      iconSize () {
+      iconSize() {
         return 14
       },
-      menuList () {
+      menuList() {
         return this.$store.state.layout.menuList.slice()
       }
     },

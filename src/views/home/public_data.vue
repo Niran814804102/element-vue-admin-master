@@ -2,9 +2,9 @@
   <div>
     <v-container grid-list-xl text-xs-center>
       <v-layout row wrap>
-          <v-flex xs12 sm6 md4 lg3 v-for="card in cards" :key="card.id">
-            <info-card :card="card" v-on:mapDialogParams="setMapDialogParams"></info-card>
-          </v-flex>
+        <v-flex xs12 sm6 md4 lg3 v-for="card in cards" :key="card.id">
+          <info-card :card="card" v-on:mapDialogParams="setMapDialogParams"></info-card>
+        </v-flex>
       </v-layout>
     </v-container>
     <map-dialog ref="mapdialog"
@@ -14,8 +14,9 @@
 </template>
 
 <script>
-  import infoCard from '../../components/card/infoCard.vue';
-  import MapDialog from "../../components/dialog/mapDialog";
+<<<<<<< HEAD
+  import infoCard from '../../components/card/infoCard.vue'
+  import MapDialog from "../../components/dialog/mapDialog"
 
   export default {
     name: "pubData",
@@ -27,7 +28,7 @@
         alertDescription:"No description",
         dialogVisible:{
           v:false,
-          clickModalClose:false//ģ̬���Ƿ���ʾ
+          clickModalClose: false
         },
         dialogTitle:"",
         queryUrl:"",
@@ -38,8 +39,9 @@
       "info-card": infoCard,
       "map-dialog": MapDialog
     },
-    watch:{
-    },
+
+    watch: {},
+
     methods: {
       getData: function(){
         this.$axios.get('static/json/personalData.json',{

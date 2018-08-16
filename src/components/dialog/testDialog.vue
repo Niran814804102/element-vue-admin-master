@@ -1,6 +1,6 @@
 <template>
   <div id="modelsign">
-    <!--<el-dialog title="注册并行模型" :visible.sync="signVisible.v">-->
+    <el-dialog title="注册并行模型" :visible.sync="signVisible.v" :close-on-click-modal="signVisible.clickModalClose">
     <div class="selectfile">
       <el-input type="text" :value="xmlname"></el-input>
       <input id="xmlid" name="file" type="file" @change="xmlFileChange" ref="xmlinputer">
@@ -18,7 +18,7 @@
 
     <v-btn @click="submitfile">注册</v-btn>
     <v-btn>取消</v-btn>
-    <!--</el-dialog>-->
+    </el-dialog>
 
   </div>
 
@@ -37,9 +37,9 @@
         // signVisible:true
       }
     },
-    // props:{
-    //   signVisible:Object
-    // },
+    props:{
+      signVisible:Object
+    },
     methods: {
       xmlFileChange(e) {
         let inputDOM = this.$refs.xmlinputer;
@@ -106,7 +106,7 @@
     /*height: 200px;*/
     width: 50%;
     margin: 200px;
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     position: relative;
   }
 

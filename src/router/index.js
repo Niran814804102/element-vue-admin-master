@@ -8,10 +8,10 @@ import AllProject from '../views/project/allproject.vue'
 import DataDisplay from '../views/project/datadisplay.vue'
 import DataExplore from '../views/project/dataexplore.vue'
 import Data3D from '../views/project/display3d.vue'
-import modelcompute from '../views/project/modelcompute.vue'
+
+import ModelCompute from '../views/project/modelcompute.vue'
 import DataView from '../views/appmanage/dataview.vue'
-import test from '../views/project/test.vue'
-import modelSign from'../views/project/modelSign.vue'
+import ModelSign from '../views/project/modelsign.vue'
 
 export const loginRouter = {
   path: '/login',
@@ -148,7 +148,7 @@ export const appRouter = [
         name: 'modelSign',
         path: 'modelSign',
         icon: 'fa fa-podcast fa-lg',
-        component: modelSign
+        component: ModelSign
       },{
         meta: {
           title: '模型计算',
@@ -157,7 +157,7 @@ export const appRouter = [
         name: 'Model',
         path: 'Model',
         icon: 'fa fa-life-ring fa-lg',
-        component: modelcompute
+        component: ModelCompute
       },{
         meta: {
           title: '数据编辑',
@@ -166,7 +166,7 @@ export const appRouter = [
         name: 'dataEditor',
         path: 'dataEditor',
         icon: 'fa fa-pencil-square-o fa-lg',
-        component: test
+        component: DataView
       },{
         meta: {
           title: '数据上图3D',
