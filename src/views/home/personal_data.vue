@@ -44,14 +44,9 @@
       getDataByUserID: function(){
         let that = this;
         that.$axios.get('http://localhost:8090/AncientMap/getMapList.action', {
-          userid: this.$cookie.getCookie("userid")
-        }).then(
-          function(res){
-            console.log(res);
-            let resultobj = $.parseJSON(res);
-          }).catch(
-            function(err){console.log(err);
-            })
+          userid: sessionStorage.getItem("userid")
+        }).then(function(res){console.log(res);
+        }).catch(function(err){console.log(err);})
       },
       setMapDialogParams: function(params){
         this.dialogVisible = params.dialogVisible;

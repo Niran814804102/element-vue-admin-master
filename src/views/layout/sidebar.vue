@@ -62,12 +62,6 @@
         openedMenuList: []
       }
     },
-    // created(){
-    //   Bus.$on("currentPageName", (data)=>{
-    //     this.currentPageName = data;
-    //     this.setCurrentPath();
-    //   })
-    // },
     computed: {
       iconSize() {
         return 14

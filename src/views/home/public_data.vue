@@ -41,10 +41,11 @@
     watch: {},
     methods: {
       getData: function(){
-        this.$axios.get('static/json/personalData.json',{
+        let that = this;
+        that.$axios.get('static/json/personalData.json',{
           params:{ userid: "userid"}
-        }).then(res=>{this.cards = res;
-        }).catch(function(){console.log(error);})
+        }).then(function(res){console.log(res);
+        }).catch(function(err){console.log(err);})
       },
       setMapDialogParams: function(params){
         this.dialogVisible = params.dialogVisible;
