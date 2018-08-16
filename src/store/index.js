@@ -14,6 +14,8 @@ export default new Vuex.Store({
   modules: {
     layout
   },
+  //关闭vuex严格模式——深度监测撞态树来检测不合规的状态变更
+  // TODO:发布后需要关闭
   // strict: debug,
   strict: false,
   plugins: debug ? [createLogger()] : []

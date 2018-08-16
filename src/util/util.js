@@ -61,10 +61,6 @@ export function isPromise (val) {
   return val && typeof val.then === 'function'
 }
 
-export function assert (condition, msg) {
-  if (!condition) throw new Error(`[vuex] ${msg}`)
-}
-
 let util = {}
 
 util.title = function (title) {
