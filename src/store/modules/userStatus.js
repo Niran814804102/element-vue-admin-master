@@ -22,12 +22,12 @@ const actions = {
 const mutations = {
   [types.SET_USER_STATUS] (state, user){
     if(user){
-      sessionStorage.setItem("username", user);
+      sessionStorage.setItem("userid", user);
       state.currentUser = user;
       state.isLogin = true;
     }else if(user == null){
       //登出的时候，清空sessionStorage
-      sessionStorage.removeItem("username");
+      sessionStorage.removeItem("userid");
       state.currentUser = null;
       state.isLogin = false;
       // state.token = "";

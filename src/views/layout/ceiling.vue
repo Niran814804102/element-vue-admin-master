@@ -26,6 +26,7 @@
 
 <script>
   import userDialog from "../../components/dialog/userDialog";
+  import md5 from 'js-md5'
 
   export default {
     name: 'ceiling',
@@ -55,7 +56,7 @@
         if(cookie_bremember == "false"){
           cookie_password = "";
         }
-        Bus.$emit("userFormParams", {
+        this.$Bus.$emit("userFormParams", {
           username: cookie_username,
           password: cookie_password,
           bremember: cookie_bremember,
@@ -130,13 +131,13 @@
               alertDescription: "用户" + cookie_username + "登录成功"
             });
             //登录状态变化，触发sessionStorage赋值
-            that.$store.dispatch("setUser", cookie_username)//dispatch异步分发，commit同步提交
+            that.$store.dispatch("setUser", res.body)//dispatch异步分发，commit同步提交
           }
           else{
             that.$Bus.$emit("alertModalParams", {
               alertVisible: true,
               alertType: "warning",
-              alertDescription: "用户" + cookie_username + "登录失败"
+              alertDescription: "用户登录失败"
             });};
         }).catch(function(err){
           that.$Bus.$emit("alertModalParams", {
@@ -149,8 +150,8 @@
     },
     computed:{
       isUserLogin(){
-        if(sessionStorage.getItem("username") != null){
-          this.$store.commit("SET_USER_STATUS", sessionStorage.getItem("username"));
+        if(sessionStorage.getItem("userid") != null){
+          this.$store.commit("SET_USER_STATUS", sessionStorage.getItem("userid"));
         }
         else{
           this.$store.commit("SET_USER_STATUS", null)

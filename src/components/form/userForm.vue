@@ -90,7 +90,7 @@
     methods: {
       submit () {
         let that = this;
-        let expires = 10 * 1000;//cookie生存周期
+        let expires = 60 * 60 * 1000;//cookie生存周期
         that.$v.$touch();
         that.$axios.post('http://localhost:8090/AncientMap/login.action', {
             username: that.name,
@@ -132,7 +132,7 @@
               dialogVisible: false
             });
             //登录状态变化，触发sessionStorage赋值
-            that.$store.dispatch("setUser", that.name);//dispatch异步分发，commit同步提交
+            that.$store.dispatch("setUser", res.body);//dispatch异步分发，commit同步提交
             //跳转页面
             if(that.$route.query.redirect) {  that.$router.push(that.$route.query.redirect);}
             else {  that.$router.push('/dataSource/perData');

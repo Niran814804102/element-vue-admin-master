@@ -44,7 +44,7 @@ Vue.prototype.$cookie = {
 Vue.config.productionTip = false
 
 function guardRoute (to, from, next) {
-  if(sessionStorage.getItem("username") != null) {
+  if(sessionStorage.getItem("userid") != null) {
     next();
     return true;
   }else {
