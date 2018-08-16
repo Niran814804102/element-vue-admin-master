@@ -13,15 +13,14 @@ import DataView from '../views/appmanage/dataview.vue'
 import test from '../views/project/test.vue'
 import modelSign from'../views/project/modelSign.vue'
 
-
-
 export const loginRouter = {
   path: '/login',
   name: 'login',
-  meta: {
-    title: '登录'
+  meta:{
+    title: '登录',
   },
-  component: Login
+  icon: 'fa fa-user-circle-o fa-lg',
+  component: Login,
 }
 
 export const appRouter = [
@@ -33,58 +32,80 @@ export const appRouter = [
   //   component: Home
   // },
   {
-    title: '数据资源',
+    meta: {
+      title: '数据资源',
+    },
     path: '/dataSource',
     name: 'dataSource',
     icon: 'fa fa-database fa-lg',
     component: Abstract,
     children: [
       {
-        title: '我的数据',
-        name: 'perData',
-        path: 'perdata',
-        icon: 'fa fa-database fa-lg',
-        component: PersonalData
-      },
-      {
-        title: '公共数据',
+        meta: {
+          title: '公共数据',
+          requireAuth: false
+        },
         name: 'pubData',
-        path: 'pubdata',
+        path: 'pubData',
         icon: 'fa fa-database fa-lg',
         component: PublicData
+      },
+      {
+        meta: {
+          title: '我的数据',
+          requireAuth: true
+        },
+        name: 'perData',
+        path: 'perData',
+        icon: 'fa fa-database fa-lg',
+        component: PersonalData
       }
     ]
   },
   {
-    title: '我的项目',
+    meta: {
+      title: '我的项目'
+    },
     path: '/project',
     name: 'project',
     icon: 'fa fa-folder-o fa-lg',
     component: Abstract,
     children: [
       {
-        title: '所有项目',
+        meta: {
+          title: '所有项目',
+          requireAuth: true
+        },
         name: 'allProject',
         path: 'allProject',
         icon: 'fa fa-folder-open-o fa-lg',
-        component: AllProject
+        component: AllProject,
       },
       {
-        title: '数据上图',
+        meta: {
+          title: '数据上图',
+          requireAuth: true
+        },
         name: 'dataDisplay',
         path: 'dataDisplay',
         icon: 'fa fa-map fa-lg',
         component: DataDisplay
       },
       {
-        title: '数据探索',
+        meta: {
+          title: '数据探索',
+          requireAuth: true
+        },
         name: 'dataExplorer',
         path: 'dataExplorer',
         icon: 'fa fa-eercast fa-lg',
         component: DataExplore
       },
       {
-        title: '数据上图3D',
+        meta: {
+          title: '数据上图3D',
+          requireAuth: true
+        },
         name: 'data3D',
         path: 'data3D',
         icon: 'fa fa-map-o fa-lg',
@@ -93,44 +114,64 @@ export const appRouter = [
     ]
   },
   {
-    title: '应用管理',
+    meta: {
+      title: '应用管理'
+    },
     name: 'appManage',
     path: '/appManagement',
     icon: 'fa fa-cubes fa-lg',
     component: Abstract,
     children: [
       {
-        title: '数据上图',
+        meta: {
+          title: '数据上图',
+          requireAuth: false
+        },
         name: 'dataViewM',
         path: 'dataViewM',
         icon: 'fa fa-map fa-lg',
         component: DataView
       },{
-        title: '数据探索',
+        meta: {
+          title: '数据探索',
+          requireAuth: false
+        },
         name: 'dataExplorerM',
         path: 'dataExplorerM',
         icon: 'fa fa-eercast fa-lg',
         component: DataView
       },{
-        title: '模型注册',
+        meta: {
+          title: '模型注册',
+          requireAuth: false
+        },
         name: 'modelSign',
         path: 'modelSign',
         icon: 'fa fa-podcast fa-lg',
-        component: modelSign,
+        component: modelSign
       },{
-        title: '模型计算',
+        meta: {
+          title: '模型计算',
+          requireAuth: false
+        },
         name: 'Model',
         path: 'Model',
         icon: 'fa fa-life-ring fa-lg',
-        component: modelcompute,
+        component: modelcompute
       },{
-        title: '数据编辑',
+        meta: {
+          title: '数据编辑',
+          requireAuth: false
+        },
         name: 'dataEditor',
         path: 'dataEditor',
         icon: 'fa fa-pencil-square-o fa-lg',
         component: test
       },{
-        title: '数据上图3D',
+        meta: {
+          title: '数据上图3D',
+          requireAuth: false
+        },
         name: 'data3DM',
         path: 'data3DM',
         icon: 'fa fa-map-o fa-lg',
@@ -139,20 +180,28 @@ export const appRouter = [
     ]
   },
   {
-    title: '程序开发',
+    meta: {
+      title: '程序开发'
+    },
     name: 'developer',
     path: '/developer',
     icon: 'fa fa-life-ring fa-lg',
     component: Abstract,
     children: [
       {
-        title: '秘钥管理',
+        meta: {
+          title: '秘钥管理',
+          requireAuth: false
+        },
         name: 'keyManegement',
         path: 'keyManegement',
         icon: 'fa fa-key fa-lg',
         component: Table
       },{
-        title: '开发文档',
+        meta: {
+          title: '开发文档',
+          requireAuth: false
+        },
         name: 'help',
         path: 'help',
         icon: 'fa fa-file-word-o fa-lg',
@@ -164,8 +213,11 @@ export const appRouter = [
 //TODO 修改不加路径时跳转的url地址
 export const mainRouter = {
   path: '/',
-  redirect: '/dataSource/perData',
+  redirect: '/dataSource/pubData',
   name: 'index',
+  meta: {
+    title: '首页'
+  },
   component: Main,
   children: appRouter
 }
@@ -175,7 +227,7 @@ export const routers = [
   mainRouter,
   // toolbarRouter,
   // catch all redirect
-  {path: '*', redirect: '/dataSource/perData'}
+  {path: '*', redirect: '/dataSource/pubData'}
 ]
 
 /*export const toolbarRouter = {
