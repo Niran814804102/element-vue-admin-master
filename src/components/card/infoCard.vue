@@ -77,16 +77,21 @@
               this.itemHoverIndex = null;
             },
             getUUIDByID(){
-              Bus.$emit("alertVisible", true)
-              this.$axios.get('static/json/getUUIDByID.json',{
+              this.$axios.patch('static/json/getUUIDByID.json',{
                 id : this.card.id
               }).then(res=>{
                 window.clipboardData.setData('Text',res);
-                Bus.$emit("alertType", "success")
-                Bus.$emit("alertDescription", "数据UUID复制成功")
+                Bus.$emit("alertModalParams", {
+                  alertVisible: true,
+                  alertType: "success",
+                  alertDescription: "数据UUID复制成功"
+                })
               }).catch(()=>{
-                Bus.$emit("alertType", "error")
-                Bus.$emit("alertDescription", "数据UUID复制失败")
+                Bus.$emit("alertModalParams", {
+                  alertVisible: true,
+                  alertType: "error",
+                  alertDescription: "数据UUID复制失败"
+                })
               })
 
             },
@@ -97,11 +102,13 @@
                 //   id: this.card.id,
                 //   user: this.user
                 // }).then(function() {
-                Bus.$emit("alertVisible", true)
                 // if (res.data == "success") {
-                this.card.isFavorite = "true"
-                Bus.$emit("alertType", "success")
-                Bus.$emit("alertDescription", "收藏成功")
+                this.card.isFavorite = "true";
+                Bus.$emit("alertModalParams", {
+                  alertVisible: true,
+                  alertType: "success",
+                  alertDescription: "收藏成功"
+                });
                 // }
                 // }).catch(function(){
                 //   this.$emit("alertType", "error")
@@ -113,11 +120,13 @@
                 //   id: this.card.id,
                 //   user: this.user
                 // }).then(function() {
-                Bus.$emit("alertVisible", true)
                 // if (res.data == "success"){
                 this.card.isFavorite = "false"
-                Bus.$emit("alertType", "success")
-                Bus.$emit("alertDescription", "取消收藏成功")
+                Bus.$emit("alertModalParams", {
+                  alertVisible: true,
+                  alertType: "error",
+                  alertDescription: "收藏失败"
+                })
                 //   }
                 // }).catch(function(){
                 //   this.$emit("alertType", "error")
