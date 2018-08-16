@@ -18,28 +18,39 @@
       @blur="$v.password.$touch()"
     ></v-text-field>
     <v-checkbox
-      v-model="checkbox"
-      :error-messages="checkboxErrors"
+      v-model="checkRememberPwd"
+      :error-messages="checkRememberPwdErrors"
       label="记住密码"
       required
-      @change="$v.checkbox.$touch()"
-      @blur="$v.checkbox.$touch()"
+      @change="$v.checkRememberPwd.$touch()"
+      @blur="$v.checkRememberPwd.$touch()"
     ></v-checkbox>
-    <v-btn @click="submit">submit</v-btn>
-    <v-btn @click="clear">clear</v-btn>
+    <v-checkbox
+      v-model="checkAutoLogin"
+      :error-messages="checkAutoLoginErrors"
+      label="自动登录"
+      required
+      @change="$v.checkAutoLogin.$touch()"
+      @blur="$v.checkAutoLogin.$touch()"
+    ></v-checkbox>
+    <v-btn @click="submit">登录</v-btn>
+    <v-btn @click="clear">重置</v-btn>
   </v-form>
 </template>
 
 <script>
   import { required, minLength, maxLength, sameAs, password } from 'vuelidate/lib/validators'
   import md5 from 'js-md5'
+  import Bus from '../../Bus/bus.js'
+  import { getCookie, setCookie, delCookie } from '../../util/cookie'
 
   export default {
     name: "userForm",
     validations: {
       name: { required, maxLength: maxLength(10), minLength: minLength(2) },//必填，最长8个字符，最短2个字符
       password: { required },
-      checkbox: { required }
+      checkRememberPwd: { required },
+      checkAutoLogin: { required }
     },
     props:{
       formVisible:{ type: Boolean, default: true }
@@ -47,13 +58,20 @@
     data: () => ({
       name: '',
       password: '',
-      checkbox: false
+      checkRememberPwd: false,
+      checkAutoLogin: false
     }),
     computed: {
-      checkboxErrors () {
+      checkRememberPwdErrors () {
         const errors = []
-        if (!this.$v.checkbox.$dirty) return errors
-        !this.$v.checkbox.required && errors.push('You must agree to continue!')
+        if (!this.$v.checkRememberPwd.$dirty) return errors
+        !this.$v.checkRememberPwd.required && errors.push('You must agree to continue!')
+        return errors
+      },
+      checkAutoLoginErrors () {
+        const errors = []
+        if (!this.$v.checkAutoLogin.$dirty) return errors
+        !this.$v.checkAutoLogin.required && errors.push('You must agree to continue!')
         return errors
       },
       nameErrors () {
@@ -73,21 +91,73 @@
     },
     methods: {
       submit () {
-        this.$v.$touch()
-        this.$axios({
-          method: "POST",
-          url: 'http://localhost:8090/AncientMap/login.action',
-          params: {//params是添加到url中传参数，data是添加到请求体中传参数 TODO:需要修改此处的参数，现在是写死的
-            username: "niran",//this.name,
-            password: md5.hex("wanglijun1996071")//TODO:对应数据库的密码加密方式，此处是md5加密
-          },
-          datatype: "json",
-          headers: {//设置跨域头
-            'Content-Type': 'application/x-www-form-urlencoded'//保持参数以key-value的形式传到后台，若是application/json是以json字符串的形式传到后台
+        let that = this;
+        let expires = 10 * 1000;//cookie生存周期
+        that.$v.$touch();
+        that.$axios.post('http://localhost:8090/AncientMap/login.action', {
+            username: that.name,
+            password: md5.hex(that.password)//TODO:对应数据库的密码加密方式，此处是md5加密
+          }).then(function(res){
+          if (res.code == 200) {
+            if (that.checkRememberPwd) {//是否记住密码
+              that.$cookie.setCookie("bremember","true", expires);
+              that.$cookie.setCookie("userid",res.body, expires);
+              that.$cookie.setCookie("username",that.name, expires);
+              that.$cookie.setCookie("password",that.password, expires);
+              if(that.checkAutoLogin){that.$cookie.setCookie("bautologin","true", expires);}
+              else                    {that.$cookie.setCookie("bautologin","false", expires);}
+            }
+            else{
+              that.$cookie.setCookie("bremember","false", expires);
+              if(that.checkAutoLogin){
+                that.$cookie.setCookie("userid",res.body)
+                that.$cookie.setCookie("username",that.name, expires);
+                that.$cookie.setCookie("password",that.password, expires);//也是要set不然可能之前的状态并不是记住密码所以没保存用户名密码
+                that.$cookie.setCookie("bautologin","true", expires);//不记住密码但自动登录
+              }
+              else{
+                that.$cookie.setCookie("bautologin","false",expires);
+                that.$cookie,delCookie("userid");
+                that.$cookie.delCookie("username");
+                that.$cookie.delCookie("password");//不记住密码不自动登录则clear
+              }
+            }
+            //弹窗提示登录成功
+            Bus.$emit("alertModalParams", {
+              alertVisible: true,
+              alertType: "success",
+              alertDescription: "用户" + "niran" + "登录成功"
+              // alertDescription: "用户" + that.name + "登录成功"
+            });
+            //关闭用户登录dialog
+            Bus.$emit("userDialogParams", {
+              dialogVisible: false
+            });
+            //登录状态变化，触发sessionStorage赋值
+            that.$store.dispatch("setUser", that.name);//dispatch异步分发，commit同步提交
+            //跳转页面
+            if(that.$route.query.redirect) {  that.$router.push(that.$route.query.redirect);}
+            else {  that.$router.push('/dataSource/perData');
+            }
           }
-        }).then(function(res){
-          console.log(res.data)
-        }).catch(function(){ console.log("sdasdasda") });
+          else{
+            Bus.$emit("alertModalParams", {
+              alertVisible: true,
+              alertType: "warning",
+              alertDescription: "用户名或密码错误"
+            });
+            Bus.$emit("userDialogParams", {
+              dialogVisible:false
+            }) };
+        }).catch(function(err){
+          Bus.$emit("alertModalParams", {
+            alertVisible: true,
+            alertType: "error",
+            alertDescription: err
+          });
+          Bus.$emit("userDialogParams", {
+            dialogVisible:false
+          }) });
       },
       clear () {
         this.$v.$reset()
@@ -95,6 +165,14 @@
         this.password = ''
         this.checkbox = false
       }
+    },
+    created(){
+      Bus.$on("userFormParams",(data)=> {
+        this.name = data.username;
+        this.password = data.password;
+        this.checkRememberPwd = data.bremember;
+        this.checkAutoLogin = data.bautologin;
+      });
     }
   }
 </script>
