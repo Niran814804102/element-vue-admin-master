@@ -27,15 +27,16 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        include: [resolve('src'), resolve('test')],
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
-      },
+      //关闭eslint语法检测，eslint默认规则中有代码末尾不能加；，代码中不能有空格，不能使用tab，不能存在声明了却未使用的变量
+      // {
+      //       //   test: /\.(js|vue)$/,
+      //       //   loader: 'eslint-loader',
+      //       //   enforce: 'pre',
+      //       //   include: [resolve('src'), resolve('test')],
+      //       //   options: {
+      //       //     formatter: require('eslint-friendly-formatter')
+      //       //   }
+      //       // },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
