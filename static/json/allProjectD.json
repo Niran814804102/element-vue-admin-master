@@ -1,0 +1,28 @@
+{
+  "code":"200",
+  "body":[{
+      "remarks": "bkmeans",
+      "progress": "70",
+      "submitTime": "2018-08-07 11:25",
+      "finishTime":"2018-0807 11.31",
+      "state":"RUNNING",
+      "status":""
+
+  }, {
+      "remarks": "bkmeans",
+      "progress": "100",
+      "submitTime": "2018-08-07 11:25",
+      "finishTime":"2018-0807 11.31",
+      "state":"FINISHED",
+      "status":"success"
+
+  }, {
+      "remarks": "bkmeans",
+      "progress": "100",
+      "submitTime": "2018-08-07 11:25",
+      "finishTime":"2018-0807 11.31",
+      "state":"FINISHED",
+      "status":"success"
+
+  }]
+}

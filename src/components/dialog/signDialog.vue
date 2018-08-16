@@ -1,6 +1,6 @@
 <template>
   <div id="modelsign">
-    <el-dialog title="注册并行模型" :visible.sync="signVisible.v" :close-on-click-modal="signVisible.clickModalClose">
+    <el-dialog title="注册并行模型" :visible.sync="signVisible.v" >
     <div class="selectfile">
       <el-input type="text" :value="xmlname"></el-input>
       <input id="xmlid" name="file" type="file" @change="xmlFileChange" ref="xmlinputer">
@@ -17,7 +17,7 @@
     </div>
 
     <v-btn @click="submitfile">注册</v-btn>
-    <v-btn>取消</v-btn>
+    <v-btn @click="cancle">取消</v-btn>
     </el-dialog>
 
   </div>
@@ -79,22 +79,40 @@
         this.onChange && this.onChange(this.file, inputDOM.value);
       },
       submitfile() {
+        var obj=this;
         let filedata = new FormData();
         filedata.append("file", this.$refs.jarinputer.files[0]);
         filedata.append('file', this.$refs.xmlinputer.files[0]);
         console.log(filedata.get('file'))
+        this.signVisible.v=false;
+        //注册框消失
         this.$axios({
           method: "POST",
-          url: 'http://192.168.240.25:3000/dldsj/parallel/register',
+          // url: 'http://192.168.240.25:3000/dldsj/parallel/register',
+          url: 'http://192.168.1.5:8080/dldsj/parallel/register',
           data: filedata,
           headers: {//设置跨域头
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         }).then(function (response) {
-          alert(''.concat(response.data.code));
+          // alert(''.concat(response.data.code));
+          if(response.data.code==="200"){
+            obj.$message({
+              type: 'success',
+              message: '模型注册成功!'
+            })
+          }
+          //判断是否注册成功进行弹窗
         }).catch(function (error) {
-          alert(error);
-        })
+          obj.$message.error('模型注册失败!');
+        });
+        obj.xmlname='';
+        obj.jarname='';
+      },
+      cancle(){
+        this.xmlname='';
+        this.jarname='';
+        this.signVisible.v=false;
       }
     }
   }

@@ -1,32 +1,31 @@
 <template>
   <div>
-    <el-table
-      :data="tasks"
-      style="margin:0 auto;"
-      max-height="400px">
+    <el-table ref="mytable"
+      :data="task"
+      style="margin:0 auto;">
+      <!--max-height="400px">-->
       <el-table-column
-        prop="record.remarks"
+        prop="remarks"
         label="项目名称"
         width="fit-content">
       </el-table-column>
       <el-table-column
         label="进度"
-        prop="record.progress"
         width="250">
         <template slot-scope="scope">
-          <el-progress ref="progress"
-            prop="record.progress"
-            :percentage="0">
+          <el-progress ref="myprogress"
+            :percentage="scope.row.progress|toNumber"
+            :status="scope.row.status">
           </el-progress>
         </template>
       </el-table-column>
       <el-table-column
-        prop="record.submitTime"
+        prop="submitTime"
         label="提交日期"
         width="200">
       </el-table-column>
       <el-table-column
-        prop="record.finishTime"
+        prop="finishTime"
         label="完成日期"
         width="200">
       </el-table-column>
@@ -41,7 +40,7 @@
           </el-button>
           <el-button
             icon="el-icon-download"
-            @click="editRow(scope.$index, data)"
+            @click="download(scope.$index, data)"
             type="text">
           </el-button>
           <el-button
@@ -60,10 +59,14 @@
 
 <script>
     import MapDialog from "../dialog/mapDialog";
+    import Vue from 'vue';
+    Vue.filter("toNumber",function(value){
+      return parseInt(value)
+    })
     export default {
       name: "proTable",
       components: {
-        "map-dialog": MapDialog
+        "map-dialog": MapDialog,
       },
       data(){
         return{
@@ -74,36 +77,85 @@
           dialogTitle:"",
           queryUrl:"",
           queryParams:null,
-
+          task:null,
         }
       },
-      props:{
-          tasks:Array,
-      },
+      // props:{
+      //     tasks:Array,
+      // },
       methods:{
-
         deleteRow(index, rows) {
           rows.splice(index, 1);
           //TODO 在数据中删除
         },
-        editRow(index, rows) {
-          this.dialogTitle=rows[index].proName
-
-          this.dialogVisible.v = true
-          //TODO 根据所选信息组织数据请求url和参数
-          this.queryUrl="static/json/projData/ylsj.json"
-          this.params={
-            "userid":"userid",
-            "proname":"proname"
-          }
-        },
-        // getprogress(){
-        //   this.$refs.progress.percentage=this.tasks.progress;
-        // }
-
+        download() {
+          //下载数据
+          },
+        getProjectData(){
+          let obj = this;
+          this.$axios({
+            method: "GET",
+            // url:'http://192.168.240.25/dldsj/parallel/jobs/user',
+            url:'http://192.168.1.5:8080/dldsj/parallel/jobs/user',
+            // url: '../../../static/json/allProjectD.json',
+            // params:{ userid: "userid"},
+            headers: {//设置跨域头
+              'Content-Type': 'application/json'
+            }
+          }).then(res => {
+            // obj.task = res.data.body;
+            var data={};
+            for (let prodata of obj.task) {
+              // console.log(prodata.record.state)
+              if (prodata.record.state === "FINISHED") {
+                data.remarks=prodata.record.remarks;
+                data.progress=100;
+                data.status="success";
+                data.submitTime=prodata.record.submitTime;
+                data.finishTime=prodata.record.finishTime;
+              }
+            }
+            // else {
+            //     var superviseTimer = setInterval(function () {
+            //       obj.$axios({
+            //         method: "GET",
+            //         // url: 'http://192.168.240.25:3000/dldsj/parallel/monitor/' + obj.jobName,
+            //         url: 'http://192.168.1.5:3000/dldsj/parallel/monitor/' + obj.jobName,
+            //         headers: {//设置跨域头
+            //           'Content-Type': 'application/x-www-form-urlencoded'
+            //         }
+            //       }).then(function (response) {
+            //         // alert(''.concat(response.data.code));
+            //         if (response.data.code !== 200) {
+            //           clearInterval(superviseTimer);
+            //         } else {
+            //           obj.$refs.progress.percentage = response.data.body.progress;
+            //           if (response.data.body.state === "FINISHED") {
+            //             clearInterval(superviseTimer);
+            //             if (response.data.body.finalStatus === "SUCCEEDED") {
+            //               obj.$refs.download.disabled = false;
+            //               console.log(33333)
+            //               obj.$refs.progress.status = "success";
+            //               console.log(obj.status)
+            //             }
+            //           } else if (response.data.body.state === "KILLED") {
+            //             clearInterval(superviseTimer);
+            //             obj.$refs.progress.status = "exception";
+            //           }
+            //         }
+            //       }).catch(function (error) {
+            //         // alert(error);
+            //       })
+            //     }, 5000);
+            //   }
+            // }
+          }).catch(function (error) {
+            obj.$message.error('获取项目数据失败!');
+          });
+        }
       },
       mounted(){
-        // this.getprogress()
+        // this.getProjectData()
       },
     }
 </script>

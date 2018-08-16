@@ -24,7 +24,7 @@
       </el-button>
     </el-row>
     <el-row>
-      <allTable>
+      <allTable ref="allprojectTable">
         <!--:data="tasks">-->
       </allTable>
     </el-row>
@@ -41,7 +41,7 @@
     components: {"allTable": allprojectTable},
     data() {
       return {
-        tasks: []   //table数据
+        // tasks: []   //table数据
       }
     },
     methods: {
@@ -69,26 +69,27 @@
        */
       getAllProjects: function () {
         //TODO 数据查询及处理
-        let obj = this;
-        this.$axios({
-          method: "GET",
-          // url:'http://192.168.240.25/dldsj/parallel/jobs/user',
-          url: '../../../static/json/allProject.json',
-          // params:{ userid: "userid"},
-          // headers: {//设置跨域头
-          //   'Content-Type': 'application/json'
-          // }
-        }).then(res => {
-          obj.tasks = res.data.body;
-          for (let prodata of obj.tasks) {
-            if (prodata.record.state === "FINISHED") {
-
-            }
-          }
-        })
-          .catch(function () {
-            // console.log(error)
-          })
+        // let obj = this;
+        // this.$axios({
+        //   method: "GET",
+        //   // url:'http://192.168.240.25/dldsj/parallel/jobs/user',
+        //   url: '../../../static/json/allProject.json',
+        //   // params:{ userid: "userid"},
+        //   // headers: {//设置跨域头
+        //   //   'Content-Type': 'application/json'
+        //   // }
+        // }).then(res => {
+        //   obj.tasks = res.data.body;
+        //   for (let prodata of obj.tasks) {
+        //     if (prodata.record.state === "FINISHED") {
+        //
+        //     }
+        //   }
+        // })
+        //   .catch(function () {
+        //     // console.log(error)
+        //   })
+        this.$refs.allprojectTable.getProjectData();
       }
     },
     mounted() {

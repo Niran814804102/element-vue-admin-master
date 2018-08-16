@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div slot="activator" class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()"
-         @click="editRow(card.artifactId)" :class="{itemHover:itemHoverIndex==1}">
+    <div slot="activator" class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()" :class="{itemHover:itemHoverIndex==1}">
       <v-card height="220px">
         <v-card-media
           class="white--text"
+          @click="openModelDialog(card.artifactId)"
           height="151px"
           :src="card.url">
           <v-container fill-height fluid>
@@ -18,10 +18,21 @@
         <div class="data-info">
           <div class="data-info-container">
             <div class="data-name">{{ card.artifactId}}</div>
-            <div class="data-discribe" style="width: 180px;text-align: left">{{ card.name }}</div>
+            <div class="data-discribe" style="width: 180px;text-align: left;padding-top: 6px">{{ card.name }}</div>
             <div class="data-date">{{ card.date }}</div>
           </div>
         </div>
+        <div class="data-option">
+          <div class="data-icon">
+            <el-tooltip class="item" effect="dark" content="模型简介" placement="top-end">
+              <i title="模型简介" class="fa fa-info-circle" aria-hidden="true"></i>
+            </el-tooltip>
+          </div>
+          <div class="data-icon" id="delete" @click="deleteModel()">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </div>
+        </div>
+
       </v-card>
     </div>
   </div>
@@ -41,7 +52,7 @@
         artifactId: this.card.artifactId,
         dialogVisible: {
           v: false,
-          clickModalClose: false
+          // clickModalClose: false
         }
       }
     },
@@ -52,19 +63,28 @@
       mouseLeave() {
         this.itemHoverIndex = null;
       },
-      getUUIDByID() {
-        this.axios.get('static/json/getUUIDByID.json', {
-          id: this.data.id
-        }).then(res => {
-          console.log(re.data)
-        }).catch(function () {
-          console.log("get email error")
-        })
-      },
-      editRow(artifactId) {
+      openModelDialog(artifactId) {
         //TODO 打开地图编辑页面
         this.dialogVisible.v = true;
         vueEven.$emit('pop', this.dialogVisible, this.artifactId);
+      },
+      deleteModel:function(){
+        this.$confirm('此操作将删除该模型, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          //post请求返回code 判断是否删除了该模型
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
       }
     }
   }
@@ -144,8 +164,15 @@
     -ms-flex-align: center;
     align-items: center;
     display: inline-flex;
-
   }
+  .data-icon i:hover{
+    color:#3f87f7;
+    cursor: pointer;
+  }
+  #delete i:hover{
+    color: #fe6970;
+  }
+
 
   .data-option-container {
     position: absolute;

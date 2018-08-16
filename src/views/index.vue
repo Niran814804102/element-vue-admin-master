@@ -1,16 +1,23 @@
 <template>
   <span style="z-index: 11">
     <div class="left col"  :class="{ collapse: isCollapse }">
-      <div class="header row " style="text-align: center" :style="{width: isCollapse?'64px':'auto'}">
+      <div class="header row " style="text-align: center;height: 90px" :style="{width: isCollapse?'64px':'auto'}">
         <a v-if="!isCollapse" href="https://github.com/TonyLuo/element-vue-admin" style="color: white;size: 40px">
-          <i class="fa fa-rebel" style="color: #2d2f33"></i>
+          <!--<i class="fa fa-rebel" style="color: #2d2f33"></i>-->
+          <v-avatar
+            size="65"
+            color="grey lighten-4"
+            style=""
+          >
+            <img src="../../static/img/sun.jpg" alt="avatar">
+          </v-avatar>
         </a>
         <span :class="[isCollapse ? 'text-alight-center' : 'floating-right']" @click="toggleClick">
             <i class="fa fa-bars" style="margin-left: -6px"  ></i>
         </span>
       </div>
 
-      <div class="body row scroll-y" style="top:40px">
+      <div class="body row scroll-y" style="top:90px">
         <sidebar :isCollapse="isCollapse" theme="dark"></sidebar>
       </div>
 
@@ -40,6 +47,12 @@
 
   .el-aside {
     color: #333;
+  }
+  .v-avatar{
+    top:10px;
+    box-shadow: 0 0 20px 3px hsla(0,0%,65%,.36),
+    0 0 10px 2px hsla(0,0%,82%,.23);
+    border-radius: 50%;
   }
 
 </style>

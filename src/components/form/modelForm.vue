@@ -21,25 +21,24 @@
     props: {form_list: Array},
 
     methods: {
-      submit() {
+      getdata() {
         let data = {};
         data.user = "ubt";
-        for (item in this.form) {
-
+        for(let index in this.paramsFormData){
+          data[parseInt(index)+1]=this.paramsFormData[index];
         }
+        return data;
       },
       show() {
         console.log(this.paramsFormData[0])
         console.log(this.paramsFormData.length)
       },
       clearData() {
-        debugger;
         this.paramsFormData = [];
       },
-      submit() {
-        debugger;
-
-      }
+      // submit() {
+      //
+      // }
     },
     mounted() {
     }

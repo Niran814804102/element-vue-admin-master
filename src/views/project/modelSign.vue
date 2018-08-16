@@ -85,7 +85,8 @@
         console.log(filedata.get('file'))
         this.$axios({
           method: "POST",
-          url: 'http://192.168.240.25:3000/dldsj/parallel/register',
+          // url: 'http://192.168.240.25:3000/dldsj/parallel/register',
+          url: 'http://192.168.1.5:8080/dldsj/parallel/register',
           data: filedata,
           headers: {//设置跨域头
             'Content-Type': 'application/x-www-form-urlencoded'

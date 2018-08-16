@@ -11,7 +11,6 @@ import Data3D from '../views/project/display3d.vue'
 
 import modelcompute from '../views/project/modelcompute.vue'
 import DataView from '../views/appmanage/dataview.vue'
-import modelSign from'../views/project/modelSign.vue'
 
 
 
@@ -111,12 +110,6 @@ export const appRouter = [
         path: 'dataExplorerM',
         icon: 'fa fa-eercast fa-lg',
         component: DataView
-      },{
-        title: '模型注册',
-        name: 'modelSign',
-        path: 'modelSign',
-        icon: 'fa fa-podcast fa-lg',
-        component: modelSign,
       },{
         title: '模型计算',
         name: 'Model',
