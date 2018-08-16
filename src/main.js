@@ -17,6 +17,7 @@ import store from './store'
 import util from './util/util'
 import resource from './resource'
 import { routers } from './router'
+import Bus from './util/bus'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -25,6 +26,7 @@ Vue.use(Vuetify)
 Vue.use(N3Components)
 Vue.use(Vuelidate)
 
+Vue.prototype.$Bus = Bus;
 Vue.config.productionTip = false
 
 function guardRoute (to, from, next) {

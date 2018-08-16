@@ -26,7 +26,6 @@
 
 <script>
   import userDialog from "../../components/dialog/userDialog";
-  import Bus from '../../Bus/bus'
 
   export default {
     name: 'ceiling',
@@ -65,13 +64,14 @@
       },
       //从后台获取session，然后存储在sessionStorage里
       getSession(){
-        this.$axios.post('http://localhost:8090/AncientMap/sessionGet.action')
+        let that = this;
+        that.$axios.post('http://localhost:8090/AncientMap/sessionGet.action')
           .then(function(res){
             sessionStorage.setItem("userid", res.body.userid);//此处session.id为int,但是sessionStorage.id变成了string
             sessionStorage.setItem("username", res.body.username);
             sessionStorage.setItem("authority", res.body.authority);})
           .catch(function(){
-            Bus.$emit("alertModalParams", {
+            that.$Bus.$emit("alertModalParams", {
               alertVisible: true,
               alertType: "error",
               alertDescription: "session获取失败"
@@ -86,7 +86,7 @@
           if (res.code == 200) {
             //弹窗提示登录成功
             that.$cookie.setCookie("bautologin", "false", expires);
-            Bus.$emit("alertModalParams", {
+            that.$Bus.$emit("alertModalParams", {
               alertVisible: true,
               alertType: "success",
               alertDescription: "用户注销成功"
@@ -98,14 +98,14 @@
             });
           }
           else{
-            Bus.$emit("alertModalParams", {
+            that.$Bus.$emit("alertModalParams", {
               alertVisible: true,
               alertType: "warning",
               alertDescription: "用户注销失败"
             });
           };})
           .catch(function(err){
-          Bus.$emit("alertModalParams", {
+            that.$Bus.$emit("alertModalParams", {
             alertVisible: true,
             alertType: "error",
             alertDescription: err
@@ -124,7 +124,7 @@
           }).then(function(res){
           if (res.code == 200) {
             //弹窗提示登录成功
-            Bus.$emit("alertModalParams", {
+            that.$Bus.$emit("alertModalParams", {
               alertVisible: true,
               alertType: "success",
               alertDescription: "用户" + cookie_username + "登录成功"
@@ -133,13 +133,13 @@
             that.$store.dispatch("setUser", cookie_username)//dispatch异步分发，commit同步提交
           }
           else{
-            Bus.$emit("alertModalParams", {
+            that.$Bus.$emit("alertModalParams", {
               alertVisible: true,
               alertType: "warning",
               alertDescription: "用户" + cookie_username + "登录失败"
             });};
         }).catch(function(err){
-          Bus.$emit("alertModalParams", {
+          that.$Bus.$emit("alertModalParams", {
             alertVisible: true,
             alertType: "error",
             alertDescription: err

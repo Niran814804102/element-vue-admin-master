@@ -41,7 +41,6 @@
 <script>
   import { required, minLength, maxLength, sameAs, password } from 'vuelidate/lib/validators'
   import md5 from 'js-md5'
-  import Bus from '../../Bus/bus.js'
   import { getCookie, setCookie, delCookie } from '../../util/cookie'
 
   export default {
@@ -117,20 +116,20 @@
               }
               else{
                 that.$cookie.setCookie("bautologin","false",expires);
-                that.$cookie,delCookie("userid");
+                that.$cookie.delCookie("userid");
                 that.$cookie.delCookie("username");
                 that.$cookie.delCookie("password");//不记住密码不自动登录则clear
               }
             }
             //弹窗提示登录成功
-            Bus.$emit("alertModalParams", {
+            that.$Bus.$emit("alertModalParams", {
               alertVisible: true,
               alertType: "success",
               alertDescription: "用户" + "niran" + "登录成功"
               // alertDescription: "用户" + that.name + "登录成功"
             });
             //关闭用户登录dialog
-            Bus.$emit("userDialogParams", {
+            that.$Bus.$emit("userDialogParams", {
               dialogVisible: false
             });
             //登录状态变化，触发sessionStorage赋值
@@ -141,21 +140,21 @@
             }
           }
           else{
-            Bus.$emit("alertModalParams", {
+            that.$Bus.$emit("alertModalParams", {
               alertVisible: true,
               alertType: "warning",
               alertDescription: "用户名或密码错误"
             });
-            Bus.$emit("userDialogParams", {
+            that.$Bus.$emit("userDialogParams", {
               dialogVisible:false
             }) };
         }).catch(function(err){
-          Bus.$emit("alertModalParams", {
+          that.$Bus.$emit("alertModalParams", {
             alertVisible: true,
             alertType: "error",
             alertDescription: err
           });
-          Bus.$emit("userDialogParams", {
+          that.$Bus.$emit("userDialogParams", {
             dialogVisible:false
           }) });
       },
@@ -167,7 +166,7 @@
       }
     },
     created(){
-      Bus.$on("userFormParams",(data)=> {
+      this.$Bus.$on("userFormParams",(data)=> {
         this.name = data.username;
         this.password = data.password;
         this.checkRememberPwd = data.bremember;

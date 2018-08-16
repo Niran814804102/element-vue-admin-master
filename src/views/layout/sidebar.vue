@@ -49,7 +49,6 @@
 </style>
 <script>
   import { appRouter } from '../../router'
-  import Bus from  '../../Bus/bus'
 
   export default {
     name: 'sidebar',

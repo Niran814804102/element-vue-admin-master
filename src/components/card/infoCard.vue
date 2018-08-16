@@ -40,7 +40,6 @@
 </template>
 
 <script>
-  import Bus from '../../Bus/bus.js'
   import MapDialog from "../dialog/mapDialog";
 
   export default {
@@ -78,17 +77,18 @@
         this.itemHoverIndex = null;
       },
       getUUIDByID(){
+        let that = this;
         this.$axios.patch('static/json/getUUIDByID.json',{
-          id : this.card.id
+          id : that.card.id
         }).then(res=>{
           window.clipboardData.setData('Text',res);
-          Bus.$emit("alertModalParams", {
+          that.$Bus.$emit("alertModalParams", {
             alertVisible: true,
             alertType: "success",
             alertDescription: "数据UUID复制成功"
           })
         }).catch(()=>{
-          Bus.$emit("alertModalParams", {
+          that.$Bus.$emit("alertModalParams", {
             alertVisible: true,
             alertType: "error",
             alertDescription: "数据UUID复制失败"
@@ -97,6 +97,7 @@
       },
       //修改对应数据的收藏属性，根据当前class判断当前是否收藏，如果收藏，点击后为取消收藏，反之添加收藏
       chanegeFavorites() {
+        let that = this;
         if (this.favoriteClass === "fa fa-star") {
           // this.$axios.post('/addToFavorites', {
           //   id: this.card.id,
@@ -104,7 +105,7 @@
           // }).then(function() {
           // if (res.data == "success") {
           this.card.isFavorite = "true";
-          Bus.$emit("alertModalParams", {
+          that.$Bus.$emit("alertModalParams", {
             alertVisible: true,
             alertType: "success",
             alertDescription: "收藏成功"
@@ -122,7 +123,7 @@
           // }).then(function() {
           // if (res.data == "success"){
           this.card.isFavorite = "false"
-          Bus.$emit("alertModalParams", {
+          that.$Bus.$emit("alertModalParams", {
             alertVisible: true,
             alertType: "error",
             alertDescription: "收藏失败"
