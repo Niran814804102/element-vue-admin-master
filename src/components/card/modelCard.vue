@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div slot="activator" class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()" :class="{itemHover:itemHoverIndex==1}">
+    <div slot="activator" class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()"  :class="{itemHover:itemHoverIndex==1}">
       <v-card height="220px">
         <v-card-media
           class="white--text"
-          @click="openModelDialog(card.artifactId)"
+          @click="editRow(card.artifactId)"
           height="151px"
           :src="card.url">
           <v-container fill-height fluid>
@@ -49,12 +49,15 @@
     data() {
       return {
         itemHoverIndex: null,
-        artifactId: this.card.artifactId,
+        artifactId: 0,
         dialogVisible: {
           v: false,
           // clickModalClose: false
         }
       }
+    },
+    computed: {
+      artifactId(){ return this.card.artifactId;}
     },
     methods: {
       mouseEnter() {
@@ -63,7 +66,17 @@
       mouseLeave() {
         this.itemHoverIndex = null;
       },
-      openModelDialog(artifactId) {
+      getUUIDByID() {
+        let that = this;
+        this.$axios.get('static/json/getUUIDByID.json', {
+          id: that.data.id
+        }).then(res => {
+          console.log(res.data)
+        }).catch(function (err) {
+          console.log(err)
+        })
+      },
+      editRow(artifactId) {
         //TODO 打开地图编辑页面
         this.dialogVisible.v = true;
         vueEven.$emit('pop', this.dialogVisible, this.artifactId);
@@ -95,13 +108,11 @@
     /*box-shadow:0px 0px 1px 0px #313131;*/
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, .1);
   }
-
   .card-container {
     margin-left: 25px;
     /*padding: 5px 10px 5px 10px;*/
     width: 240px;
   }
-
   .data-info {
     height: 69px;
     padding: 8px 12px 12px;
@@ -109,13 +120,11 @@
     color: #303c46;
     position: relative;
   }
-
   .data-info-container {
     height: 100%;
     overflow: hidden;
     position: relative;
   }
-
   .data-name {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -126,7 +135,6 @@
     position: relative;
     margin-right: 102px;
   }
-
   .data-count {
     text-align: left;
     font-size: 12px;
@@ -135,7 +143,6 @@
     color: #222;
     padding: 10px 0 6px;
   }
-
   .data-date {
     position: absolute;
     right: 2px;
@@ -146,13 +153,11 @@
     text-align: left;
     color: #8a9194;
   }
-
   .data-option {
     position: absolute;
     right: 10px;
     bottom: 10px;
   }
-
   .data-icon {
     margin: 0;
     border: 0;
@@ -172,8 +177,6 @@
   #delete i:hover{
     color: #fe6970;
   }
-
-
   .data-option-container {
     position: absolute;
     z-index: 9;
@@ -187,7 +190,6 @@
     color: #8a9194;
     padding: 6px 0;
   }
-
   .option-icon {
     width: 18px;
     text-align: center;

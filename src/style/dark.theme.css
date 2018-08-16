@@ -1,7 +1,6 @@
 /*
 refer to http://stevesanderson.github.io/fixed-height-layouts-demo/two-columns.html
 */
-
 body {
   font-family: 'Helvetica Neue', Arial, Sans-Serif;
   /*font-family: Helvetica,Microsoft YaHei,STHeiti STXihei, Microsoft JhengHei,Tohoma, Arial*/
@@ -16,7 +15,6 @@ body {
   /*background: -webkit-linear-gradient(top, #696f77 0%, #f8f8f9 100%);*/
   /*background: -ms-linear-gradient(top, #696f77 0%, #f8f8f9 100%);*/
 }
-
 
 .body, .pane {
   background: #f6f8fb;
@@ -36,6 +34,5 @@ body {
 .el-menu-item.is-active{
   color: #ffffff!important;
   background-color: #409EFF!important;
-
 }
 

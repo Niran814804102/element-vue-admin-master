@@ -4,7 +4,7 @@
                 :type="item.name ===  currentPageName ? '' : 'info'"
                 @click.native="onClick(item)"
                 style="margin:2px;cursor : pointer;" color="#fff"
-                @close="removeTab($event,item, index)">{{item.title}}</el-tag>
+                @close="removeTab($event,item, index)">{{item.meta.title}}</el-tag>
     </span>
 </template>
 <style>
@@ -30,7 +30,6 @@
     watch: {
       '$route' (to, from) {
         this.currentPageName = to.name
-
       },
       currentPageName () {
         let currentPage = this.currentPageName
@@ -38,7 +37,6 @@
         if (this.currentPageName === -1) {
           currentPage = 'perData'
         }
-
         this.linkTo(currentPage)
       }
     },
@@ -57,7 +55,6 @@
     methods: {
       init () {
         this.currentPageName = this.$route.name
-
       },
       onClick (item) {
         this.linkTo(item.name)
@@ -66,7 +63,6 @@
         event.stopPropagation()
         if (item.name === this.currentPageName && index !== 0) {
           this.currentPageName = this.itemList[index - 1].name
-
         }
         this.$store.dispatch('removeTab', item.name)
       },

@@ -14,13 +14,14 @@
 </template>
 
 <script>
-    import Bus from '../../Bus/bus.js'
     export default {
         name: "alert",
         created(){
-          Bus.$on("alertDescription",(data)=>{this.description = data;});
-          Bus.$on("alertType",(data)=>{this.type = data;});
-          Bus.$on("alertVisible",(data)=>{this.visible = data;});
+          this.$Bus.$on("alertModalParams",(data)=> {
+            this.description = data.alertDescription;
+            this.type = data.alertType;
+            this.visible = data.alertVisible;
+          });
         },
         data(){
           return{

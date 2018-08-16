@@ -1,6 +1,5 @@
 <template>
-  <div class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()"
-       :class="{itemHover:itemHoverIndex==1}">
+  <div class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()" :class="{itemHover:itemHoverIndex==1}">
     <v-card height="220px">
       <v-card-media
         class="white--text"
@@ -33,7 +32,7 @@
           <i :title="favoriteTitle" :class="favoriteClass" @click="chanegeFavorites()" aria-hidden="true"></i>
         </div>
         <div class="data-icon">
-          <i title="复制数据UD" class="fa fa-files-o" @click="getUUIDByID()" aria-hidden="true"></i>
+          <i title="复制数据UUID" class="fa fa-files-o" @click="getUUIDByID()" aria-hidden="true"></i>
         </div>
       </div>
     </v-card>
@@ -41,7 +40,6 @@
 </template>
 
 <script>
-  import Bus from '../../Bus/bus.js'
   import MapDialog from "../dialog/mapDialog";
 
   export default {
@@ -78,32 +76,40 @@
       mouseLeave() {
         this.itemHoverIndex = null;
       },
-      getUUIDByID() {
-        Bus.$emit("alertVisible", true)
-        this.$axios.get('static/json/getUUIDByID.json', {
-          id: this.card.id
-        }).then(res => {
-          window.clipboardData.setData('Text', res);
-          Bus.$emit("alertType", "success")
-          Bus.$emit("alertDescription", "数据UUID复制成功")
-        }).catch(() => {
-          Bus.$emit("alertType", "error")
-          Bus.$emit("alertDescription", "数据UUID复制失败")
+      getUUIDByID(){
+        let that = this;
+        this.$axios.patch('static/json/getUUIDByID.json',{
+          id : that.card.id
+        }).then(res=>{
+          window.clipboardData.setData('Text',res);
+          that.$Bus.$emit("alertModalParams", {
+            alertVisible: true,
+            alertType: "success",
+            alertDescription: "数据UUID复制成功"
+          })
+        }).catch(()=>{
+          that.$Bus.$emit("alertModalParams", {
+            alertVisible: true,
+            alertType: "error",
+            alertDescription: "数据UUID复制失败"
+          })
         })
-
       },
       //修改对应数据的收藏属性，根据当前class判断当前是否收藏，如果收藏，点击后为取消收藏，反之添加收藏
       chanegeFavorites() {
+        let that = this;
         if (this.favoriteClass === "fa fa-star") {
           // this.$axios.post('/addToFavorites', {
           //   id: this.card.id,
           //   user: this.user
           // }).then(function() {
-          Bus.$emit("alertVisible", true)
           // if (res.data == "success") {
-          this.card.isFavorite = "true"
-          Bus.$emit("alertType", "success")
-          Bus.$emit("alertDescription", "收藏成功")
+          this.card.isFavorite = "true";
+          that.$Bus.$emit("alertModalParams", {
+            alertVisible: true,
+            alertType: "success",
+            alertDescription: "收藏成功"
+          });
           // }
           // }).catch(function(){
           //   this.$emit("alertType", "error")
@@ -115,11 +121,13 @@
           //   id: this.card.id,
           //   user: this.user
           // }).then(function() {
-          Bus.$emit("alertVisible", true)
           // if (res.data == "success"){
           this.card.isFavorite = "false"
-          Bus.$emit("alertType", "success")
-          Bus.$emit("alertDescription", "取消收藏成功")
+          that.$Bus.$emit("alertModalParams", {
+            alertVisible: true,
+            alertType: "error",
+            alertDescription: "收藏失败"
+          })
           //   }
           // }).catch(function(){
           //   this.$emit("alertType", "error")
@@ -151,13 +159,11 @@
     /*box-shadow:0px 0px 1px 0px #313131;*/
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, .1);
   }
-
   .card-container {
     margin-left: 25px;
     /*padding: 5px 10px 5px 10px;*/
     width: 240px;
   }
-
   .data-info {
     height: 69px;
     padding: 8px 12px 12px;
@@ -165,13 +171,11 @@
     color: #303c46;
     position: relative;
   }
-
   .data-info-container {
     height: 100%;
     overflow: hidden;
     position: relative;
   }
-
   .data-name {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -182,7 +186,6 @@
     position: relative;
     margin-right: 102px;
   }
-
   .data-count {
     text-align: left;
     font-size: 12px;
@@ -191,7 +194,6 @@
     color: #222;
     padding: 10px 0 6px;
   }
-
   .data-date {
     position: absolute;
     right: 2px;
@@ -202,13 +204,11 @@
     text-align: left;
     color: #8a9194;
   }
-
   .data-option {
     position: absolute;
     right: 10px;
     bottom: 10px;
   }
-
   .data-icon {
     margin: 0;
     border: 0;
@@ -220,9 +220,7 @@
     -ms-flex-align: center;
     align-items: center;
     display: inline-flex;
-
   }
-
   .data-option-container {
     position: absolute;
     z-index: 9;
@@ -236,14 +234,12 @@
     color: #8a9194;
     padding: 6px 0;
   }
-
   .option-icon {
     width: 18px;
     text-align: center;
     float: left;
     margin-right: 6px;
   }
-
   .fa-star-full-yellow {
     color: #fbbc07
   }

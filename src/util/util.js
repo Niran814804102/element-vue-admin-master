@@ -61,14 +61,10 @@ export function isPromise (val) {
   return val && typeof val.then === 'function'
 }
 
-export function assert (condition, msg) {
-  if (!condition) throw new Error(`[vuex] ${msg}`)
-}
-
 let util = {}
 
 util.title = function (title) {
-  title = title ? title + ' - Home' : 'No Title'
+  title = title ? title + ' - Home' : 'No Title'//TODO:设置网站标题后缀
   window.document.title = title
 }
 export default util

@@ -14,13 +14,12 @@
 </template>
 
 <script>
-
   import infoCard from '../../components/card/infoCard.vue'
 
-    export default {
-        name: "dataview",
-      components:{infoCard},
-    }
+  export default {
+      name: "dataview",
+    components:{infoCard},
+  }
 </script>
 
 <style scoped>

@@ -19,7 +19,6 @@
       }
     },
     props: {form_list: Array},
-
     methods: {
       getdata() {
         let data = {};
@@ -36,9 +35,7 @@
       clearData() {
         this.paramsFormData = [];
       },
-      // submit() {
-      //
-      // }
+
     },
     mounted() {
     }

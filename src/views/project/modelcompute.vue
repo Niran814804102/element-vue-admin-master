@@ -43,18 +43,13 @@
     },
     methods: {
       getModelData: function () {
-        this.$axios({
-          method: "GET",
+        this.$axios.get(
           // params:{ userid: "userid"},
           // url: 'http://192.168.240.25:3000/dldsj/parallel/get',
-          url:'../../../static/json/modelData.json',
-          headers: {//设置跨域头
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }).then(res => {
-          this.cards = res.data.body;
-        })
-          .catch(function () {
+          '../../../static/json/modelData.json')
+          .then(res => {
+          this.cards = res.data.body;}).
+        catch(function () {
             console.log(error);
           })
       },
@@ -62,18 +57,9 @@
       //   this.signVisible.v=true
       // },
       refresh: function () {
-        this.$axios({
-          method: "GET",
-          url: 'http://192.168.240.25:3000/dldsj/parallel/get',
-          headers: {//设置跨域头
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }).then(res => {
-          this.cards = res.data.body;
-        })
-          .catch(function () {
-            console.log(error);
-          })
+        this.$axios.get('http://192.168.240.25:3000/dldsj/parallel/get')
+          .then(res => {this.cards = res.data.body;})
+          .catch(function () {console.log(error);})
       },
       signDialog:function(){
         this.signVisible.v=true

@@ -3,7 +3,6 @@ import * as types from '../mutation-types'
 import { appRouter } from '../../router'
 
 // initial state
-
 const state = {
   ready: false,
   routers: [],
@@ -31,7 +30,6 @@ const actions = {
       })
     })
   },
-
   initLayout ({dispatch, commit, state}, data) {
     commit(types.INIT_LAYOUT)
   },
@@ -76,7 +74,6 @@ const actions = {
 
     commit(types.SET_OPENED_MENU_LIST, openedMenuNameList)
   },
-
   openTab ({dispatch, commit, state}, menuName) {
     commit(types.OPEN_TAB, menuName)
   },
@@ -103,12 +100,8 @@ const mutations = {
     })
   },
   [types.SET_CURRENT_PATH] (state, currentPath) {
-
     state.currentPath = currentPath
-
-
   },
-
   [types.SET_OPENED_MENU_LIST] (state, openedMenuNameList) {
     state.openedMenuNameList = openedMenuNameList
   },
@@ -123,7 +116,6 @@ const mutations = {
       state.pageOpenedList.push(tab)
     }
   },
-
   [types.REMOVE_TAB] (state, name) {
     state.pageOpenedList = state.pageOpenedList.filter(item => {
       return item.name !== name
@@ -131,7 +123,6 @@ const mutations = {
   },
   [types.SET_LAYOUT_STATUS] (state, status) {
     state.ready = status
-
   },
   //TODO 修改首次打开的活动页面
   [types.INIT_LAYOUT] (state, name) {
@@ -147,7 +138,6 @@ const mutations = {
     state.menuTheme = localStorage.menuTheme ? localStorage.menuTheme : 'dark' // 主题
     state.theme = localStorage.theme ? localStorage.theme : 'b'
   },
-
   changeTheme (state, theme) {
     state.menuTheme = theme
   }

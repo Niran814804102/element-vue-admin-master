@@ -14,6 +14,7 @@
 
 <script>
   import userForm from '../form/userForm.vue'
+
   export default {
     name: "userDialog",
     data() {
@@ -26,6 +27,11 @@
     },
     components: {
       "user-form": userForm,
+    },
+    created(){
+      this.$Bus.$on("userDialogParams",(data)=> {
+        this.dialogVisible.v = data.dialogVisible;
+      });
     }
   }
 </script>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <alert-modal></alert-modal>
     <v-container grid-list-xl text-xs-center>
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 lg3 v-for="card in cards" :key="card.id">
@@ -16,7 +15,6 @@
 
 <script>
   import infoCard from '../../components/card/infoCard.vue'
-  import alertModal from '../../components/alert/alertModal.vue'
   import MapDialog from "../../components/dialog/mapDialog"
 
   export default {
@@ -38,17 +36,17 @@
     },
     components: {
       "info-card": infoCard,
-      "alert-modal": alertModal,
       "map-dialog": MapDialog
     },
     watch:{
     },
     methods: {
       getDataByUserID: function(){
-        this.$axios.get('static/json/personalData.json',{
-          params:{ userid: "userid"}
-        }).then(res=>{this.cards = res.data;
-        }).catch(function(){console.log(error);})
+        let that = this;
+        that.$axios.get('http://localhost:8090/AncientMap/getMapList.action', {
+          userid: sessionStorage.getItem("userid")
+        }).then(function(res){console.log(res);
+        }).catch(function(err){console.log(err);})
       },
       setMapDialogParams: function(params){
         this.dialogVisible = params.dialogVisible;
