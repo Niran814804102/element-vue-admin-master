@@ -9,3 +9,5 @@ export const OPEN_TAB = 'OPEN_TAB'
 export const REMOVE_TAB = 'REMOVE_TAB'
 export const SET_CURRENT_PATH = 'SET_CURRENT_PATH'
 export const SET_OPENED_MENU_LIST = 'SET_OPENED_MENU_LIST'
+//增加更改用户信息的函数名
+export const SET_USER_STATUS = 'SET_USER_STATUS'
