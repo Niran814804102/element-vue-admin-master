@@ -42,10 +42,16 @@
     },
     methods: {
       getDataByUserID: function(){
-        this.$axios.get('static/json/personalData.json',{
-          params:{ userid: "userid"}
-        }).then(res=>{this.cards = res.data;
-        }).catch(function(){console.log(error);})
+        let that = this;
+        that.$axios.get('http://localhost:8090/AncientMap/getMapList.action', {
+          userid: this.$cookie.getCookie("userid")
+        }).then(
+          function(res){
+            console.log(res);
+            let resultobj = $.parseJSON(res);
+          }).catch(
+            function(err){console.log(err);
+            })
       },
       setMapDialogParams: function(params){
         this.dialogVisible = params.dialogVisible;

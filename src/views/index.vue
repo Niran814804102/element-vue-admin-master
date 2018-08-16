@@ -3,7 +3,8 @@
     <!--左侧目录-->
     <div class="left col"  :class="{ collapse: isCollapse }">
       <div class="header row " style="text-align: center" :style="{width: isCollapse?'64px':'auto'}">
-        <a v-if="!isCollapse" href="https://github.com/TonyLuo/element-vue-admin" style="color: white;size: 40px">
+        <!--href可以设置点击左上角网站图标跳转的地方，当前默认跳转到ip:port/-->
+        <a v-if="!isCollapse" href="" style="color: white;size: 40px">
           <i class="fa fa-rebel" style="color: #2d2f33"></i>
         </a>
         <span :class="[isCollapse ? 'text-alight-center' : 'floating-right']" @click="toggleClick">
