@@ -2,7 +2,7 @@
   <div>
     <el-form ref="formName">
       <el-form-item   v-for="(item,i) in form_list" :key="item.name" :label="item.name">
-        <el-input  v-model='paramsFormData[i]' :placeholder="'ÇëÊäÈë'+item.name" required:true show-message:true></el-input>
+        <el-input  v-model='paramsFormData[i]' :placeholder="'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'+item.name" required:true show-message:true></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -36,7 +36,6 @@
       },
       submit(){
         debugger;
-
       }
     },
     mounted(){

@@ -51,9 +51,9 @@
         this.itemHoverIndex = null;
       },
       getUUIDByID(){
-        this.axios.get('static/json/getUUIDByID.json',{
+        this.$axios.patch('static/json/getUUIDByID.json',{
           id : this.data.id
-        }).then(res=>{console.log(re.data)}).
+        }).then(res=>{console.log(re)}).
         catch(function(){console.log("get email error")})
       },
       editRow(artifactId) {
