@@ -49,7 +49,6 @@
     data() {
       return {
         itemHoverIndex: null,
-        artifactId: 0,
         dialogVisible: {
           v: false,
           // clickModalClose: false

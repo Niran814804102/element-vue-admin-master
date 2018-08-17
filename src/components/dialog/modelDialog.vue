@@ -44,19 +44,17 @@
     },
     methods: {
       initParallelModel() {
-        this.$axios({
-          method: "GET",
-          // params: {artifactId: this.artifactId},
+        let obj=this;
+        this.$axios.get(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/get/' + this.artifactId,
-          url:'../../../static/json/perModelData.json',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }).then((res) => {
-            this.Modelparams = JSON.parse(res.data.body.parameters);
+          'http://192.168.1.5:8080/dldsj/parallel/get/' + this.artifactId)
+          // '../../../static/json/perModelData.json')
+          .then((res) => {
+            this.Modelparams = JSON.parse(res.body.parameters);
           }
         ).catch(function (error) {
           console.log(error);
+          obj.$message.error('模型参数获取失败!');
         });
         this.visible = true;
         this.progressVisible = false;
@@ -76,27 +74,18 @@
         console.log(params)
         modelparamData.params = params;
         modelparamData.customname = params["1"];
-        // console.log(modelparamData.customname)
-        console.log(this.artifactId)
-        this.$axios({
-          method: "POST",
+        console.log(modelparamData)
+        this.$axios.post(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/use/' + this.artifactId,
-          url: 'http://192.168.1.5:8080/dldsj/parallel/use/' + this.artifactId,
-          data: JSON.stringify(modelparamData),
-          headers: {//设置跨域头
-            'Content-Type': 'application/json'
-          }
-        }).then(function (response) {
+          'http://192.168.1.5:8080/dldsj/parallel/use/' + this.artifactId,JSON.stringify(modelparamData)
+        ).then(function (response) {
           // alert(''.concat(response.data.code));
-          console.log()
-          if(response.data.code=='200'){
+          if(response.code=='200'){
             obj.$message({
               type: 'success',
               message: '模型提交成功!请前往所有项目查看运行进度！'
             });
-
           }
-
           // this.visible = false;
           // this.progressVisible = true;
           // obj.jobName = response.data.body;

@@ -16,8 +16,8 @@ import DataView from '../views/appmanage/dataview.vue'
 export const loginRouter = {
   path: '/login',
   name: 'login',
-  meta: {
-    title: '登录'
+  meta:{
+    title: '登录',
   },
   icon: 'fa fa-user-circle-o fa-lg',
   component: Login,
@@ -74,7 +74,7 @@ export const appRouter = [
       {
         meta: {
           title: '所有项目',
-          requireAuth: true
+          requireAuth: false
         },
         name: 'allProject',
         path: 'allProject',
@@ -143,7 +143,7 @@ export const appRouter = [
       },{
         meta:{
           title: '模型计算',
-          requireAuth: true
+          requireAuth: false
         },
         name: 'Model',
         path: 'Model',

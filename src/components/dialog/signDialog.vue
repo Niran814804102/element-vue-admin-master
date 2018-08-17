@@ -86,20 +86,21 @@
         console.log(filedata.get('file'))
         this.signVisible.v=false;
         //注册框消失
-        this.$axios({
-          method: "POST",
+        this.$axios.post(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/register',
-          url: 'http://192.168.1.5:8080/dldsj/parallel/register',
-          data: filedata,
-          headers: {//设置跨域头
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }).then(function (response) {
+          'http://192.168.1.5:8080/dldsj/parallel/register'
+          ,filedata
+        ).then(function (response) {
           // alert(''.concat(response.data.code));
-          if(response.data.code==="200"){
+          if(response.code=="200"){
             obj.$message({
               type: 'success',
               message: '模型注册成功!'
+            })
+          }else{
+            obj.$message({
+              type: 'warning',
+              message: '模型注册出错!'
             })
           }
           //判断是否注册成功进行弹窗

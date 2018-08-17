@@ -35,17 +35,17 @@
         <template slot-scope="scope">
           <el-button
             icon="el-icon-view"
-            @click="editRow(scope.$index, data)"
+            @click="editRow(scope.$index, scope.row)"
             type="text">
           </el-button>
           <el-button
             icon="el-icon-download"
-            @click="download(scope.$index, data)"
+            @click="download(scope.$index, scope.row)"
             type="text">
           </el-button>
           <el-button
             icon="el-icon-delete"
-            @click.native.prevent="deleteRow(scope.$index, data)"
+            @click.native.prevent="deleteRow(scope.$index, scope.row)"
             type="text">
           </el-button>
         </template>
@@ -77,7 +77,7 @@
           dialogTitle:"",
           queryUrl:"",
           queryParams:null,
-          task:null,
+          task:[]
         }
       },
       // props:{
@@ -93,28 +93,31 @@
           },
         getProjectData(){
           let obj = this;
-          this.$axios({
-            method: "GET",
+          this.$axios.get(
             // url:'http://192.168.240.25/dldsj/parallel/jobs/user',
-            url:'http://192.168.1.5:8080/dldsj/parallel/jobs/user',
+            'http://192.168.1.5:8080/dldsj/parallel/jobs/user')
             // url: '../../../static/json/allProjectD.json',
             // params:{ userid: "userid"},
-            headers: {//设置跨域头
-              'Content-Type': 'application/json'
-            }
-          }).then(res => {
+          .then(res => {
             // obj.task = res.data.body;
-            var data={};
-            for (let prodata of obj.task) {
-              // console.log(prodata.record.state)
-              if (prodata.record.state === "FINISHED") {
-                data.remarks=prodata.record.remarks;
-                data.progress=100;
-                data.status="success";
-                data.submitTime=prodata.record.submitTime;
-                data.finishTime=prodata.record.finishTime;
+            if (res.code == "200"){
+              let resArray = res.body;
+              for (let index in resArray) {
+                let singleData = resArray[index];
+                if (singleData.record.state != "FINISHED") {
+                  let row = singleData.record;
+                  row.progress = singleData.monitor.progress;
+                  obj.task.push(row);
+                } else {
+                  let row = singleData.record;
+                  row.progress = 100;
+                  row.status = "success";
+                  obj.task.push(row)
+                }
               }
             }
+          })
+
             // else {
             //     var superviseTimer = setInterval(function () {
             //       obj.$axios({
@@ -149,13 +152,13 @@
             //     }, 5000);
             //   }
             // }
-          }).catch(function (error) {
+          .catch(function (error) {
             obj.$message.error('获取项目数据失败!');
           });
         }
       },
       mounted(){
-        // this.getProjectData()
+        this.getProjectData()
       },
     }
 </script>

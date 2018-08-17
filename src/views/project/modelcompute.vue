@@ -45,10 +45,11 @@
       getModelData: function () {
         this.$axios.get(
           // params:{ userid: "userid"},
-          // url: 'http://192.168.240.25:3000/dldsj/parallel/get',
-          '../../../static/json/modelData.json')
+          //  'http://192.168.240.25:3000/dldsj/parallel/get',
+          'http://192.168.1.5:8080/dldsj/parallel/get')
+          // '../../../static/json/modelData.json')
           .then(res => {
-          this.cards = res.data.body;}).
+          this.cards = res.body;}).
         catch(function () {
             console.log(error);
           })
@@ -57,9 +58,12 @@
       //   this.signVisible.v=true
       // },
       refresh: function () {
-        this.$axios.get('http://192.168.240.25:3000/dldsj/parallel/get')
-          .then(res => {this.cards = res.data.body;})
-          .catch(function () {console.log(error);})
+        let obj=this;
+        this.$axios.get('http://192.168.1.5:8080/dldsj/parallel/get')
+          .then(res => {this.cards = res.body;})
+          .catch(function () {
+            obj.$message.error('刷新失败!');
+          })
       },
       signDialog:function(){
         this.signVisible.v=true
