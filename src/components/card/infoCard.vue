@@ -40,13 +40,9 @@
 </template>
 
 <script>
-  import MapDialog from "../dialog/mapDialog";
-
   export default {
     name: "infoCard",
-    components: {
-      "map-dialog": MapDialog
-    },
+    components: {},
     props: {
       card: {type: Object, default: []}
     },

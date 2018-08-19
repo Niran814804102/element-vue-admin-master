@@ -50,9 +50,6 @@
       checkRememberPwd: { required },
       checkAutoLogin: { required }
     },
-    props:{
-      formVisible:{ type: Boolean, default: true }
-    },
     data: () => ({
       name: '',
       password: '',
