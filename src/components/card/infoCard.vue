@@ -23,7 +23,7 @@
       </div>
       <div class="data-option">
         <div class="data-icon">
-          <i title="数据预览" class="fa fa-table" aria-hidden="true"></i>
+          <i title="数据预览" class="fa fa-table" @click="previewData()" aria-hidden="true"></i>
         </div>
         <div class="data-icon">
           <i title="数据上图" class="fa fa-globe" aria-hidden="true"></i>
@@ -144,11 +144,17 @@
             clickModalClose: false
           },
           queryUrl: "static/json/projData/ylsj.json",
+      previewData() {//数据预览
+        this.$Bus.$emit("dataDialogParams", {
+          title: this.card.data.metaName,
+          visible: true,
+          queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId,
           queryParams: {
-            "userid": "userid",
-            "proname": "proname"
+            offset: 0,
+            size: 100//TODO:需要设置分页
           }
         });
+      },
       getDataInfo(){//查看数据基本信息
         this.$Bus.$emit("dataInfoDialogParams", {
           visible: true,

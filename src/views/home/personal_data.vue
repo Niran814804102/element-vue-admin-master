@@ -16,6 +16,7 @@
 <script>
   import infoCard from '../../components/card/infoCard.vue'
   import mapDialog from "../../components/dialog/mapDialog"
+  import dataDialog from "../../components/dialog/dataDialog"
   import dataInfoDialog from "../../components/dialog/dataInfoDialog"
 
   export default {
@@ -31,6 +32,7 @@
     components: {
       "info-card": infoCard,
       "map-dialog": mapDialog,
+      "data-dialog": dataDialog,
       "data-info-dialog": dataInfoDialog
     },
     watch:{},
