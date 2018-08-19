@@ -4,7 +4,7 @@
       <v-card-media
         class="white--text"
         height="151px"
-        :src="card.url"
+        src="static/img/sun.jpg"
         @click="getDataInfo()">
         <v-container fill-height fluid>
           <v-layout fill-height>
@@ -16,8 +16,8 @@
       </v-card-media>
       <div class="data-info">
         <div class="data-info-container">
-          <div class="data-name">{{ card.title}}</div>
-          <div class="data-count">{{ card.count }}</div>
+          <div class="data-name">{{ card.data.metaName }}</div>
+          <div class="data-count">{{ card.data.columnNum }}条记录</div>
           <div class="data-date">{{ lastUpdateTime}}</div>
         </div>
       </div>
@@ -78,17 +78,17 @@
       mouseLeave() {
         this.itemHoverIndex = null;
       },
-      getUUIDByID(){
+      getUUIDByID() {
         let that = this;
-        this.$axios.patch('static/json/getUUIDByID.json',{
-          id : that.card.id
-        }).then(res=>{
-          window.clipboardData.setData('Text',res);
+        this.$axios.patch('static/json/getUUIDByID.json', {
+          id: that.card.id
+        }).then(res => {
+          window.clipboardData.setData('Text', res);
           that.$Bus.$emit("alertModalParams", {
             alertType: "success",
             alertDescription: "数据UUID复制成功"
           })
-        }).catch(()=>{
+        }).catch(() => {
           that.$Bus.$emit("alertModalParams", {
             alertType: "error",
             alertDescription: "数据UUID复制失败"
