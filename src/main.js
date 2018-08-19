@@ -49,7 +49,6 @@ function guardRoute (to, from, next) {
     return true;
   }else {
     Bus.$emit("alertModalParams", {
-      alertVisible: true,
       alertType: "error",
       alertDescription: "该页面需要先登录~"
     });

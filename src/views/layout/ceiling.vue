@@ -73,7 +73,6 @@
             sessionStorage.setItem("authority", res.body.authority);})
           .catch(function(){
             that.$Bus.$emit("alertModalParams", {
-              alertVisible: true,
               alertType: "error",
               alertDescription: "session获取失败"
           });
@@ -88,7 +87,6 @@
             //弹窗提示登录成功
             that.$cookie.setCookie("bautologin", "false", expires);
             that.$Bus.$emit("alertModalParams", {
-              alertVisible: true,
               alertType: "success",
               alertDescription: "用户注销成功"
             });
@@ -100,14 +98,12 @@
           }
           else{
             that.$Bus.$emit("alertModalParams", {
-              alertVisible: true,
               alertType: "warning",
               alertDescription: "用户注销失败"
             });
           };})
           .catch(function(err){
             that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "error",
             alertDescription: err
           });});
@@ -126,7 +122,6 @@
           if (res.code == 200) {
             //弹窗提示登录成功
             that.$Bus.$emit("alertModalParams", {
-              alertVisible: true,
               alertType: "success",
               alertDescription: "用户" + cookie_username + "登录成功"
             });
@@ -135,13 +130,11 @@
           }
           else{
             that.$Bus.$emit("alertModalParams", {
-              alertVisible: true,
               alertType: "warning",
               alertDescription: "用户登录失败"
             });};
         }).catch(function(err){
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "error",
             alertDescription: err
           });

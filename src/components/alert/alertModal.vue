@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="alertPosition" v-show="visible">
+    <div class="alertPosition" v-show="visible" style="z-index: 9999">
         <v-alert
           value=true
           :color.sync="color"
@@ -20,7 +20,7 @@
           this.$Bus.$on("alertModalParams",(data)=> {
             this.description = data.alertDescription;
             this.type = data.alertType;
-            this.visible = data.alertVisible;
+            this.visible = true;
           });
         },
         data(){

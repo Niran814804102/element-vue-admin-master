@@ -83,13 +83,11 @@
         }).then(res=>{
           window.clipboardData.setData('Text',res);
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "success",
             alertDescription: "数据UUID复制成功"
           })
         }).catch(()=>{
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "error",
             alertDescription: "数据UUID复制失败"
           })
@@ -106,7 +104,6 @@
           // if (res.data == "success") {
           this.card.isFavorite = "true";
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "success",
             alertDescription: "收藏成功"
           });
@@ -124,7 +121,6 @@
           // if (res.data == "success"){
           this.card.isFavorite = "false"
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "error",
             alertDescription: "收藏失败"
           })
