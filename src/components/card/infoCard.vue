@@ -5,7 +5,7 @@
         class="white--text"
         height="151px"
         :src="card.url"
-        @click="openDataResourceOnMap()">
+        @click="getDataInfo()">
         <v-container fill-height fluid>
           <v-layout fill-height>
             <v-flex xs12 align-end flexbox>
@@ -145,6 +145,11 @@
             "proname": "proname"
           }
         });
+      getDataInfo(){//查看数据基本信息
+        this.$Bus.$emit("dataInfoDialogParams", {
+          visible: true,
+          tableData: this.card
+        })
       }
     }
   }
