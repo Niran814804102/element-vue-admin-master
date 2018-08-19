@@ -1,68 +1,60 @@
 <template>
-  <el-dialog
-    :title="dialogTitle"
-    :visible.sync="dialogVisible.v"
-    :close-on-click-modal="dialogVisible.clickModalClose"
-    width="84%"
-    top="4%"
-    @open="map()">
-    <div id="tdtmap" ref="tdtmap"></div>
-  </el-dialog>
+  <div>
+    <el-dialog
+      :title="title"
+      :visible.sync="visible"
+      width="84%"
+      top="4%"
+      @open="map()">
+      <div id="tdtmap" ref="tdtmap" class="map-div"></div>
+    </el-dialog>
+  </div>
 </template>
 <script>
   import "../../../static/js/ol-debug.js";
 
   export default {
     name: "map-dialog",
-    props: {
-      dialogTitle:String,  //dialog标题
-      dialogVisible: Object,  //dialog可视化相关，dialogVisible.v代表是否可见，dialogVisible.clickModalClose代表点击框体外区域是否关闭dialog
-      queryUrl:String,    //请求数据的url
-      queryParams:Object  //请求数据的参数
-    },
     data(){
       return {
-        tdtmap:null
+        tdtmap: null,
+        title: "No Title",
+        visible: false,
+        queryUrl: "",
+        queryParams: null
       }
     },
     mounted(){
     },
     methods: {
-      /**
-       * 地图初始化
-       */
+      //地图初始化
       map() {
         this.$nextTick(function(){
           this.$refs.tdtmap.innerText=null
-          let tdtSource = new ol.source.XYZ({
-            url: 'http://202.121.180.59/tianditu/tdt/{z}/{y}/{x}.jpg'
-          })
-          let tdtLayer = new ol.layer.Tile({
-            name: "tianditu_layer",
-            chName: "天地图地图",
-            source: tdtSource
-          })
-          /*
-         * 视图初始化
-         */
-          let view = new ol.View({
-            center: ol.proj.transform([120, 30], 'EPSG:4326', 'EPSG:3857'),
-            zoom: 3,
-            minZoom: 3,
-            maxZoom: 9,
-            extent: ol.proj.get('EPSG:3857').getExtent()
-          });
-          /*
-         * Map初始化
-         */
+          // let tdtSource = new ol.source.XYZ({
+          //   url: 'http://202.121.180.59/tianditu/tdt/{z}/{y}/{x}.jpg'
+          // })
+          //Map初始化
           this.tdtmap = new ol.Map({
             target: 'tdtmap',
-            layers: [tdtLayer],
-            view: view,
+            layers: [
+              new ol.layer.Tile({
+                // source: tdtSource
+                source: new ol.source.OSM()
+              })
+            ],
+            view: new ol.View({
+              center: ol.proj.transform([116.4, 39.9], 'EPSG:4326', 'EPSG:3857'),//初始化中心为北京
+              zoom: 10,
+              minZoom: 3,
+              maxZoom: 18
+            }),
             controls: ol.control.defaults().extend([
-              new ol.control.ScaleLine({
-                target: document.getElementById('scale-line')
-              }),
+              new ol.control.Zoom(),
+              new ol.control.ZoomSlider(),
+              new ol.control.ScaleLine(),
+              new ol.control.ZoomToExtent(),
+              new ol.control.FullScreen(),
               new ol.control.MousePosition({
                 coordinateFormat: ol.coordinate.createStringXY(4),
                 projection: 'EPSG:4326',
@@ -73,43 +65,140 @@
             logo : false
           });
           this.addMapData();
+          // this.tdtmap.on('click', function(evt) {
+          //   var pixel = this.tdtmap.getEventPixel(evt.originalEvent);
+          //   var feature =this.tdtmap.forEachFeatureAtPixel(pixel, function(feature, layer) {
+          //     return feature;
+          //   });
+          //   var coordinate = evt.coordinate;
+          //   var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(
+          //     coordinate, 'EPSG:3857', 'EPSG:4326'));
+          //   if(feature !== undefined){
+          //     content.innerHTML = '<p>你点击的坐标是：</p><code>' + hdms + '</code><p>这里属于：'+ feature.get('name') + '</p>';
+          //   }
+          //   else{
+          //     content.innerHTML = '<p>你点击的坐标是：</p><code>' + hdms + '</code><p>这里是大海！</p>';
+          //   }
+          //   overlay.setPosition(coordinate);
+          //   map.addOverlay(overlay);
+          // });
         })
       },
-      /**
-       * 向地图上添加数据
-       * @params
-       */
+      //向地图上添加数据
       addMapData(){
-        //初始化数据图层
-        var data_source = new ol.source.Vector({
-          features:null
-        });
-        var data_layer = new ol.layer.Vector({
-          name : "track_layer",
-          chName : "轨迹图层",
-          source:data_source
-        });
-
-        //根据用户id以及项目名称获取项目数据并展示在地图上
-        this.$axios.get(this.queryUrl,this.queryParams).then(res=>{
-          var data=res.data;
-          var features = new Array();
-          for(var i=0;i<data.length;i++){
-            features[i] = new ol.Feature({
-              geometry:new ol.geom.Point(ol.proj.transform([ data[i].lon, data[i].lat ], 'EPSG:4326', 'EPSG:3857')),
-              name:data[i].prettyname
-            });
-            features[i].setId(data[i].id);
-          }
-          data_layer.getSource().addFeatures(features);
-          this.tdtmap.addLayer(data_layer);
-        })
+        let that = this;
+        //根据数据id获取指定数据的geojson
+        that.$axios.get(that.queryUrl, that.queryParams).then(
+          function(res) {
+            if (res.body) {
+              let vectorLayer = new ol.layer.Vector({
+                source: new ol.source.Vector({
+                  features: new ol.format.GeoJSON().readFeatures(res.body, {
+                    dataProjection: 'EPSG:4326',    // 设定JSON数据使用的坐标系
+                    featureProjection: 'EPSG:3857' // 设定当前地图使用的feature的坐标系
+                  })
+                }),
+                style: that.styleInit
+              });
+              that.tdtmap.getView().fit(ol.proj.transformExtent(res.body.bbox, 'EPSG:4326', 'EPSG:3857'), that.tdtmap.getSize());
+              that.tdtmap.addLayer(vectorLayer);
+            }
+            else
+              that.$Bus.$emit("alertModalParams", {
+                alertType: "warning",
+                alertDescription: "该数据为空"
+              })
+          }).catch(function(err){ console.log(err)})
+      },
+      //自定义图层样式
+      styleInit(feature) {
+        let styles = {//TODO:其他geometry的样式需要美化
+          'Point': new ol.style.Style({
+            image: new ol.style.Circle({
+              radius: 10,
+              fill: new ol.style.Fill({
+                color: 'red'
+              })
+            })
+          }),
+          'LineString': new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'green',
+              width: 1
+            })
+          }),
+          'MultiLineString': new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'green',
+              width: 1
+            })
+          }),
+          'MultiPoint': new ol.style.Style({
+            fill: new ol.style.Fill({color:'#e6a299'}), //填充
+            stroke: new ol.style.Stroke({
+              color:'rgb(165,24,27)',
+              width:3,
+              lineDash:[10,10]
+            })
+          }),
+          'MultiPolygon': new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'yellow',
+              width: 1
+            }),
+            fill: new ol.style.Fill({
+              color: 'rgba(255, 255, 0, 0.1)'
+            })
+          }),
+          'Polygon': new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'blue',
+              lineDash: [4],
+              width: 3
+            }),
+            fill: new ol.style.Fill({
+              color: 'rgba(0, 0, 255, 0.1)'
+            })
+          }),
+          'GeometryCollection': new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'magenta',
+              width: 2
+            }),
+            fill: new ol.style.Fill({
+              color: 'magenta'
+            }),
+            image: new ol.style.Circle({
+              radius: 10,
+              fill: null,
+              stroke: new ol.style.Stroke({
+                color: 'magenta'
+              })
+            })
+          }),
+          'Circle': new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: 'red',
+              width: 2
+            }),
+            fill: new ol.style.Fill({
+              color: 'rgba(255,0,0,0.2)'
+            })
+          })
+        };
+        return styles[feature.getGeometry().getType()];
       }
+    },
+    created(){
+      let that = this;
+      that.$Bus.$on("mapDialogParams",(params)=> {
+        that.visible = params.visible;
+        that.title = params.title;//如果为undefined，报错说title（String）无法绑定function
+        that.queryUrl = params.queryUrl;
+        that.queryParams = params.queryParams;
+      });
     }
   }
-
-
-
 </script>
 <style>
   .el-dialog__body {
@@ -126,9 +215,12 @@
   }
   .custom-mouse-position{
     position: absolute;
-    top: 5px;
-    right: 5px;
-    color: white;
+    top: 8px;
+    right: 8px;
+    color: black;
     font-size: medium;
+  }
+  .map-div{
+    height: 800px;
   }
 </style>

@@ -25,8 +25,8 @@
         <div class="data-icon">
           <i title="数据预览" class="fa fa-table" @click="previewData()" aria-hidden="true"></i>
         </div>
-        <div class="data-icon">
-          <i title="数据上图" class="fa fa-globe" aria-hidden="true"></i>
+        <div v-if="isLoadToMap" class="data-icon">
+          <i title="数据上图" class="fa fa-globe" @click="openDataResourceOnMap()" aria-hidden="true"></i>
         </div>
         <div class="data-icon">
           <i :title="favoriteTitle" :class="favoriteClass" @click="chanegeFavorites()" aria-hidden="true"></i>
@@ -61,6 +61,8 @@
       lastUpdateTime(){//时间数据可视化
         return this.$date.formatTime(this.card.data.lastUpdateTime)
       },
+      isLoadToMap(){//判断是否可以数据上图
+        return !(this.card.data.geomFields == null || this.card.data.geomFields == "")
       }
     },
     watched: {
@@ -133,13 +135,16 @@
       },
       //加载所点击的数据到地图上
       openDataResourceOnMap() {
-        this.$emit("mapDialogParams", {
-          dialogTitle: this.card.title,
-          dialogVisible: {
-            v: true,
-            clickModalClose: false
-          },
-          queryUrl: "static/json/projData/ylsj.json",
+        this.$Bus.$emit("mapDialogParams", {
+          title: this.card.data.metaName,
+          visible: true,
+          queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId + "/geojson",
+          queryParams: {
+            offset: 0,
+            size: 100//TODO:需要设置分页
+          }
+        });
+      },
       previewData() {//数据预览
         this.$Bus.$emit("dataDialogParams", {
           title: this.card.data.metaName,
