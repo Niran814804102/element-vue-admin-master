@@ -29,7 +29,7 @@
             if (res) {
               console.log(res)
 
-              task.name = res.data.body;
+              task.name = res.body;
               console.log(task.name)
             }
 
@@ -38,7 +38,7 @@
             this.$axios.get("http://localhost:8080/dldsj/parallel/monitor/"+task.name).then(res => {
 
               console.log(res)
-              var result = res.data.body;
+              var result = res.body;
               console.log(result)
               switch (result.state) {
                 case"RUNNING":

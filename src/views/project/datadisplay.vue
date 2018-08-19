@@ -58,8 +58,9 @@
         getDataDisplayProj(){
           //TODO 数据查询及处理
           this.$axios.get('static/json/datadisplay.json',{
-            params:{ userid: "userid"}
-          }).then(res=>{this.datadis = res.data;})
+            params:{ userid: "userid"},
+
+          }).then(res=>{this.datadis = res.data;console.log(res.data)})
             .catch(function(){
               console.log(error);})
         }

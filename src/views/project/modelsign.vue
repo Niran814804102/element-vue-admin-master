@@ -83,15 +83,12 @@
         filedata.append("file", this.$refs.jarinputer.files[0]);
         filedata.append('file', this.$refs.xmlinputer.files[0]);
         console.log(filedata.get('file'))
-        this.$axios({
-          method: "POST",
-          url: 'http://192.168.240.25:3000/dldsj/parallel/register',
-          data: filedata,
-          headers: {//设置跨域头
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }).then(function (response) {
-          alert(''.concat(response.data.code));
+        this.$axios.post(
+          // url: 'http://192.168.240.25:3000/dldsj/parallel/register',
+          'http://192.168.1.5:8080/dldsj/parallel/register',
+          filedata
+        ).then(function (response) {
+          alert(''.concat(response.code));
         }).catch(function (error) {
           alert(error);
         })

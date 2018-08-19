@@ -2,16 +2,22 @@
   <span style="z-index: 11">
     <!--左侧目录-->
     <div class="left col"  :class="{ collapse: isCollapse }">
-      <div class="header row " style="text-align: center" :style="{width: isCollapse?'64px':'auto'}">
-        <!--href可以设置点击左上角网站图标跳转的地方，当前默认跳转到ip:port/-->
-        <a v-if="!isCollapse" href="" style="color: white;size: 40px">
-          <i class="fa fa-rebel" style="color: #2d2f33"></i>
+      <div class="header row " style="text-align: center;height: 90px" :style="{width: isCollapse?'64px':'auto'}">
+        <a v-if="!isCollapse" href="https://github.com/TonyLuo/element-vue-admin" style="color: white;size: 40px">
+          <!--<i class="fa fa-rebel" style="color: #2d2f33"></i>-->
+          <v-avatar
+            size="65"
+            color="grey lighten-4"
+            style=""
+          >
+            <img src="../../static/img/sun.jpg" alt="avatar">
+          </v-avatar>
         </a>
         <span :class="[isCollapse ? 'text-alight-center' : 'floating-right']" @click="toggleClick">
             <i class="fa fa-bars" style="margin-left: -6px"  ></i>
         </span>
       </div>
-      <div class="body row scroll-y" style="top:40px">
+      <div class="body row scroll-y" style="top:90px">
         <sidebar :isCollapse="isCollapse" theme="dark"></sidebar>
       </div>
     </div>
@@ -27,6 +33,30 @@
     <alert-modal></alert-modal>
   </span>
 </template>
+
+<style>
+  @import "./layout/css/layout.css";
+  @import "../style/dark.theme.css";
+  /*@import "../styles/chalk.theme.css";*/
+
+  .el-header {
+    background-color: #B3C0D1;
+    color: #333;
+    line-height: 60px;
+  }
+
+  .el-aside {
+    color: #333;
+  }
+  .v-avatar{
+    top:10px;
+    box-shadow: 0 0 20px 3px hsla(0,0%,65%,.36),
+    0 0 10px 2px hsla(0,0%,82%,.23);
+    border-radius: 50%;
+  }
+
+</style>
+
 <script>
   import ceiling from './layout/ceiling.vue'
   import sidebar from './layout/sidebar.vue'

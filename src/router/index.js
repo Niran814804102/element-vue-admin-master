@@ -11,7 +11,7 @@ import Data3D from '../views/project/display3d.vue'
 
 import ModelCompute from '../views/project/modelcompute.vue'
 import DataView from '../views/appmanage/dataview.vue'
-import ModelSign from '../views/project/modelsign.vue'
+
 
 export const loginRouter = {
   path: '/login',
@@ -74,7 +74,7 @@ export const appRouter = [
       {
         meta: {
           title: '所有项目',
-          requireAuth: true
+          requireAuth: false
         },
         name: 'allProject',
         path: 'allProject',
@@ -141,16 +141,7 @@ export const appRouter = [
         icon: 'fa fa-eercast fa-lg',
         component: DataView
       },{
-        meta: {
-          title: '模型注册',
-          requireAuth: false
-        },
-        name: 'modelSign',
-        path: 'modelSign',
-        icon: 'fa fa-podcast fa-lg',
-        component: ModelSign
-      },{
-        meta: {
+        meta:{
           title: '模型计算',
           requireAuth: false
         },

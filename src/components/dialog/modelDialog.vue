@@ -1,8 +1,7 @@
 <template>
   <div>
     <el-dialog
-      :visible.sync="dialogVisible.v"
-      :close-on-click-modal="dialogVisible.clickModalClose">
+      :visible.sync="dialogVisible.v">
       <div v-show="visible">
         <v_myForm :form_list="Modelparams" ref="myForm"></v_myForm>
 
@@ -40,21 +39,22 @@
         jobName: '',
       }
     },
+    components: {
+      "v_myForm": myForm,
+    },
     methods: {
       initParallelModel() {
-        this.$axios({
-          method: "GET",
-          // params: {artifactId: this.artifactId},
+        let obj=this;
+        this.$axios.get(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/get/' + this.artifactId,
-          url:'../../../static/json/perModelData.json',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }).then((res) => {
-            this.Modelparams = JSON.parse(res.data.body.parameters);
+          'http://192.168.1.5:8080/dldsj/parallel/get/' + this.artifactId)
+          // '../../../static/json/perModelData.json')
+          .then((res) => {
+            this.Modelparams = JSON.parse(res.body.parameters);
           }
         ).catch(function (error) {
           console.log(error);
+          obj.$message.error('模型参数获取失败!');
         });
         this.visible = true;
         this.progressVisible = false;
@@ -70,55 +70,93 @@
         var obj = this;
         let modelparamData = {};
         modelparamData.user = "ubt";
-        let params = this.$refs.myForm.getData();
+        let params = this.$refs.myForm.getdata();
+        console.log(params)
         modelparamData.params = params;
         modelparamData.customname = params["1"];
-        this.$axios({
-          method: "POST",
-          url: 'http://192.168.240.25:3000/dldsj/parallel/use/' + this.artifactId,
-          data: JSON.stringify(modelparamData),
-          headers: {//设置跨域头
-            'Content-Type': 'application/json'
+        console.log(modelparamData)
+        this.$axios.post(
+          // url: 'http://192.168.240.25:3000/dldsj/parallel/use/' + this.artifactId,
+          'http://192.168.1.5:8080/dldsj/parallel/use/' + this.artifactId,JSON.stringify(modelparamData)
+        ).then(function (response) {
+          // alert(''.concat(response.data.code));
+          if(response.code=='200'){
+            obj.$message({
+              type: 'success',
+              message: '模型提交成功!请前往所有项目查看运行进度！'
+            });
           }
-        }).then(function (response) {
-          alert(''.concat(response.data.code));
-          obj.jobName = response.data.body;
+          // this.visible = false;
+          // this.progressVisible = true;
+          // obj.jobName = response.data.body;
+          // var superviseTimer = setInterval(function () {
+          //   obj.$axios({
+          //     method: "GET",
+          //     // url: 'http://192.168.240.25:3000/dldsj/parallel/monitor/' + obj.jobName,
+          //     url: 'http://192.168.1.5:8080/dldsj/parallel/monitor/' + obj.jobName,
+          //     headers: {//设置跨域头
+          //       'Content-Type': 'application/x-www-form-urlencoded'
+          //     }
+          //   }).then(function (response) {
+          //     // alert(''.concat(response.data.code));
+          //     if (response.data.code !== 200) {
+          //       clearInterval(superviseTimer);
+          //     } else {
+          //       obj.$refs.progress.percentage = response.data.body.progress;
+          //       if (response.data.body.state === "FINISHED") {
+          //         clearInterval(superviseTimer);
+          //         if (response.data.body.finalStatus === "SUCCEEDED") {
+          //           obj.$refs.download.disabled = false;
+          //           console.log(33333)
+          //           obj.$refs.progress.status = "success";
+          //           console.log(obj.status)
+          //         }
+          //       } else if (response.data.body.state === "KILLED") {
+          //         clearInterval(superviseTimer);
+          //         obj.$refs.progress.status = "exception";
+          //       }
+          //     }
+          //   }).catch(function (error) {
+          //     // alert(error);
+          //   })
+          // }, 5000);
         }).catch(function (error) {
-          alert(error);
-        });
+          obj.$message.error('模型提交失败!');
 
-        this.visible = false;
-        this.progressVisible = true;
-        var superviseTimer = setInterval(function () {
-          obj.$axios({
-            method: "GET",
-            url: 'http://192.168.240.25:3000/dldsj/parallel/monitor/' + obj.jobName,
-            headers: {//设置跨域头
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          }).then(function (response) {
-              // alert(''.concat(response.data.code));
-              if (response.data.code !== 200) {
-                clearInterval(superviseTimer);
-              } else {
-                obj.$refs.progress.percentage = response.data.body.progress;
-                if (response.data.body.state === "FINISHED") {
-                  clearInterval(superviseTimer);
-                  if (response.data.body.finalStatus === "SUCCEEDED") {
-                    obj.$refs.download.disabled = false;
-                    console.log(33333)
-                    obj.$refs.progress.status = "success";
-                    console.log(obj.status)
-                  }
-                } else if (response.data.body.state === "KILLED") {
-                  clearInterval(superviseTimer);
-                  obj.$refs.progress.status = "exception";
-                }
-              }
-          }).catch(function (error) {
-            // alert(error);
-          })
-        }, 5000);
+        });
+          this.dialogVisible.v= false;
+
+        // var superviseTimer = setInterval(function () {
+        //   obj.$axios({
+        //     method: "GET",
+        //     // url: 'http://192.168.240.25:3000/dldsj/parallel/monitor/' + obj.jobName,
+        //     url: 'http://192.168.1.5:3000/dldsj/parallel/monitor/' + obj.jobName,
+        //     headers: {//设置跨域头
+        //       'Content-Type': 'application/x-www-form-urlencoded'
+        //     }
+        //   }).then(function (response) {
+        //       // alert(''.concat(response.data.code));
+        //       if (response.data.code !== 200) {
+        //         clearInterval(superviseTimer);
+        //       } else {
+        //         obj.$refs.progress.percentage = response.data.body.progress;
+        //         if (response.data.body.state === "FINISHED") {
+        //           clearInterval(superviseTimer);
+        //           if (response.data.body.finalStatus === "SUCCEEDED") {
+        //             obj.$refs.download.disabled = false;
+        //             console.log(33333)
+        //             obj.$refs.progress.status = "success";
+        //             console.log(obj.status)
+        //           }
+        //         } else if (response.data.body.state === "KILLED") {
+        //           clearInterval(superviseTimer);
+        //           obj.$refs.progress.status = "exception";
+        //         }
+        //       }
+        //   }).catch(function (error) {
+        //     // alert(error);
+        //   })
+        // }, 5000);
       },
       download() {
         // this.$axios({
@@ -132,11 +170,8 @@
         // }).catch(function (error) {
         //   console.log(error);
         // });
-        window.open('http://192.168.240.25:3000/dldsj/parallel/result/download/' + this.jobName, 'blank');
+        window.open('http://192.168.1.5:8080/dldsj/parallel/result/download/' + this.jobName, 'blank');
       }
-    },
-    components: {
-      "v_myForm": myForm,
     },
     mounted() {
       vueEven.$on('pop', (dialogVisible, artificatId) => {
