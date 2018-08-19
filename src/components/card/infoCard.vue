@@ -18,7 +18,7 @@
         <div class="data-info-container">
           <div class="data-name">{{ card.title}}</div>
           <div class="data-count">{{ card.count }}</div>
-          <div class="data-date">{{ card.updatedate }}</div>
+          <div class="data-date">{{ lastUpdateTime}}</div>
         </div>
       </div>
       <div class="data-option">
@@ -61,6 +61,10 @@
       },
       favoriteTitle() {
         return this.card.isFavorite === "true" ? '取消收藏' : '添加收藏';
+      },
+      lastUpdateTime(){//时间数据可视化
+        return this.$date.formatTime(this.card.data.lastUpdateTime)
+      },
       }
     },
     watched: {
