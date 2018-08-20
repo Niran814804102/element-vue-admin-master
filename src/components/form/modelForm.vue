@@ -37,8 +37,13 @@
         }
         return data;
       },
+      // show() {
+      //   console.log(this.paramsFormData[0])
+      //   console.log(this.paramsFormData.length)
+      // },
       clearData() {
         this.paramsFormData = [];
+
       },
       // resetForm(formName) {
       //   this.$refs[formName].resetFields();
