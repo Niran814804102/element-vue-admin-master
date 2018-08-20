@@ -3,14 +3,16 @@ import Abstract from '../views/layout/abstract.vue'
 import PersonalData from '../views/home/personal_data.vue'
 import PublicData from '../views/home/public_data.vue'
 import Login from '../views/login.vue'
-import Table from '../views/table/table.vue'
-import AllProject from '../views/project/allproject.vue'
-import DataDisplay from '../views/project/datadisplay.vue'
-import DataExplore from '../views/project/dataexplore.vue'
-import Data3D from '../views/project/display3d.vue'
 
+import DataExplore from '../views/project/dataexplore.vue'
 import ModelCompute from '../views/project/modelcompute.vue'
-import DataView from '../views/appmanage/dataview.vue'
+import DataDisplay from '../views/project/datadisplay.vue'
+
+import AllProject from '../views/project/allproject.vue'
+import ModelProject from '../views/project/modelproject.vue'
+import DisplayProject from '../views/project/displayproject.vue'
+import ExploreProject from '../views/project/exploreproject.vue'
+import testDialog from '../../src/components/dialog/testDialog.vue'
 
 
 export const loginRouter = {
@@ -24,13 +26,6 @@ export const loginRouter = {
 }
 
 export const appRouter = [
-  // {
-  //   title: '地理所',
-  //   path: '/home',
-  //   name: 'home',
-  //   // icon: 'fa fa-home fa-lg',
-  //   component: Home
-  // },
   {
     meta: {
       title: '数据资源',
@@ -64,7 +59,56 @@ export const appRouter = [
   },
   {
     meta: {
-      title: '我的项目'
+      title: '应用功能'
+    },
+    name: 'appManage',
+    path: '/appManagement',
+    icon: 'fa fa-cubes fa-lg',
+    component: Abstract,
+    children: [
+      {
+        meta: {
+          title: '数据上图',
+          requireAuth: false
+        },
+        name: 'dataViewM',
+        path: 'dataViewM',
+        icon: 'fa fa-map fa-lg',
+        component: DataDisplay
+      },{
+        meta: {
+          title: '数据探索',
+          requireAuth: false
+        },
+        name: 'dataExplorerM',
+        path: 'dataExplorerM',
+        icon: 'fa fa-eercast fa-lg',
+        component: DataExplore
+      },{
+        meta:{
+          title: '模型计算',
+          requireAuth: false
+        },
+        name: 'Model',
+        path: 'Model',
+        icon: 'fa fa-life-ring fa-lg',
+        component: ModelCompute
+      },
+      {
+        meta: {
+          title: '数据编辑',
+          requireAuth: false
+        },
+        name: 'dataEditor',
+        path: 'dataEditor',
+        icon: 'fa fa-pencil-square-o fa-lg',
+        component: testDialog
+      },
+    ]
+  },
+  {
+    meta: {
+      title: '项目管理'
     },
     path: '/project',
     name: 'project',
@@ -83,123 +127,66 @@ export const appRouter = [
       },
       {
         meta: {
-          title: '数据上图',
-          requireAuth: true
+          title: '模型项目',
+          requireAuth: false
+        },
+        name: 'modelProject',
+        path: 'modelProject',
+        icon: 'fa fa-life-ring fa-lg',
+        component: ModelProject,
+      },
+      {
+        meta: {
+          title: '地图项目',
+          requireAuth: false
         },
         name: 'dataDisplay',
         path: 'dataDisplay',
         icon: 'fa fa-map fa-lg',
-        component: DataDisplay
+        component: DisplayProject
       },
       {
         meta: {
-          title: '数据探索',
-          requireAuth: true
+          title: '统计项目',
+          requireAuth: false
         },
         name: 'dataExplorer',
         path: 'dataExplorer',
         icon: 'fa fa-eercast fa-lg',
-        component: DataExplore
+        component: ExploreProject
       },
-      {
-        meta: {
-          title: '数据上图3D',
-          requireAuth: true
-        },
-        name: 'data3D',
-        path: 'data3D',
-        icon: 'fa fa-map-o fa-lg',
-        component: Data3D
-      }
     ]
   },
-  {
-    meta: {
-      title: '应用管理'
-    },
-    name: 'appManage',
-    path: '/appManagement',
-    icon: 'fa fa-cubes fa-lg',
-    component: Abstract,
-    children: [
-      {
-        meta: {
-          title: '数据上图',
-          requireAuth: false
-        },
-        name: 'dataViewM',
-        path: 'dataViewM',
-        icon: 'fa fa-map fa-lg',
-        component: DataView
-      },{
-        meta: {
-          title: '数据探索',
-          requireAuth: false
-        },
-        name: 'dataExplorerM',
-        path: 'dataExplorerM',
-        icon: 'fa fa-eercast fa-lg',
-        component: DataView
-      },{
-        meta:{
-          title: '模型计算',
-          requireAuth: false
-        },
-        name: 'Model',
-        path: 'Model',
-        icon: 'fa fa-life-ring fa-lg',
-        component: ModelCompute
-      },{
-        meta: {
-          title: '数据编辑',
-          requireAuth: false
-        },
-        name: 'dataEditor',
-        path: 'dataEditor',
-        icon: 'fa fa-pencil-square-o fa-lg',
-        component: DataView
-      },{
-        meta: {
-          title: '数据上图3D',
-          requireAuth: false
-        },
-        name: 'data3DM',
-        path: 'data3DM',
-        icon: 'fa fa-map-o fa-lg',
-        component: DataView
-      }
-    ]
-  },
-  {
-    meta: {
-      title: '程序开发'
-    },
-    name: 'developer',
-    path: '/developer',
-    icon: 'fa fa-life-ring fa-lg',
-    component: Abstract,
-    children: [
-      {
-        meta: {
-          title: '秘钥管理',
-          requireAuth: false
-        },
-        name: 'keyManegement',
-        path: 'keyManegement',
-        icon: 'fa fa-key fa-lg',
-        component: Table
-      },{
-        meta: {
-          title: '开发文档',
-          requireAuth: false
-        },
-        name: 'help',
-        path: 'help',
-        icon: 'fa fa-file-word-o fa-lg',
-        component: Table
-      }
-    ]
-  }
+  // {
+  //   meta: {
+  //     title: '程序开发'
+  //   },
+  //   name: 'developer',
+  //   path: '/developer',
+  //   icon: 'fa fa-life-ring fa-lg',
+  //   component: Abstract,
+  //   children: [
+  //     {
+  //       meta: {
+  //         title: '秘钥管理',
+  //         requireAuth: false
+  //       },
+  //       name: 'keyManegement',
+  //       path: 'keyManegement',
+  //       icon: 'fa fa-key fa-lg',
+  //       component: Table
+  //     },{
+  //       meta: {
+  //         title: '开发文档',
+  //         requireAuth: false
+  //       },
+  //       name: 'help',
+  //       path: 'help',
+  //       icon: 'fa fa-file-word-o fa-lg',
+  //       component: Table
+  //     }
+  //   ]
+  // }
 ]
 //TODO 修改不加路径时跳转的url地址
 export const mainRouter = {

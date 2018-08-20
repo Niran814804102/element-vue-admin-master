@@ -43,9 +43,9 @@
     methods: {
       getDataByUserID: function(){
         let that = this;
-        that.$axios.get('http://localhost:8090/AncientMap/getMapList.action', {
+        that.$axios.get('../../../static/json/personalData.json', {
           userid: sessionStorage.getItem("userid")
-        }).then(function(res){console.log(res);
+        }).then(function(res){console.log(res);that.cards=res;
         }).catch(function(err){console.log(err);})
       },
       setMapDialogParams: function(params){

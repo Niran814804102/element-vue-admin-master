@@ -4,24 +4,24 @@
       <el-input
         placeholder="请输入内容"
         prefix-icon="el-icon-search"
-        style="width:200px;float:left;margin-left: 10px">
+        style="width:200px;float:right;margin-right: 10px">
       </el-input>
-      <el-button
-        icon="el-icon-menu"
-        type="text"
-        style="float:right;padding:12px 0px;color:gray;margin-left:10px"
-        round
-        @click="showCardView()">
-        平铺
-      </el-button>
-      <el-button
-        icon="el-icon-tickets"
-        type="text"
-        style="float:right;padding:12px 0px;color:gray"
-        round
-        @click="showListView()">
-        列表
-      </el-button>
+      <!--<el-button-->
+        <!--icon="el-icon-menu"-->
+        <!--type="text"-->
+        <!--style="float:right;padding:12px 0px;color:gray;margin-left:10px"-->
+        <!--round-->
+        <!--@click="showCardView()">-->
+        <!--平铺-->
+      <!--</el-button>-->
+      <!--<el-button-->
+        <!--icon="el-icon-tickets"-->
+        <!--type="text"-->
+        <!--style="float:right;padding:12px 0px;color:gray"-->
+        <!--round-->
+        <!--@click="showListView()">-->
+        <!--列表-->
+      <!--</el-button>-->
     </el-row>
     <el-row>
       <v-container grid-list-xl text-xs-center>
@@ -73,12 +73,12 @@
       getAllProjects: function () {
         //TODO 数据查询及处理
         // this.$refs.allprojectTable.getProjectData();
-          let that = this;
-          that.$axios.get('../../../static/json/allprojectData.json', {
-            userid: sessionStorage.getItem("userid")
-          }).then(function(res){console.log(res);that.cards=res;
-          }).catch(function(err){console.log(err);})
-        },
+        let that = this;
+        that.$axios.get('../../../static/json/allprojectData.json', {
+          userid: sessionStorage.getItem("userid")
+        }).then(function(res){console.log(res);that.cards=res;
+        }).catch(function(err){console.log(err);})
+      },
     },
     mounted() {
       this.getAllProjects()

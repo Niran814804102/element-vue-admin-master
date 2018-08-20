@@ -18,7 +18,7 @@ import util from './util/util'
 import resource from './resource'
 import { routers } from './router'
 import Bus from './util/bus'
-import {get, patch, post, put} from './util/axios'
+import {get, patch, post, put, remove} from './util/axios'
 import {delCookie, getCookie, setCookie} from './util/cookie'
 
 Vue.use(VueRouter)
@@ -33,7 +33,8 @@ Vue.prototype.$axios = {
   get,
   post,
   patch,
-  put
+  put,
+  remove
 };//定义axios标签
 Vue.prototype.$cookie = {
   getCookie,

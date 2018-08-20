@@ -34,7 +34,6 @@
       return {
         xmlname: '',
         jarname: '',
-        // signVisible:true
       }
     },
     props:{
@@ -43,7 +42,7 @@
     methods: {
       xmlFileChange(e) {
         let inputDOM = this.$refs.xmlinputer;
-        console.log(inputDOM.files[0])
+        // console.log(inputDOM.files[0])
         // 通过DOM取文件数据
         this.file = inputDOM.files[0];
         this.errText = '';
@@ -62,7 +61,7 @@
       },
       jarFileChange(e) {
         let inputDOM = this.$refs.jarinputer;
-        console.log(inputDOM.files[0])
+        // console.log(inputDOM.files[0])
         // 通过DOM取文件数据
         this.file = inputDOM.files[0];
         this.errText = '';
@@ -86,21 +85,20 @@
         console.log(filedata.get('file'))
         this.signVisible.v=false;
         //注册框消失
+        obj.$message({
+          type: 'info',
+          message: '请稍候……'
+        });
         this.$axios.post(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/register',
           'http://192.168.1.5:8080/dldsj/parallel/register'
           ,filedata
         ).then(function (response) {
-          // alert(''.concat(response.data.code));
+
           if(response.code=="200"){
             obj.$message({
               type: 'success',
-              message: '模型注册成功!'
-            })
-          }else{
-            obj.$message({
-              type: 'warning',
-              message: '模型注册出错!'
+              message: '模型注册成功!请刷新列表'
             })
           }
           //判断是否注册成功进行弹窗

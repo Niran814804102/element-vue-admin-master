@@ -85,6 +85,17 @@ export function post(url, data = {}) {//params是添加到url中传参数，data
       })
   })
 }
+export function remove(url, data = {}) {//params是添加到url中传参数，data是添加到请求体中传参数
+  return new Promise((resolve, reject) => {
+    axios.delete(url, data)
+      .then(response => {
+        resolve(response.data);
+      }, err => {
+        reject(err);
+      })
+  })
+}
+
 
 /**
  * patch 方法封装
