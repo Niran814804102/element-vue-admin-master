@@ -4,14 +4,11 @@
     <!--<v-breadcrumbs-item :to="{ path: '/' }">首页</v-breadcrumbs-item>-->
     <v-breadcrumbs-item v-for="item in currentPath"
                         :to="item.name"
-                        :key="item.title">{{ item.title }}
+                        :key="item.meta.title">{{ item.meta.title }}
     </v-breadcrumbs-item>
   </v-breadcrumbs>
-
-
 </template>
 <style scoped>
-
 
 </style>
 <script>
@@ -26,6 +23,5 @@
         return this.$store.state.layout.currentPath.slice()
       }
     }
-
   }
 </script>
