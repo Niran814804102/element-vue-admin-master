@@ -4,8 +4,8 @@
       <v-card-media
         class="white--text"
         height="151px"
-        :src="card.url"
-        @click="openDataResourceOnMap()">
+        src="static/img/sun.jpg"
+        @click="getDataInfo()">
         <v-container fill-height fluid>
           <v-layout fill-height>
             <v-flex xs12 align-end flexbox>
@@ -16,17 +16,17 @@
       </v-card-media>
       <div class="data-info">
         <div class="data-info-container">
-          <div class="data-name">{{ card.title}}</div>
-          <div class="data-count">{{ card.count }}</div>
-          <div class="data-date">{{ card.updatedate }}</div>
+          <div class="data-name">{{ card.data.metaName }}</div>
+          <div class="data-count">{{ card.data.columnNum }}条记录</div>
+          <div class="data-date">{{ lastUpdateTime}}</div>
         </div>
       </div>
       <div class="data-option">
         <div class="data-icon">
-          <i title="数据预览" class="fa fa-table" aria-hidden="true"></i>
+          <i title="数据预览" class="fa fa-table" @click="previewData()" aria-hidden="true"></i>
         </div>
-        <div class="data-icon">
-          <i title="数据上图" class="fa fa-globe" aria-hidden="true"></i>
+        <div v-if="isLoadToMap" class="data-icon">
+          <i title="数据上图" class="fa fa-globe" @click="openDataResourceOnMap()" aria-hidden="true"></i>
         </div>
         <div class="data-icon">
           <i :title="favoriteTitle" :class="favoriteClass" @click="chanegeFavorites()" aria-hidden="true"></i>
@@ -40,13 +40,9 @@
 </template>
 
 <script>
-  import MapDialog from "../dialog/mapDialog";
-
   export default {
     name: "infoCard",
-    components: {
-      "map-dialog": MapDialog
-    },
+    components: {},
     props: {
       card: {type: Object, default: []}
     },
@@ -61,6 +57,12 @@
       },
       favoriteTitle() {
         return this.card.isFavorite === "true" ? '取消收藏' : '添加收藏';
+      },
+      lastUpdateTime(){//时间数据可视化
+        return this.$date.formatTime(this.card.data.lastUpdateTime)
+      },
+      isLoadToMap(){//判断是否可以数据上图
+        return !(this.card.data.geomFields == null || this.card.data.geomFields == "")
       }
     },
     watched: {
@@ -76,20 +78,18 @@
       mouseLeave() {
         this.itemHoverIndex = null;
       },
-      getUUIDByID(){
+      getUUIDByID() {
         let that = this;
-        this.$axios.patch('static/json/getUUIDByID.json',{
-          id : that.card.id
-        }).then(res=>{
-          window.clipboardData.setData('Text',res);
+        this.$axios.patch('static/json/getUUIDByID.json', {
+          id: that.card.id
+        }).then(res => {
+          window.clipboardData.setData('Text', res);
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "success",
             alertDescription: "数据UUID复制成功"
           })
-        }).catch(()=>{
+        }).catch(() => {
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "error",
             alertDescription: "数据UUID复制失败"
           })
@@ -106,7 +106,6 @@
           // if (res.data == "success") {
           this.card.isFavorite = "true";
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "success",
             alertDescription: "收藏成功"
           });
@@ -124,7 +123,6 @@
           // if (res.data == "success"){
           this.card.isFavorite = "false"
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "error",
             alertDescription: "收藏失败"
           })
@@ -137,18 +135,32 @@
       },
       //加载所点击的数据到地图上
       openDataResourceOnMap() {
-        this.$emit("mapDialogParams", {
-          dialogTitle: this.card.title,
-          dialogVisible: {
-            v: true,
-            clickModalClose: false
-          },
-          queryUrl: "static/json/projData/ylsj.json",
+        this.$Bus.$emit("mapDialogParams", {
+          title: this.card.data.metaName,
+          visible: true,
+          queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId + "/geojson",
           queryParams: {
-            "userid": "userid",
-            "proname": "proname"
+            offset: 0,
+            size: 100//TODO:需要设置分页
           }
         });
+      },
+      previewData() {//数据预览
+        this.$Bus.$emit("dataDialogParams", {
+          title: this.card.data.metaName,
+          visible: true,
+          queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId,
+          queryParams: {
+            offset: 0,
+            size: 100//TODO:需要设置分页
+          }
+        });
+      },
+      getDataInfo(){//查看数据基本信息
+        this.$Bus.$emit("dataInfoDialogParams", {
+          visible: true,
+          tableData: this.card
+        })
       }
     }
   }

@@ -58,7 +58,9 @@ const actions = {
 
     if (openedMenuList[0] && openedMenuList[0].name !== 'dataSource') {
       let currentNode = {
-        title: openedMenuList[0].title,
+        meta:{
+          title: openedMenuList[0].meta.title
+        },
         // breadcrumb should not show hyperlink if the current node is the parent node
         path: openedMenuList[0].children ? '' : openedMenuList[0].path,
         name: openedMenuList[0].name
@@ -130,7 +132,9 @@ const mutations = {
     state.pageOpenedList = [appRouter[0]]
     state.currentPath = [
       {
-        title: '首页',
+        meta:{
+          title: '首页'
+        },
         path: '',
         name: 'home_index'
       }

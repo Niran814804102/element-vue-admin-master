@@ -50,9 +50,6 @@
       checkRememberPwd: { required },
       checkAutoLogin: { required }
     },
-    props:{
-      formVisible:{ type: Boolean, default: true }
-    },
     data: () => ({
       name: '',
       password: '',
@@ -122,7 +119,6 @@
             }
             //弹窗提示登录成功
             that.$Bus.$emit("alertModalParams", {
-              alertVisible: true,
               alertType: "success",
               alertDescription: "用户" + "niran" + "登录成功"
               // alertDescription: "用户" + that.name + "登录成功"
@@ -140,7 +136,6 @@
           }
           else{
             that.$Bus.$emit("alertModalParams", {
-              alertVisible: true,
               alertType: "warning",
               alertDescription: "用户名或密码错误"
             });
@@ -149,7 +144,6 @@
             }) };
         }).catch(function(err){
           that.$Bus.$emit("alertModalParams", {
-            alertVisible: true,
             alertType: "error",
             alertDescription: err
           });

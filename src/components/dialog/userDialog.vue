@@ -7,7 +7,7 @@
       width="300px"
       top="4%"
     >
-      <user-form v-show="formVisible"></user-form>
+      <user-form></user-form>
     </el-dialog>
   </div>
 </template>
@@ -17,11 +17,7 @@
 
   export default {
     name: "userDialog",
-    data() {
-      return {
-        formVisible: true
-      }
-    },
+    data() {return {}},
     props: {
       dialogVisible: Object,
     },
