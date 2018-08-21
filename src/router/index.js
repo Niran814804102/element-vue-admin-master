@@ -12,7 +12,6 @@ import AllProject from '../views/project/allproject.vue'
 import ModelProject from '../views/project/modelproject.vue'
 import DisplayProject from '../views/project/displayproject.vue'
 import ExploreProject from '../views/project/exploreproject.vue'
-import testDialog from '../../src/components/dialog/testDialog.vue'
 
 
 export const loginRouter = {
@@ -93,16 +92,6 @@ export const appRouter = [
         path: 'Model',
         icon: 'fa fa-life-ring fa-lg',
         component: ModelCompute
-      },
-      {
-        meta: {
-          title: '数据编辑',
-          requireAuth: false
-        },
-        name: 'dataEditor',
-        path: 'dataEditor',
-        icon: 'fa fa-pencil-square-o fa-lg',
-        component: testDialog
       },
     ]
   },
