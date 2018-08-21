@@ -31,9 +31,9 @@
         <div class="data-icon">
           <i :title="favoriteTitle" :class="favoriteClass" @click="chanegeFavorites()" aria-hidden="true"></i>
         </div>
-        <div class="data-icon">
-          <i title="复制数据UUID" class="fa fa-files-o" @click="getUUIDByID()" aria-hidden="true"></i>
-        </div>
+        <!--<div class="data-icon">-->
+          <!--<i title="复制数据UUID" class="fa fa-files-o" @click="getUUIDByID()" aria-hidden="true"></i>-->
+        <!--</div>-->
       </div>
     </v-card>
   </div>
