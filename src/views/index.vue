@@ -10,7 +10,7 @@
             color="grey lighten-4"
             style=""
           >
-            <img src="../../static/img/sun.jpg" alt="avatar">
+            <img src="../assets/uulogo.png" alt="avatar">
           </v-avatar>
         </a>
         <span :class="[isCollapse ? 'text-alight-center' : 'floating-right']" @click="toggleClick">

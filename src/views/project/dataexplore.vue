@@ -6,22 +6,22 @@
       <i class="el-icon-circle-plus-outline"></i>
       新建项目
     </el-button>
-    <el-button
-      icon="el-icon-menu"
-      type="text"
-      style="float:right;padding:12px 0px;color:gray"
-      round
-      @click="showCardView()">
-      平铺
-    </el-button>
-    <el-button
-      icon="el-icon-tickets"
-      type="text"
-      style="float:right;padding:12px 0px;color:gray"
-      round
-      @click="showListView()">
-      列表
-    </el-button>
+    <!--<el-button-->
+      <!--icon="el-icon-menu"-->
+      <!--type="text"-->
+      <!--style="float:right;padding:12px 0px;color:gray"-->
+      <!--round-->
+      <!--@click="showCardView()">-->
+      <!--平铺-->
+    <!--</el-button>-->
+    <!--<el-button-->
+      <!--icon="el-icon-tickets"-->
+      <!--type="text"-->
+      <!--style="float:right;padding:12px 0px;color:gray"-->
+      <!--round-->
+      <!--@click="showListView()">-->
+      <!--列表-->
+    <!--</el-button>-->
     <el-input
       placeholder="请输入内容"
       prefix-icon="el-icon-search"

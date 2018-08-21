@@ -6,8 +6,8 @@
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
           <v-btn flat><i class="fa fa-user-circle-o fa-md"></i>&nbsp;个人中心</v-btn>
-          <v-btn flat><i class="fa fa-bell-o fa-md"></i>&nbsp;消息</v-btn>
-          <v-btn flat><i class="fa fa-question-circle-o fa-md"></i>&nbsp;帮助</v-btn>
+          <!--<v-btn flat><i class="fa fa-bell-o fa-md"></i>&nbsp;消息</v-btn>-->
+          <!--<v-btn flat><i class="fa fa-question-circle-o fa-md"></i>&nbsp;帮助</v-btn>-->
           <v-btn flat @click="userLogin()" v-show="!isUserLogin"><i class="fa fa-sign-in fa-md" style="color:#409EFF"></i>&nbsp;登录</v-btn>
           <v-btn flat @click="userLogout()" v-show="isUserLogin"><i class="fa fa-sign-out fa-md" style="color:#ff3135"></i>&nbsp;退出</v-btn>
         </v-toolbar-items>

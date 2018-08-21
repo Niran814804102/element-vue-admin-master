@@ -80,17 +80,28 @@
         this.dialogVisible.v = true;
         vueEven.$emit('pop', this.dialogVisible, this.artifactId);
       },
+
       deleteModel:function(){
+        let obj=this;
         this.$confirm('此操作将删除该模型, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           //post请求返回code 判断是否删除了该模型
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
+          obj.$axios.remove('http://192.168.1.5:8080/dldsj/parallel/unregister/'+obj.artifactId)
+            .then(function(response){
+              if(response.code===200) {
+                obj.$message({
+                  type: 'success',
+                  message: '删除成功'
+                });
+                obj.$emit('childRefresh')
+              }
+            }).catch(function (error) {
+            obj.$message.error("删除失败！")
+            console.log(error)
+          })
         }).catch(() => {
           this.$message({
             type: 'info',
