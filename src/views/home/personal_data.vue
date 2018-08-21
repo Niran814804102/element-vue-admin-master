@@ -39,11 +39,6 @@
     methods: {
       getDataByUserID: function(){
         let that = this;
-<<<<<<< HEAD
-        that.$axios.get('../../../static/json/personalData.json', {
-          userid: sessionStorage.getItem("userid")
-        }).then(function(res){console.log(res);that.cards=res;
-=======
         let offset = 0;
         let size = 100;
         that.$axios.get('http://192.168.1.5:8080/dldsj/user/data',
@@ -51,7 +46,6 @@
             size: size,
           }).then(function(res){
           that.cards = res.body;
->>>>>>> 2d2df2fb2099104b73add32a360a6e9860258e72
         }).catch(function(err){console.log(err);})
       }
     },

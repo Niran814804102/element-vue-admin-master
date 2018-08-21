@@ -3,12 +3,7 @@
     <el-dialog
       :visible.sync="dialogVisible.v">
       <div>
-        <v_myForm :form_list="Modelparams" ref="myForm"></v_myForm>
-
-        <span id="watch" slot="footer" class="dialog-footer">
-          <el-button type="success" @click="submit">提交</el-button>
-          <el-button type="primary" @click="reset">重置</el-button>
-        </span>
+        <v_myForm :form_list="Modelparams" :dialogVisible.sync="dialogVisible" :artifactId="artifactId" ref="myForm"></v_myForm>
       </div>
     </el-dialog>
   </div>
@@ -35,24 +30,25 @@
     },
     methods: {
       initParallelModel() {
+        this.Modelparams=[];
         let obj=this;
         this.$axios.get(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/get/' + this.artifactId,
           'http://192.168.1.5:8080/dldsj/parallel/get/' + this.artifactId)
-          // '../../../static/json/perModelData.json')
           .then((res) => {
-            this.Modelparams = JSON.parse(res.body.parameters);
+            let modelpara = [{"default":"default","datatype":"String","name":"任务名称","description":"一个SPARK任务的名称"}];
+            this.Modelparams = modelpara.concat(JSON.parse(res.body.parameters));
           }
         ).catch(function (error) {
           console.log(error);
           obj.$message.error('模型参数获取失败!');
         });
         if (this.$refs.myForm)
-          this.$refs.myForm.clearData();
-      },
+            this.$refs.myForm.reset();
+        },
       reset() {
         if (this.$refs.myForm)
-          this.$refs.myForm.clearData();
+          this.$refs.myForm.reset();
       },
       submit() {
         let obj = this;
@@ -68,7 +64,6 @@
           'http://192.168.1.5:8080/dldsj/parallel/use/' + this.artifactId,
           modelparamData
         ).then(function (response) {
-          // alert(''.concat(response.data.code));
           if(response.code=='200'){
             obj.$message({
               type: 'success',
@@ -80,23 +75,6 @@
         });
           this.dialogVisible.v= false;
       },
-
-
-
-      // download() {
-        // this.$axios({
-        //   method:"GET",
-        //   url:'http://192.168.240.25:3000/dldsj/parallel/result/download/'+this.jobName,
-        //   headers: {//设置跨域头
-        //     'Content-Type': 'application/x-www-form-urlencoded'
-        //   }
-        // }).then(function (response) {
-        //   console.log(''.concat(response.data.code));
-        // }).catch(function (error) {
-        //   console.log(error);
-        // });
-      //   window.open('http://192.168.1.5:8080/dldsj/parallel/result/download/' + this.jobName, 'blank');
-      // }
     },
     mounted() {
       vueEven.$on('pop', (dialogVisible, artificatId) => {

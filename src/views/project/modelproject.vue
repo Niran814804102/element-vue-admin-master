@@ -8,14 +8,14 @@
         circle
         @click="refresh()">
       </el-button>
-      <el-input
-        placeholder="请输入内容"
-        prefix-icon="el-icon-search"
-        style="width:200px;float:left;">
-      </el-input>
+      <!--<el-input-->
+        <!--placeholder="请输入内容"-->
+        <!--prefix-icon="el-icon-search"-->
+        <!--style="width:200px;float:left;">-->
+      <!--</el-input>-->
     </el-row>
     <el-row>
-      <allTable ref="allprojectTable">
+      <allTable ref="allprojectTable" v-on:childrefresh="refresh">
       </allTable>
     </el-row>
   </div>

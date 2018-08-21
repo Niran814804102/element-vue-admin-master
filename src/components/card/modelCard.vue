@@ -96,9 +96,11 @@
                   type: 'success',
                   message: '删除成功'
                 });
+                obj.$emit('childRefresh')
               }
             }).catch(function (error) {
             obj.$message.error("删除失败！")
+            console.log(error)
           })
         }).catch(() => {
           this.$message({

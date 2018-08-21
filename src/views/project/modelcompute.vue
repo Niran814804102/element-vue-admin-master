@@ -4,20 +4,20 @@
       <div id="tool">
         <el-button title="注册模型" type="primary" icon="el-icon-plus" circle @click="signDialog()"
         ></el-button>
-        <el-button title="列表刷新" type="primary" icon="el-icon-refresh" circle @click="refresh()"></el-button>
+        <el-button title="列表刷新" type="primary" icon="el-icon-refresh" circle @click="refresh()" ></el-button>
       </div>
     </el-row>
     <el-row>
         <v-container grid-list-xl text-xs-center>
           <v-layout row wrap>
             <v-flex xs12 sm6 md4 lg3 v-for="card in cards" :key="card.artifactId">
-              <v-modelCard :card="card"></v-modelCard>
+              <v-modelCard :card="card" v-on:childRefresh="refresh"></v-modelCard>
             </v-flex>
           </v-layout>
         </v-container>
     </el-row>
       <v-modelDialog></v-modelDialog>
-      <v-signDialog :sign-visible="signVisible"></v-signDialog>
+      <v-signDialog :sign-visible="signVisible" v-on:childRefresh="refresh"></v-signDialog>
   </div>
 
 </template>
@@ -76,7 +76,7 @@
     },
     mounted: function () {
       this.getModelData()
-    }
+    },
   }
 </script>
 
