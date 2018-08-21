@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import infoCard from '../../components/card/infoCard.vue'
+  import infoCard from '../../components/card/infoCard'
   import mapDialog from "../../components/dialog/mapDialog"
   import dataDialog from "../../components/dialog/dataDialog"
   import dataInfoDialog from "../../components/dialog/dataInfoDialog"
@@ -30,9 +30,6 @@
     data(){
       return {
         cards: null,
-        alertVisible: false,
-        alertType:"success",
-        alertDescription:"No description",
         pageProps: {
           pageSize: 12,
           currentPage: 1
@@ -54,7 +51,6 @@
         }
       }
     },
-    watch: {},
     methods: {
       getData: function(pageProps){
         let that = this;

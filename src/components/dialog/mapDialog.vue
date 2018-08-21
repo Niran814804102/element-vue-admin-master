@@ -29,8 +29,7 @@
         queryParams: null
       }
     },
-    mounted(){
-    },
+    mounted(){},
     methods: {
       //地图初始化
       map() {

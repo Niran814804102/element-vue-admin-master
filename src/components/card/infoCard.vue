@@ -65,7 +65,7 @@
         return !(this.card.data.geomFields == null || this.card.data.geomFields == "")
       }
     },
-    watched: {
+    watch: {
       isFavorite(newV, oldV) {
         this.favoriteClass = newV === "true" ? 'fa fa-star fa-star-full-yellow' : 'fa fa-star';
         this.favoriteTitle = newV === "true" ? '取消收藏' : '添加收藏';
