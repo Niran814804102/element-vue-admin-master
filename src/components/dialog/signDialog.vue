@@ -9,15 +9,22 @@
     <el-dialog title="注册并行模型" :visible.sync="signVisible.v" >
       <div class="selectfile">
         <el-input type="text" :value="xmlname"></el-input>
-        <input id="xmlid" name="file" type="file" @change="xmlFileChange" ref="xmlinputer">
+        <input id="xmlid" name="file" type="file" accept=".xml" @change="xmlFileChange" ref="xmlinputer">
         <label for="xmlid">
           <img src="../../assets/xml.jpg" alt="">
         </label>
       </div>
       <div class="selectfile">
         <el-input type="text" :value="jarname"></el-input>
-        <input id="jarid" name="file" type="file" @change="jarFileChange" ref="jarinputer">
+        <input id="jarid" name="file" type="file" accept=".jar" @change="jarFileChange" ref="jarinputer">
         <label for="jarid">
+          <img src="../../assets/jar.jpg" alt="">
+        </label>
+      </div>
+      <div class="selectfile">
+        <el-input type="text" :value="picname"></el-input>
+        <input id="picid" name="file" type="file" accept=".png,.jpg" @change="picFileChange" ref="picinputer">
+        <label for="picid">
           <img src="../../assets/jar.jpg" alt="">
         </label>
       </div>
@@ -37,7 +44,8 @@
       return {
         xmlname: '',
         jarname: '',
-        load:false
+        picname: '',
+        load: false
       }
     },
     props:{
@@ -45,79 +53,69 @@
     },
     methods: {
       xmlFileChange(e) {
-        let inputDOM = this.$refs.xmlinputer;
-        // console.log(inputDOM.files[0])
-        // 通过DOM取文件数据
-        this.file = inputDOM.files[0];
-        this.errText = '';
-
-
-        // 触发这个组件对象的input事件
-        this.$emit('input', this.file);
-
+        if (e.target.files.length > 0)
         // 这里就可以获取到文件的名字了
-        this.fileName = this.file.name;
-        this.xmlname = this.fileName;
-
-        //这里加个回调也是可以的
-        // this.onChange && this.onChange(this.file, inputDOM.value);
-
+          this.xmlname = e.target.files[0].name;
       },
       jarFileChange(e) {
-        let inputDOM = this.$refs.jarinputer;
-        // console.log(inputDOM.files[0])
-        // 通过DOM取文件数据
-        this.file = inputDOM.files[0];
-        this.errText = '';
-
-
-        // 触发这个组件对象的input事件
-        this.$emit('input', this.file);
-
+        if (e.target.files.length > 0)
         // 这里就可以获取到文件的名字了
-        this.fileName = this.file.name;
-        this.jarname = this.fileName;
-
-        // 这里加个回调也是可以的
-        this.onChange && this.onChange(this.file, inputDOM.value);
+          this.jarname = e.target.files[0].name;
+      },
+      picFileChange(e) {
+        if (e.target.files.length > 0)
+        // 这里就可以获取到文件的名字了
+          this.picname = e.target.files[0].name;
       },
       submitfile() {
-        var obj=this;
+        let obj = this;
         let filedata = new FormData();
         filedata.append("file", this.$refs.jarinputer.files[0]);
         filedata.append('file', this.$refs.xmlinputer.files[0]);
+        filedata.append('file', this.$refs.picinputer.files[0]);
         console.log(filedata.get('file'))
         this.signVisible.v=false;
         //注册框消失
         obj.$message({
           type: 'info',
-          message: '请稍候……'
+          message: '请稍候……',
+          duration: 1000
         });
-        this.load=true;
+        this.load = true;
         this.$axios.post(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/register',
           'http://192.168.1.5:8080/dldsj/parallel/register'
-          ,filedata
+          , filedata
         ).then(function (response) {
-          obj.load=false;
-          if(response.code=="200"){
+          obj.load = false;
+          if (response.code === 200) {
             obj.$emit('childRefresh')
             obj.$message({
               type: 'success',
               message: '模型注册成功!'
             })
+          } else {
+            obj.$message.error('模型注册失败!');
           }
           //判断是否注册成功进行弹窗
         }).catch(function (error) {
           obj.$message.error('模型注册失败!');
         });
-        obj.xmlname='';
-        obj.jarname='';
+        obj.xmlname = '';
+        obj.jarname = '';
+        obj.picname = '';
+        obj.$refs.xmlinputer.value = '';
+        obj.$refs.jarinputer.value = '';
+        obj.$refs.picinputer.value = '';
       },
-      cancle(){
-        this.xmlname='';
-        this.jarname='';
-        this.signVisible.v=false;
+      cancle() {
+        this.xmlname = '';
+        this.jarname = '';
+        this.picname = '';
+        this.$refs.xmlinputer.value = '';
+        this.$refs.jarinputer.value = '';
+        this.$refs.picinputer.value = '';
+        this.signVisible.v = false;
       }
     }
   }
