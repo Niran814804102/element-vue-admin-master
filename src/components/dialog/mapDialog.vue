@@ -7,14 +7,19 @@
       top="4%"
       @open="map()">
       <div id="tdtmap" ref="tdtmap" class="map-div"></div>
+      <feature-popover ref="featurePopover"></feature-popover>
     </el-dialog>
   </div>
 </template>
 <script>
   import "../../../static/js/ol-debug.js";
+  import featurePopover from "../popover/featurePopover.vue"
 
   export default {
     name: "map-dialog",
+    components: {
+      "feature-popover": featurePopover
+    },
     data(){
       return {
         tdtmap: null,
@@ -30,12 +35,13 @@
       //地图初始化
       map() {
         this.$nextTick(function(){
-          this.$refs.tdtmap.innerText=null
+          let that = this;
+          that.$refs.tdtmap.innerText=null
           // let tdtSource = new ol.source.XYZ({
           //   url: 'http://202.121.180.59/tianditu/tdt/{z}/{y}/{x}.jpg'
           // })
           //Map初始化
-          this.tdtmap = new ol.Map({
+          that.tdtmap = new ol.Map({
             target: 'tdtmap',
             layers: [
               new ol.layer.Tile({
@@ -50,38 +56,67 @@
               maxZoom: 18
             }),
             controls: ol.control.defaults().extend([
-              new ol.control.Zoom(),
-              new ol.control.ZoomSlider(),
-              new ol.control.ScaleLine(),
-              new ol.control.ZoomToExtent(),
-              new ol.control.FullScreen(),
+              new ol.control.OverviewMap({
+                collapseLabel: "",
+                collapsed: false,
+                className: 'custom-overview-map'
+              }),
+              new ol.control.ZoomSlider({className: 'custom-zoom-slider'}),
+              new ol.control.ScaleLine({units:'metric'}),
+              new ol.control.FullScreen({className: 'custom-fullscreen'}),
               new ol.control.MousePosition({
                 coordinateFormat: ol.coordinate.createStringXY(4),
                 projection: 'EPSG:4326',
-                className: 'custom-mouse-position',
-                target: document.getElementById('mouse-position')
+                className: 'custom-mouse-position'
               })
             ]),
             logo : false
           });
-          this.addMapData();
-          // this.tdtmap.on('click', function(evt) {
-          //   var pixel = this.tdtmap.getEventPixel(evt.originalEvent);
-          //   var feature =this.tdtmap.forEachFeatureAtPixel(pixel, function(feature, layer) {
-          //     return feature;
-          //   });
-          //   var coordinate = evt.coordinate;
-          //   var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(
-          //     coordinate, 'EPSG:3857', 'EPSG:4326'));
-          //   if(feature !== undefined){
-          //     content.innerHTML = '<p>你点击的坐标是：</p><code>' + hdms + '</code><p>这里属于：'+ feature.get('name') + '</p>';
-          //   }
-          //   else{
-          //     content.innerHTML = '<p>你点击的坐标是：</p><code>' + hdms + '</code><p>这里是大海！</p>';
-          //   }
-          //   overlay.setPosition(coordinate);
-          //   map.addOverlay(overlay);
-          // });
+          let vectorLayer = that.addMapData();
+          let popup = new ol.Overlay({
+            element: that.$refs.featurePopover.$el
+          });
+          that.tdtmap.on('pointermove',function(e) {
+            let pixel = that.tdtmap.getEventPixel(e.originalEvent);
+            let feature = undefined;
+            feature = that.tdtmap.forEachFeatureAtPixel(pixel, function (feature) {
+              return feature;
+            }, 0, function(layer) {
+              return layer === vectorLayer;
+            });
+            if (!feature) {
+              that.tdtmap.getTargetElement().style.cursor = "auto"
+            } else {
+              that.tdtmap.getTargetElement().style.cursor = "pointer";
+            }
+          });
+          that.tdtmap.on('click', function(e) {
+            that.tdtmap.removeOverlay(popup);
+            let pixel = that.tdtmap.getEventPixel(e.originalEvent);
+            let feature = undefined;
+            feature = that.tdtmap.forEachFeatureAtPixel(pixel, function(feature) {
+              return feature;
+            }, 0, function(layer) {
+              return layer === vectorLayer;
+            });
+            if(feature){
+              let coordinate = e.coordinate;
+              popup.setPosition(coordinate);
+              that.tdtmap.addOverlay(popup);
+              that.$Bus.$emit("featurePopoverParams",{
+                featureParams: feature.values_,
+                geometry: feature.getGeometry().getType(),
+                visible: true
+              });
+            }
+            else{
+              that.$Bus.$emit("featurePopoverParams",{
+                featureParams: [],
+                geometry: null,
+                visible: true
+              });
+            }
+          });
         })
       },
       //向地图上添加数据
@@ -100,14 +135,19 @@
                 }),
                 style: that.styleInit
               });
-              that.tdtmap.getView().fit(ol.proj.transformExtent(res.body.bbox, 'EPSG:4326', 'EPSG:3857'), that.tdtmap.getSize());
+              let extent = ol.proj.transformExtent(res.body.bbox, 'EPSG:4326', 'EPSG:3857');
+              that.tdtmap.getView().fit(extent, that.tdtmap.getSize());//视图更新到当前图层的bbox
+              that.tdtmap.addControl(new ol.control.ZoomToExtent({extent: extent}));//增加缩放到当前图层控件
               that.tdtmap.addLayer(vectorLayer);
+              return vectorLayer;
             }
-            else
+            else {
               that.$Bus.$emit("alertModalParams", {
                 alertType: "warning",
                 alertDescription: "该数据为空"
-              })
+              });
+              return null;
+            }
           }).catch(function(err){ console.log(err)})
       },
       //自定义图层样式
@@ -147,7 +187,7 @@
               width: 1
             }),
             fill: new ol.style.Fill({
-              color: 'rgba(255, 255, 0, 0.1)'
+              color: 'rgba(255, 255, 0, 0.5)'
             })
           }),
           'Polygon': new ol.style.Style({
@@ -201,6 +241,7 @@
   }
 </script>
 <style>
+  @import "../../../static/css/ol-debug.css";
   .el-dialog__body {
     height: 95%;
     padding: 0px 20px 20px 20px;
@@ -220,7 +261,31 @@
     color: black;
     font-size: medium;
   }
-  .map-div{
-    height: 800px;
+  .custom-zoom-slider{
+    top: 4.5em;
+    left: .5em;
+    height: 200px;
+    background: rgb(255, 255, 255);
   }
+  .custom-overview-map{
+    bottom: 2em;
+    right: .5em;
+    padding: .5em;
+    background: white;
+  }
+  .custom-fullscreen{
+    right: .5em;
+    top: 2em;
+  }
+  .map-div{
+    height: 600px;
+  }
+  .custom-basemap-card{
+    position: absolute;
+    top: 7em;
+    right: 2em;
+  }
+  /*.ol-control button{*/
+    /*!*display: none;*!*/
+  /*}*/
 </style>
