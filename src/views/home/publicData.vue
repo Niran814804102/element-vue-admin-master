@@ -66,7 +66,6 @@
     created(){
       this.$Bus.$on("pageSize", (params)=>{this.pageProps.pageSize = params;});
       this.$Bus.$on("currentPage", (params)=>{this.pageProps.currentPage = params;});
-
     },
     mounted: function(){
       this.getData(this.pageProps);

@@ -18,8 +18,6 @@
       <model-project-table ref="allprojectTable" v-on:childrefresh="refresh">
       </model-project-table>
     </el-row>
-    <!--<div class="custom-data-pagination">-->
-      <!--<data-pagination></data-pagination>-->
     <!--</div>-->
     <map-dialog></map-dialog>
     <data-dialog></data-dialog>
@@ -36,24 +34,10 @@
     name: 'modelProject',
     components: {
       "model-project-table": modelprojectTable,
-      "map-dialog": mapDialog,
-      "data-dialog": dataDialog,
-      "data-pagination": dataPagination
     },
     data() {
       return {
-        pageProps: {
-          pageSize: 12,
-          currentPage: 1
-        }
-      }
-    },
-    watch: {
-      pageProps:{
-        deep: true,
-        handler(val, oldVal){
-          this.refresh();
-        }
+
       }
     },
     methods: {
@@ -71,10 +55,6 @@
         this.$refs.allprojectTable.task=[];
         this.$refs.allprojectTable.getProjectData();
       }
-    },
-    created(){
-      this.$Bus.$on("pageSize", (params)=>{this.pageProps.pageSize = params;});
-      this.$Bus.$on("currentPage", (params)=>{this.pageProps.currentPage = params;});
     },
     mounted() {
       this.getAllProjects()

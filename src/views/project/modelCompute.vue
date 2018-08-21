@@ -16,8 +16,8 @@
           </v-layout>
         </v-container>
     </el-row>
-      <v-modelDialog></v-modelDialog>
-      <v-signDialog :sign-visible="signVisible" v-on:childRefresh="refresh"></v-signDialog>
+    <v-modelDialog></v-modelDialog>
+    <v-signDialog :sign-visible="signVisible" v-on:childRefresh="refresh"></v-signDialog>
   </div>
 
 </template>

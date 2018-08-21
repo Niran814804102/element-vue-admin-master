@@ -92,23 +92,12 @@
 </template>
 
 <script>
-  import MapDialog from "../dialog/mapDialog";
-  import date from "../../util/date.js";
 
   export default {
-    name: "proTable",
-    components: {
-      "map-dialog": MapDialog,
-    },
+    name: "modelprojectTable",
+    components: {},
     data() {
       return {
-        dialogVisible: {
-          v: false,
-          clickModalClose: false//模态框是否显示
-        },
-        dialogTitle: "",
-        queryUrl: "",
-        queryParams: null,
         task: [],
         // btnVisible:false
       }

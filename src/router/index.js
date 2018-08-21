@@ -1,18 +1,17 @@
 import Main from '../views/index.vue'
 import Abstract from '../views/layout/abstract.vue'
-import PersonalData from '../views/home/personal_data.vue'
-import PublicData from '../views/home/public_data.vue'
+import PersonalData from '../views/home/personalData.vue'
+import PublicData from '../views/home/publicData.vue'
 import Login from '../views/login.vue'
 
-import DataExplore from '../views/project/dataexplore.vue'
-import ModelCompute from '../views/project/modelcompute.vue'
-import DataDisplay from '../views/project/datadisplay.vue'
+import DataExplore from '../views/project/dataExplore.vue'
+import ModelCompute from '../views/project/modelCompute.vue'
+import DataDisplay from '../views/project/dataDisplay.vue'
 
-import AllProject from '../views/project/allproject.vue'
-import ModelProject from '../views/project/modelproject.vue'
-import DisplayProject from '../views/project/displayproject.vue'
-import ExploreProject from '../views/project/exploreproject.vue'
-import testDialog from '../../src/components/dialog/testDialog.vue'
+import AllProject from '../views/project/allProject.vue'
+import ModelProject from '../views/project/modelProject.vue'
+import DisplayProject from '../views/project/displayProject.vue'
+import ExploreProject from '../views/project/exploreProject.vue'
 
 
 export const loginRouter = {
@@ -93,17 +92,7 @@ export const appRouter = [
         path: 'Model',
         icon: 'fa fa-life-ring fa-lg',
         component: ModelCompute
-      },
-      {
-        meta: {
-          title: '数据编辑',
-          requireAuth: false
-        },
-        name: 'dataEditor',
-        path: 'dataEditor',
-        icon: 'fa fa-pencil-square-o fa-lg',
-        component: testDialog
-      },
+      }
     ]
   },
   {
