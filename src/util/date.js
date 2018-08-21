@@ -14,7 +14,7 @@ export function formatTime(value){
   let seconds = padDate(date.getSeconds());
   return year+'-'+month+'-'+day+' '+hour+':'+minutes+':'+seconds;
 }
-export function dateFormat(time, format =  'yyyy-MM-dd HH-mm-ss') {
+export function dateFormat(time, format =  'yyyy-MM-dd HH:mm:ss') {
   let t = new Date(time);
   let tf = function (i) {
     return (i < 10 ? '0' : '') + i

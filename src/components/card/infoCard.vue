@@ -31,9 +31,9 @@
         <div class="data-icon">
           <i :title="favoriteTitle" :class="favoriteClass" @click="chanegeFavorites()" aria-hidden="true"></i>
         </div>
-        <div class="data-icon">
-          <i title="复制数据UUID" class="fa fa-files-o" @click="getUUIDByID()" aria-hidden="true"></i>
-        </div>
+        <!--<div class="data-icon">-->
+          <!--<i title="复制数据UUID" class="fa fa-files-o" @click="getUUIDByID()" aria-hidden="true"></i>-->
+        <!--</div>-->
       </div>
     </v-card>
   </div>
@@ -65,7 +65,7 @@
         return !(this.card.data.geomFields == null || this.card.data.geomFields == "")
       }
     },
-    watched: {
+    watch: {
       isFavorite(newV, oldV) {
         this.favoriteClass = newV === "true" ? 'fa fa-star fa-star-full-yellow' : 'fa fa-star';
         this.favoriteTitle = newV === "true" ? '取消收藏' : '添加收藏';
@@ -141,7 +141,7 @@
           queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId + "/geojson",
           queryParams: {
             offset: 0,
-            size: 100//TODO:需要设置分页
+            size: 100//TODO:需要设置分页,注意offset要乘以size
           }
         });
       },
@@ -152,7 +152,7 @@
           queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId,
           queryParams: {
             offset: 0,
-            size: 100//TODO:需要设置分页
+            size: 100//TODO:需要设置分页,注意offset要乘以size
           }
         });
       },
@@ -174,7 +174,7 @@
   .card-container {
     margin-left: 25px;
     /*padding: 5px 10px 5px 10px;*/
-    width: 240px;
+    width: 260px;
   }
   .data-info {
     height: 69px;

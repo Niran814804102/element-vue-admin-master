@@ -3,6 +3,8 @@
     <el-table
       :data="dataInfo"
       style="width: 100%"
+      :row-style="{ height:'0' }"
+      :cell-style="{ padding:'5px' }"
       max-height="750"
       stripe
       border
@@ -10,11 +12,13 @@
       :header-cell-style="{ background: '#f0f9eb' }">
       <el-table-column
         prop="proName"
-        label="属性名称">
+        label="属性名称"
+        align="center" header-align="center" >
       </el-table-column>
       <el-table-column
         prop="proValue"
-        label="属性值">
+        label="属性值"
+        align="center" header-align="center" >
       </el-table-column>
     </el-table>
   </div>
@@ -32,22 +36,12 @@
     },
     computed:{
       dataInfo(){//获取数据信息，并进行数据格式化——时间和空数据
-        let dataInfoTmp = [];
-        let data = this.tableData.data;
-        let visit = this.tableData.visit;
-        for (let key in data){
-          dataInfoTmp.push({
-            proName: key,
-            proValue: data[key] == "" ? "暂无数据" : (key.indexOf("Time") != -1 ? this.$date.dateFormat(data[key]): data[key])
-          })
+        let dataInfoTmp = []
+        if(this.tableData){
+          this.pushDataFromObject(this.tableData, dataInfoTmp);
+          return dataInfoTmp;
         }
-        for (let key in visit){
-          dataInfoTmp.push({
-            proName: key,
-            proValue: visit[key] == "" ? "暂无数据" : (key.indexOf("Time") != -1 ? this.$date.dateFormat(visit[key]): visit[key])
-          })
-        }
-        return dataInfoTmp;
+        return null;
       }
     },
     methods: {
@@ -56,6 +50,25 @@
           return 'warning-row';
         } else {
           return 'success-row';
+        }
+      },
+      pushDataFromObject(obj, data){
+        for (let key in obj) {
+          if (typeof obj[key] == "object")
+            this.pushDataFromObject(obj[key], data);//迭代遍历object里的object属性
+          else{
+            let value = ( !obj[key] || obj[key] == "" ) ? "暂无数据": obj[key];
+            if (key == "geometry")
+              value = "Point";
+
+            if (key.toLowerCase().indexOf("time") != -1) {
+              value = this.$date.dateFormat(parseInt(value));
+            }
+            data.push({
+              proName: key,
+              proValue: value
+            })
+          }
         }
       }
     }

@@ -3,7 +3,7 @@
     <el-dialog
       :title="title"
       :visible.sync="visible"
-      width="50%"
+      width="400px"
       top="4%"
     >
       <data-info-table :tableData="tableData"></data-info-table>

@@ -86,7 +86,6 @@
   }
 </script>
 <style>
-  /*@import "../../../static/css/ol-debug.css";*/
   .el-dialog__body {
     padding: 0px 20px 20px 20px;
   }
