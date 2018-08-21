@@ -48,7 +48,7 @@
           <el-button
             title="结果预览"
             :disabled="scope.row.view"
-            @click="viewData(scope.$index, scope.row)"
+            @click="previewData(scope.$index, scope.row)"
             type="text">
             <i class="fa fa-table"></i>
           </el-button>
@@ -56,7 +56,7 @@
             title="结果上图"
             v-show="scope.row.btnVisible"
             :disabled="scope.row.map"
-            @click="viewData(scope.$index, scope.row)"
+            @click="openDataResourceOnMap(scope.$index, scope.row)"
             type="text">
             <i class="fa fa-globe"></i>
           </el-button>
@@ -77,17 +77,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      style="padding-top: 20px"
-      align="center"
-      background
-      layout="prev, pager, next"
-      :total="1000">
-    </el-pagination>
-    <map-dialog ref="mapdialog"
-                :dialog-visible="dialogVisible" :dialog-title="dialogTitle" :query-url="queryUrl"
-                :query-params="queryParams">
-    </map-dialog>
   </div>
 </template>
 
@@ -139,9 +128,6 @@
       download(index, rows) {
         //下载数据
         window.open('http://192.168.1.5:8080/dldsj/parallel/result/download/' + rows.applicationId, 'blank');
-      },
-      viewData() {
-
       },
       getProjectData() {
         let obj = this;
@@ -229,6 +215,29 @@
             }
           }).catch(function (error) {
           obj.$message.error('获取项目数据失败!');
+        });
+      },
+      //加载所点击的数据到地图上
+      openDataResourceOnMap(index, row) {
+        this.$Bus.$emit("mapDialogParams", {
+          title: row.remarks,
+          visible: true,
+          queryUrl: "http://192.168.1.5:8080/dldsj/parallel/result/preview/"+ row.applicationId + "/geojson",
+          queryParams: {
+            offset: 0,
+            size: 100//TODO:需要设置分页,注意offset要乘以size
+          }
+        });
+      },
+      previewData(index, row) {
+        this.$Bus.$emit("dataDialogParams", {
+          title: row.remarks,
+          visible: true,
+          queryUrl: "http://192.168.1.5:8080/dldsj/parallel/result/preview/"+ row.applicationId,
+          queryParams: {
+            offset: 0,
+            size: 100//TODO:需要设置分页,注意offset要乘以size
+          }
         });
       }
     },
