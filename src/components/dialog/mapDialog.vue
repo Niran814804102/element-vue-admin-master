@@ -59,7 +59,7 @@
             }),
             controls: ol.control.defaults().extend([
               new ol.control.OverviewMap({
-                collapseLabel: "",
+                collapsible: false,
                 collapsed: false,
                 className: 'custom-overview-map'
               }),
@@ -74,6 +74,8 @@
             ]),
             logo : false
           });
+          //去掉鹰眼的放大缩小按钮
+          that.tdtmap.controls.array_[3].element.lastElementChild.style.display = "none";
           let vectorLayer = that.addMapData();
           let popup = new ol.Overlay({
             element: that.$refs.featurePopover.$el
@@ -163,18 +165,8 @@
               })
             })
           }),
-          'LineString': new ol.style.Style({
-            stroke: new ol.style.Stroke({
-              color: 'green',
-              width: 1
-            })
-          }),
-          'MultiLineString': new ol.style.Style({
-            stroke: new ol.style.Stroke({
-              color: 'green',
-              width: 1
-            })
-          }),
+          'LineString': this.lineStyle(feature),
+          'MultiLineString': this.lineStyle(feature),
           'MultiPoint': new ol.style.Style({
             fill: new ol.style.Fill({color:'#e6a299'}), //填充
             stroke: new ol.style.Stroke({
@@ -229,6 +221,44 @@
           })
         };
         return styles[feature.getGeometry().getType()];
+      },
+      //线样式编辑器
+      lineStyle(feature){
+        var geometry = feature.getGeometry();
+        var styles = [
+          new ol.style.Style({
+            fill: new ol.style.Fill({
+              color: '#ff9f64'
+            }),
+            stroke: new ol.style.Stroke({
+              width: 3,
+              color: [255, 0, 0, 1]
+            })
+          })
+        ];
+        geometry.forEachSegment(function(start, end) {
+          let endLonLat = [end[0],end[1]];
+          let startLonLat = [start[0],start[1]];
+          styles.push(new ol.style.Style({
+            geometry: new ol.geom.Point(endLonLat),
+            image: new ol.style.Circle({
+              radius: 5,
+              fill: new ol.style.Fill({
+                color: '#5ca1d7'
+              })
+            })
+          }));
+          styles.push(new ol.style.Style({
+            geometry: new ol.geom.Point(startLonLat),
+            image: new ol.style.Circle({
+              radius: 5,
+              fill: new ol.style.Fill({
+                color: '#5ca1d7'
+              })
+            })
+          }));
+        });
+        return styles;
       }
     },
     created(){
@@ -270,10 +300,14 @@
     background: rgb(255, 255, 255);
   }
   .custom-overview-map{
-    bottom: 2em;
+    bottom: 2.4em;
     right: .5em;
     padding: .5em;
     background: white;
+    width: 20%
+  }
+  .custom-overview-map>.ol-control button{
+    display: none;
   }
   .custom-fullscreen{
     right: .5em;
