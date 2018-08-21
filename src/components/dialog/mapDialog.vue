@@ -7,17 +7,20 @@
       top="4%"
       @open="map()">
       <div id="tdtmap" ref="tdtmap" class="map-div"></div>
+      <basemap-card class="custom-basemap-card"></basemap-card>
       <feature-popover ref="featurePopover"></feature-popover>
     </el-dialog>
   </div>
 </template>
 <script>
   import "../../../static/js/ol-debug.js";
+  import basemapCard from "../card/basemapCard.vue"
   import featurePopover from "../popover/featurePopover.vue"
 
   export default {
     name: "map-dialog",
     components: {
+      "basemap-card": basemapCard,
       "feature-popover": featurePopover
     },
     data(){
