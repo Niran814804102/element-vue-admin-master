@@ -3,7 +3,9 @@
     <el-table
       :data="tableDataFormat"
       style="width: 100%"
-      max-height="750"
+      :row-style="{ height:'0' }"
+      :cell-style="{ padding:'5px' }"
+      max-height="500"
       stripe
       border
       highlight-current-row
