@@ -141,7 +141,7 @@
           queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId + "/geojson",
           queryParams: {
             offset: 0,
-            size: 100//TODO:需要设置分页
+            size: 100//TODO:需要设置分页,注意offset要乘以size
           }
         });
       },
@@ -152,7 +152,7 @@
           queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId,
           queryParams: {
             offset: 0,
-            size: 100//TODO:需要设置分页
+            size: 100//TODO:需要设置分页,注意offset要乘以size
           }
         });
       },
@@ -174,7 +174,7 @@
   .card-container {
     margin-left: 25px;
     /*padding: 5px 10px 5px 10px;*/
-    width: 240px;
+    width: 260px;
   }
   .data-info {
     height: 69px;
