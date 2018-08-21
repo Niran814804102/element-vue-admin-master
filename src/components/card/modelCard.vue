@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div slot="activator" class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()"  :class="{itemHover:itemHoverIndex==1}">
+    <div slot="activator" class="card-container" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()"
+         :class="{itemHover:itemHoverIndex==1}">
       <v-card height="220px">
         <v-card-media
           class="white--text"
           @click="editRow(card.artifactId)"
-          height="151px"
-          :src="card.url">
+          height="70%"
+          width="auto"
+          :src="card.picPath">
           <v-container fill-height fluid>
             <v-layout fill-height>
               <v-flex xs12 align-end flexbox>
@@ -28,7 +30,7 @@
               <i title="模型简介" class="fa fa-info-circle" aria-hidden="true"></i>
             </el-tooltip>
           </div>
-          <div class="data-icon" id="delete" @click="deleteModel()">
+          <div class="data-icon" id="delete" content="删除模型" @click="deleteModel()">
             <i class="fa fa-trash" aria-hidden="true"></i>
           </div>
         </div>
@@ -56,7 +58,9 @@
       }
     },
     computed: {
-      artifactId(){ return this.card.artifactId;}
+      artifactId() {
+        return this.card.artifactId;
+      }
     },
     methods: {
       mouseEnter() {
@@ -81,17 +85,17 @@
         vueEven.$emit('pop', this.dialogVisible, this.artifactId);
       },
 
-      deleteModel:function(){
-        let obj=this;
+      deleteModel: function () {
+        let obj = this;
         this.$confirm('此操作将删除该模型, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           //post请求返回code 判断是否删除了该模型
-          obj.$axios.remove('http://192.168.1.5:8080/dldsj/parallel/unregister/'+obj.artifactId)
-            .then(function(response){
-              if(response.code===200) {
+          obj.$axios.remove('http://192.168.1.5:8080/dldsj/parallel/unregister/' + obj.artifactId)
+            .then(function (response) {
+              if (response.code === 200) {
                 obj.$message({
                   type: 'success',
                   message: '删除成功'
@@ -118,11 +122,13 @@
     /*box-shadow:0px 0px 1px 0px #313131;*/
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, .1);
   }
+
   .card-container {
     margin-left: 25px;
     /*padding: 5px 10px 5px 10px;*/
     width: 240px;
   }
+
   .data-info {
     height: 69px;
     padding: 8px 12px 12px;
@@ -130,11 +136,13 @@
     color: #303c46;
     position: relative;
   }
+
   .data-info-container {
     height: 100%;
     overflow: hidden;
     position: relative;
   }
+
   .data-name {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -145,6 +153,7 @@
     position: relative;
     margin-right: 102px;
   }
+
   .data-count {
     text-align: left;
     font-size: 12px;
@@ -153,6 +162,7 @@
     color: #222;
     padding: 10px 0 6px;
   }
+
   .data-date {
     position: absolute;
     right: 2px;
@@ -163,11 +173,13 @@
     text-align: left;
     color: #8a9194;
   }
+
   .data-option {
     position: absolute;
     right: 10px;
     bottom: 10px;
   }
+
   .data-icon {
     margin: 0;
     border: 0;
@@ -180,13 +192,16 @@
     align-items: center;
     display: inline-flex;
   }
-  .data-icon i:hover{
-    color:#3f87f7;
+
+  .data-icon i:hover {
+    color: #3f87f7;
     cursor: pointer;
   }
-  #delete i:hover{
+
+  #delete i:hover {
     color: #fe6970;
   }
+
   .data-option-container {
     position: absolute;
     z-index: 9;
@@ -200,6 +215,7 @@
     color: #8a9194;
     padding: 6px 0;
   }
+
   .option-icon {
     width: 18px;
     text-align: center;
