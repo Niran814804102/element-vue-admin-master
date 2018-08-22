@@ -34,7 +34,7 @@
         let obj=this;
         this.$axios.get(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/get/' + this.artifactId,
-          'http://192.168.1.5:8080/dldsj/parallel/get/' + this.artifactId)
+          '/parallel/get/' + this.artifactId)
           .then((res) => {
             let modelpara = [{"default":"default","datatype":"String","name":"任务名称","description":"一个SPARK任务的名称"}];
             this.Modelparams = modelpara.concat(JSON.parse(res.body.parameters));
@@ -59,7 +59,7 @@
         modelparamData.customname = params["1"];
         this.$axios.post(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/use/' + this.artifactId,
-          'http://192.168.1.5:8080/dldsj/parallel/use/' + this.artifactId,
+          '/parallel/use/' + this.artifactId,
           modelparamData
         ).then(function (response) {
           if(response.code===200){

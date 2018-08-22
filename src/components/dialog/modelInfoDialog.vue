@@ -65,7 +65,7 @@
         let obj = this;
         this.$axios.get(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/get/' + this.artifactId,
-          'http://192.168.1.5:8080/dldsj/parallel/get/' + this.artifactId)
+          '/parallel/get/' + this.artifactId)
           .then((res) => {
               obj.infoData = res.body;
               console.log(res.body)

@@ -100,7 +100,7 @@
           type: 'warning'
         }).then(() => {
           //post请求返回code 判断是否删除了该模型
-          obj.$axios.remove('http://192.168.1.5:8080/dldsj/parallel/unregister/' + obj.artifactId)
+          obj.$axios.remove('/parallel/unregister/' + obj.artifactId)
             .then(function (response) {
               if (response.code === 200) {
                 obj.$message({

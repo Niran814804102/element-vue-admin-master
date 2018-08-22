@@ -276,7 +276,7 @@
         switch(geometryType){
           case "Point":return new ol.style.Style({
             image: new ol.style.Circle({
-              radius: 10,
+              radius: 7,
               fill: new ol.style.Fill({
                 color: 'red'
               })

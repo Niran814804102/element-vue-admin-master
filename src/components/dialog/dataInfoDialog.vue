@@ -37,6 +37,8 @@
   }
 </script>
 
-<style scoped>
-
+<style >
+ .el-dialog__title{
+   padding-left: 10px;
+ }
 </style>

@@ -63,6 +63,7 @@
       let that = this;
       that.$Bus.$on("basemaps", (params) => {
         let firstKey;
+        that.basemaps = [];
         for (let key in params){
           firstKey = firstKey ? firstKey: key;
           that.basemaps.push({

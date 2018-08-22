@@ -4,7 +4,6 @@
       :data="dataInfo"
       style="width: 100%"
       :row-style="{ height:'0' }"
-      :cell-style="{ padding:'5px' }"
       max-height="750"
       stripe
       border
@@ -13,12 +12,12 @@
       <el-table-column
         prop="proName"
         label="属性名称"
-        align="center" header-align="center" >
+        align="center" header-align="center">
       </el-table-column>
       <el-table-column
         prop="proValue"
         label="属性值"
-        align="center" header-align="center" >
+        align="center" header-align="center">
       </el-table-column>
     </el-table>
   </div>
@@ -75,6 +74,6 @@
   }
 </script>
 
-<style scoped>
+<style >
 
 </style>
