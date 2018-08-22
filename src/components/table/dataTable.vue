@@ -10,7 +10,7 @@
       border
       highlight-current-row
       :header-cell-style="{ background: '#f0f9eb' }">
-      <el-table-column v-if="colnames != null" label="ID" prop="id" type="index"></el-table-column>
+      <el-table-column v-if="colnames != null" label="ID" prop="id" width="60px" align="center" header-align="center" type="index"></el-table-column>
       <template v-for="(colname, index) in colnames">
         <el-table-column :label="colname" :prop="colname" :index="index" align="center" header-align="center" width="auto" sortable></el-table-column>
       </template>

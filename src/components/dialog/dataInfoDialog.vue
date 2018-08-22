@@ -30,6 +30,7 @@
       let that = this;
       that.$Bus.$on("dataInfoDialogParams",(params)=> {
         that.visible = params.visible;
+        that.title = params.tableData.data.metaName;
         that.tableData = params.tableData;
       });
     }
