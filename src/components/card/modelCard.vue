@@ -5,12 +5,12 @@
       <v-card height="220px">
         <v-card-media
           class="white--text"
-          @click="editRow(card.artifactId)"
+          @click="openModelDialog(card.artifactId)"
           height="70%"
           width="auto"
           :src="card.picPath">
           <v-container fill-height fluid>
-            <v-layout fill-height>
+            <v-layout fill-height >
               <v-flex xs12 align-end flexbox>
                 <!--<span class="headline">Top 10 Australian beaches</span>-->
               </v-flex>
@@ -21,20 +21,17 @@
           <div class="data-info-container">
             <div class="data-name">{{ card.artifactId}}</div>
             <div class="data-discribe" style="width: 180px;text-align: left;padding-top: 6px">{{ card.name }}</div>
-            <div class="data-date">{{ card.date }}</div>
+            <div class="data-date">{{ this.dateTrans(card.date) }}</div>
           </div>
         </div>
         <div class="data-option">
-          <div class="data-icon">
-            <el-tooltip class="item" effect="dark" content="模型简介" placement="top-end">
-              <i title="模型简介" class="fa fa-info-circle" aria-hidden="true"></i>
-            </el-tooltip>
+          <div class="data-icon" id="info" content="模型信息" @click="viewModelinfo()">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
           <div class="data-icon" id="delete" content="删除模型" @click="deleteModel()">
             <i class="fa fa-trash" aria-hidden="true"></i>
           </div>
         </div>
-
       </v-card>
     </div>
   </div>
@@ -54,6 +51,9 @@
         dialogVisible: {
           v: false,
           // clickModalClose: false
+        },
+        modelInfoVisible:{
+          v:false,
         }
       }
     },
@@ -79,12 +79,19 @@
           console.log(err)
         })
       },
-      editRow(artifactId) {
+      dateTrans:function (date) {
+        date=date.substring(0,4)+'-'+date.substring(4,6)+'-'+date.substring(6,8);
+        return date;
+      },
+      openModelDialog(artifactId) {
         //TODO 打开地图编辑页面
         this.dialogVisible.v = true;
         vueEven.$emit('pop', this.dialogVisible, this.artifactId);
       },
-
+      viewModelinfo:function (artifactId) {
+        this.modelInfoVisible.v=true;
+        vueEven.$emit('pob', this.modelInfoVisible, this.artifactId);
+      },
       deleteModel: function () {
         let obj = this;
         this.$confirm('此操作将删除该模型, 是否继续?', '提示', {

@@ -55,16 +55,14 @@
         let modelparamData = {};
         modelparamData.user = "ubt";
         let params = this.$refs.myForm.getdata();
-        console.log(params)
         modelparamData.params = params;
         modelparamData.customname = params["1"];
-        console.log(modelparamData)
         this.$axios.post(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/use/' + this.artifactId,
           'http://192.168.1.5:8080/dldsj/parallel/use/' + this.artifactId,
           modelparamData
         ).then(function (response) {
-          if(response.code=='200'){
+          if(response.code===200){
             obj.$message({
               type: 'success',
               message: '模型提交成功!请前往模型项目查看运行进度！'

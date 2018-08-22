@@ -6,29 +6,30 @@
       v-show="load"
       style="padding-left: 550px;margin-top: -550px"
     ></v-progress-circular>
-    <el-dialog title="注册并行模型" :visible.sync="signVisible.v" >
+    <el-dialog :visible.sync="signVisible.v" >
+      <p>注册并行模型</p>
       <div class="selectfile">
         <el-input type="text" :value="xmlname"></el-input>
         <input id="xmlid" name="file" type="file" accept=".xml" @change="xmlFileChange" ref="xmlinputer">
         <label for="xmlid">
-          <img src="../../assets/xml.jpg" alt="">
+          <img src="../../assets/xml.png" alt="">
         </label>
       </div>
       <div class="selectfile">
         <el-input type="text" :value="jarname"></el-input>
         <input id="jarid" name="file" type="file" accept=".jar" @change="jarFileChange" ref="jarinputer">
         <label for="jarid">
-          <img src="../../assets/jar.jpg" alt="">
+          <img src="../../assets/jar.png" alt="">
         </label>
       </div>
       <div class="selectfile">
         <el-input type="text" :value="picname"></el-input>
         <input id="picid" name="file" type="file" accept=".png,.jpg" @change="picFileChange" ref="picinputer">
         <label for="picid">
-          <img src="../../assets/jar.jpg" alt="">
+          <img src="../../assets/img.png" alt="">
         </label>
       </div>
-      <v-btn @click="submitfile">注册</v-btn>
+      <v-btn id="signbtn" @click="submitfile">注册</v-btn>
       <v-btn @click="cancle">取消</v-btn>
     </el-dialog>
   </div>
@@ -137,8 +138,11 @@
   }
 
   #modelsign img {
-    width: 30px;
-    height: 30px;
+    width: 38px;
+    height: 38px;
+  }
+  #signbtn:hover {
+    color:#4d9bf7;
   }
 
   #modelsign input {
@@ -179,5 +183,9 @@
 
   .selectfile img {
     padding-left: 5px;
+  }
+  .el-dialog p{
+    font-size: 22px;
+    padding-left:1.5%;
   }
 </style>

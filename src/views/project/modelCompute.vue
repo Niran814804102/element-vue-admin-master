@@ -18,6 +18,7 @@
     </el-row>
     <v-modelDialog></v-modelDialog>
     <v-signDialog :sign-visible="signVisible" v-on:childRefresh="refresh"></v-signDialog>
+    <v-modelInfoDialog></v-modelInfoDialog>
   </div>
 
 </template>
@@ -26,6 +27,7 @@
   import modelCard from '../../components/card/modelCard.vue';
   import modelDialog from '../../components/dialog/modelDialog.vue';
   import signDialog from '../../components/dialog/signDialog.vue';
+  import modelInfoDialog from '../../components/dialog/modelInfoDialog.vue';
 
   export default {
     name: "modelcompute",
@@ -37,14 +39,15 @@
         isVisible: false,
         signVisible: {
           v: false,
-          // clickModalClose:false
-        }
+        },
+        modelInfoVisible:false
       }
     },
     components: {
       "v-modelCard": modelCard,
       "v-modelDialog": modelDialog,
-      "v-signDialog": signDialog
+      "v-signDialog": signDialog,
+      "v-modelInfoDialog": modelInfoDialog
     },
     methods: {
       getModelData: function () {
@@ -52,7 +55,6 @@
           // params:{ userid: "userid"},
           //  'http://192.168.240.25:3000/dldsj/parallel/get',
           'http://192.168.1.5:8080/dldsj/parallel/get')
-        // '../../../static/json/modelData.json')
           .then(res => {
             this.cards = res.body;
             this.cards.forEach(model => {
@@ -71,7 +73,7 @@
           .then(res => {
             this.cards = res.body;
             this.cards.forEach(model => {
-              model.picPath = "http://192.168.1.5:8080/dldsj/" + model.picPath;
+              model.picPath = "http://192.168.1.5:8080/dldsj/" + (model.picPath||'static/default.png');
             })
           })
           .catch(function () {

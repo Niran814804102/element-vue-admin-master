@@ -114,6 +114,11 @@
                   message: '删除成功!'
                 });
                 obj.$emit('childrefresh');
+              }else{
+                obj.$message({
+                  type: 'warning',
+                  message: '删除错误!请刷新列表'
+                });
               }
             }).catch(function (error) {
             obj.$message.error("删除失败！");

@@ -232,7 +232,8 @@
             }),
             stroke: new ol.style.Stroke({
               width: 3,
-              color: [255, 0, 0, 1]
+              color: '#94c0ff',
+              lineDash: [6],
             })
           })
         ];
@@ -244,7 +245,7 @@
             image: new ol.style.Circle({
               radius: 5,
               fill: new ol.style.Fill({
-                color: '#5ca1d7'
+                color: '#f88b7b'
               })
             })
           }));
@@ -253,7 +254,7 @@
             image: new ol.style.Circle({
               radius: 5,
               fill: new ol.style.Fill({
-                color: '#5ca1d7'
+                color: '#9bcd5d'
               })
             })
           }));
