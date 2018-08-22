@@ -27,7 +27,7 @@
       <v-container grid-list-xl text-xs-center>
         <v-layout row wrap>
           <v-flex xs12 sm6 md4 lg3 v-for="card in cards" :key="card.id" style="padding:0 0 24px 0">
-            <allProject :card="card" ></allProject>
+            <project-card :card="card" ></project-card>
           </v-flex>
         </v-layout>
       </v-container>
@@ -41,7 +41,7 @@
 
   export default {
     name: 'allproject',
-    components: {"allProject": projectCard},
+    components: {"project-card": projectCard},
     data() {
       return {
         cards: null,
