@@ -54,11 +54,11 @@
         this.$axios.get(
           // params:{ userid: "userid"},
           //  'http://192.168.240.25:3000/dldsj/parallel/get',
-          'http://192.168.1.5:8080/dldsj/parallel/get')
+          '/parallel/get')
           .then(res => {
             this.cards = res.body;
             this.cards.forEach(model => {
-              model.picPath = "http://192.168.1.5:8080/dldsj/" + model.picPath;
+              model.picPath = this.$serverUrl + model.picPath;
             })
           }).catch(function () {
           console.log(error);
@@ -69,11 +69,11 @@
       // },
       refresh: function () {
         let obj = this;
-        this.$axios.get('http://192.168.1.5:8080/dldsj/parallel/get')
+        this.$axios.get('/parallel/get')
           .then(res => {
             this.cards = res.body;
             this.cards.forEach(model => {
-              model.picPath = "http://192.168.1.5:8080/dldsj/" + (model.picPath||'static/default.png');
+              model.picPath = this.$serverUrl + (model.picPath||'static/default.png');
             })
           })
           .catch(function () {

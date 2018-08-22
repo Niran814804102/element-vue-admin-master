@@ -54,7 +54,7 @@
     methods: {
       getData: function(pageProps){
         let that = this;
-        that.$axios.get('http://192.168.1.5:8080/dldsj/data/list',
+        that.$axios.get('/data/list',
           { offset: (pageProps.currentPage - 1) * pageProps.pageSize,
             size: pageProps.pageSize
           }).then(function(res){

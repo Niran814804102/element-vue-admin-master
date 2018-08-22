@@ -46,6 +46,8 @@ Vue.prototype.$date = {
   formatTime,
   dateFormat
 }
+//定义服务器url
+Vue.prototype.$serverUrl = "http://192.168.1.5:8080/dldsj/"
 Vue.config.productionTip = false
 
 function guardRoute (to, from, next) {

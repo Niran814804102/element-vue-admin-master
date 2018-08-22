@@ -85,7 +85,7 @@
         this.load = true;
         this.$axios.post(
           // url: 'http://192.168.240.25:3000/dldsj/parallel/register',
-          'http://192.168.1.5:8080/dldsj/parallel/register'
+          '/parallel/register'
           , filedata
         ).then(function (response) {
           obj.load = false;

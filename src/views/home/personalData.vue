@@ -54,7 +54,7 @@
     methods: {
       getDataByUserID: function(pageProps){
         let that = this;
-        that.$axios.get('http://192.168.1.5:8080/dldsj/user/data',
+        that.$axios.get('/user/data',
           { offset: (pageProps.currentPage - 1) * pageProps.pageSize,
             size: pageProps.pageSize
           }).then(function(res){

@@ -106,7 +106,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          obj.$axios.remove('http://192.168.1.5:8080/dldsj/parallel/jobs/' + rows.applicationId + '/delete')
+          obj.$axios.remove('/parallel/jobs/' + rows.applicationId + '/delete')
             .then(function (response) {
               if (response.code === 200) {
                 obj.$message({
@@ -132,13 +132,13 @@
       },
       download(index, rows) {
         //下载数据
-        window.open('http://192.168.1.5:8080/dldsj/parallel/result/download/' + rows.applicationId, 'blank');
+        window.open('/parallel/result/download/' + rows.applicationId, 'blank');
       },
       getProjectData() {
         let obj = this;
         this.$axios.get(
           // url:'http://192.168.240.25/dldsj/parallel/jobs/user',
-          'http://192.168.1.5:8080/dldsj/parallel/jobs/user')
+          '/parallel/jobs/user')
         // params:{ userid: "userid"},
           .then(res => {
             if (res.code === 200) {
@@ -165,7 +165,7 @@
                   obj.task.push(row);
                   if (singleData.record.state === "UNDEFINED") {
                     let superviseTimer = setInterval(function () {
-                      obj.$axios.get('http://192.168.1.5:8080/dldsj/parallel/monitor/' + singleData.record.applicationId)
+                      obj.$axios.get('/parallel/monitor/' + singleData.record.applicationId)
                         .then(function (response) {
                           if (response.code !== 200) {
                             clearInterval(superviseTimer);
@@ -227,7 +227,7 @@
         this.$Bus.$emit("mapDialogParams", {
           title: row.remarks,
           visible: true,
-          queryUrl: "http://192.168.1.5:8080/dldsj/parallel/result/preview/"+ row.applicationId + "/geojson",
+          queryUrl: "/parallel/result/preview/"+ row.applicationId + "/geojson",
           queryParams: {
             offset: 0,
             size: 100//TODO:需要设置分页,注意offset要乘以size
@@ -238,7 +238,7 @@
         this.$Bus.$emit("dataDialogParams", {
           title: row.remarks,
           visible: true,
-          queryUrl: "http://192.168.1.5:8080/dldsj/parallel/result/preview/"+ row.applicationId,
+          queryUrl: "/parallel/result/preview/"+ row.applicationId,
           queryParams: {
             offset: 0,
             size: 100//TODO:需要设置分页,注意offset要乘以size

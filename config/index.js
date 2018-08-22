@@ -27,12 +27,13 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    //包括静态文件（static/img/sun.jpg）都会变成去访问target
     proxyTable: {
-      '/AncientMap': {
-        target: 'http://locahost:8090/',
+      '/dldsj': {
+        target: 'http://192.168.1.5:8080/',
         changeOrigin: true, // 允许跨域
         pathRewrite: {
-          '^/AncientMap': '/'
+          '^/dldsj': '/'
         }
       }
     },

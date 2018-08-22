@@ -3,7 +3,7 @@ import { getCookie } from './cookie'
 
 // axios 配置
 axios.defaults.timeout = 50000;
-// axios.defaults.baseURL = 'http://localhost:8090/AncientMap/'; //这是调用数据接口,TODO:需要设置axios的跳转链接
+axios.defaults.baseURL = 'http://192.168.1.5:8080/dldsj/'; //这是调用数据接口,TODO:需要设置axios的跳转链接
 
 // http request 拦截器，通过这个，我们就可以把Cookie传到后台
 axios.interceptors.request.use(

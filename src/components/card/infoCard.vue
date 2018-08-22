@@ -138,7 +138,7 @@
         this.$Bus.$emit("mapDialogParams", {
           title: this.card.data.metaName,
           visible: true,
-          queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId + "/geojson",
+          queryUrl: "/data/preview/"+ this.card.data.pkMetaId + "/geojson",
           queryParams: {
             offset: 0,
             size: 100//TODO:需要设置分页,注意offset要乘以size
@@ -149,7 +149,7 @@
         this.$Bus.$emit("dataDialogParams", {
           title: this.card.data.metaName,
           visible: true,
-          queryUrl: "http://192.168.1.5:8080/dldsj/data/preview/"+ this.card.data.pkMetaId,
+          queryUrl: "/data/preview/"+ this.card.data.pkMetaId,
           queryParams: {
             offset: 0,
             size: 100//TODO:需要设置分页,注意offset要乘以size

@@ -53,7 +53,7 @@
             modelparamData.customname = this.paramsFormData["0"];
             this.$axios.post(
               // url: 'http://192.168.240.25:3000/dldsj/parallel/use/' + this.artifactId,
-              'http://192.168.1.5:8080/dldsj/parallel/use/' + this.artifactId, modelparamData
+              '/parallel/use/' + this.artifactId, modelparamData
             ).then(function (response) {
               if (response.code === 200) {
                 obj.$message({
