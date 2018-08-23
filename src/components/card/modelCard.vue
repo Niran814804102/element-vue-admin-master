@@ -25,10 +25,10 @@
           </div>
         </div>
         <div class="data-option">
-          <div class="data-icon" id="info" content="模型信息" @click="viewModelinfo()">
+          <div class="data-icon" id="info" title="模型信息" @click="viewModelinfo()">
             <i class="fa fa-info-circle" aria-hidden="true"></i>
           </div>
-          <div class="data-icon" id="delete" content="删除模型" @click="deleteModel()">
+          <div class="data-icon" id="delete" title="删除模型" @click="deleteModel()">
             <i class="fa fa-trash" aria-hidden="true"></i>
           </div>
         </div>

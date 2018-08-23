@@ -145,9 +145,16 @@
               let resArray = res.body;
               for (let singleData of resArray) {
                 let row = singleData.record;
+                console.log(row.outputType.search("lon")===-1)
                 row.submitTime=obj.$date.formatTime(parseInt(row.submitTime));
                 row.map=true;
-                if(row.outputType!=="file"){
+                if(row.outputType.search("lon") != -1
+                  &&row.outputType.search("lat") != -1
+                  || row.outputType.search("start_lon") != -1
+                  &&row.outputType.search("start_lat")!= -1
+                  &&row.outputType.search("end_lon") != -1
+                  &&row.outputType.search("end_lon") != -1)
+                {
                   row.btnVisible=true;
                 }else{row.btnVisible=false}
                 let exist = false;
