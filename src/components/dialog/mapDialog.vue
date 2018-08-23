@@ -13,9 +13,9 @@
   </div>
 </template>
 <script>
-  import "../../../static/js/ol-debug.js";
-  import basemapCard from "../card/basemapCard.vue"
-  import featurePopover from "../popover/featurePopover.vue"
+  import "../../../node_modules/openlayers/dist/ol-debug.js"
+  import basemapCard from "../card/basemapCard"
+  import featurePopover from "../popover/featurePopover"
 
   export default {
     name: "map-dialog",
@@ -40,6 +40,7 @@
       mapInit() {
         this.$nextTick(function(){
           let that = this;
+
           that.$refs.map.innerText=null
           // let tdtSource = new ol.source.XYZ({
           //   url: 'http://202.121.180.59/tianditu/tdt/{z}/{y}/{x}.jpg'
@@ -394,7 +395,7 @@
   }
 </script>
 <style>
-  @import "../../../static/css/ol-debug.css";
+  @import url("../../../node_modules/openlayers/dist/ol-debug.css");
   .el-dialog__body {
     height: 95%;
     padding: 0px 20px 20px 20px;
