@@ -13,7 +13,7 @@
   </div>
 </template>
 <script>
-  import "../../../static/js/ol-debug.js";
+  import "openlayers/dist/ol-debug.js";
   import basemapCard from "../card/basemapCard.vue"
   import featurePopover from "../popover/featurePopover.vue"
 

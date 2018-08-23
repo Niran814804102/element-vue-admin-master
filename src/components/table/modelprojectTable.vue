@@ -132,7 +132,7 @@
       },
       download(index, rows) {
         //下载数据
-        window.open('/parallel/result/download/' + rows.applicationId, 'blank');
+        window.open(this.$serverUrl + '/parallel/result/download/' + rows.applicationId, 'blank');
       },
       getProjectData() {
         let obj = this;
