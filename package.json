@@ -11,16 +11,13 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "N3-components": "^2.4.2",
     "axios": "^0.16.2",
     "echarts": "^3.7.2",
     "element-ui": "^2.0.0-alpha.2",
     "font-awesome": "^4.7.0",
     "js-md5": "^0.7.3",
-    "ol": "^5.1.3",
     "openlayers": "^4.6.5",
     "vue": "^2.5.17",
-    "vue-axios": "^2.1.3",
     "vue-resource": "1.5.1",
     "vue-router": "^2.7.0",
     "vuelidate": "^0.7.4",

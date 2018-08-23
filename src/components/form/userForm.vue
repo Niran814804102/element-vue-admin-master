@@ -89,9 +89,9 @@
         let that = this;
         let expires = 60 * 60 * 1000;//cookie生存周期
         that.$v.$touch();
-        that.$axios.post('http://localhost:8090/AncientMap/login.action', {
-            username: that.name,
-            password: md5.hex(that.password)//TODO:对应数据库的密码加密方式，此处是md5加密
+        that.$axios.post('user/login', {
+            name: that.name,
+            pass: md5.hex(that.password)//TODO:对应数据库的密码加密方式，此处是md5加密
           }).then(function(res){
           if (res.code == 200) {
             if (that.checkRememberPwd) {//是否记住密码

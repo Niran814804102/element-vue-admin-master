@@ -4,7 +4,7 @@
       <v-card-media
         class="white--text"
         height="151px"
-        src="static/img/sun.jpg"
+        src="static/img/hero-bg.jpg"
         @click="getDataInfo()">
         <v-container fill-height fluid>
           <v-layout fill-height>
@@ -28,9 +28,9 @@
         <div v-if="isLoadToMap" class="data-icon">
           <i title="数据上图" class="fa fa-globe" @click="openDataResourceOnMap()" aria-hidden="true"></i>
         </div>
-        <div class="data-icon">
-          <i :title="favoriteTitle" :class="favoriteClass" @click="chanegeFavorites()" aria-hidden="true"></i>
-        </div>
+        <!--<div class="data-icon">-->
+          <!--<i :title="favoriteTitle" :class="favoriteClass" @click="chanegeFavorites()" aria-hidden="true"></i>-->
+        <!--</div>-->
         <!--<div class="data-icon">-->
           <!--<i title="复制数据UUID" class="fa fa-files-o" @click="getUUIDByID()" aria-hidden="true"></i>-->
         <!--</div>-->

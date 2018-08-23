@@ -81,7 +81,7 @@
       userLogout(){
         let expires = 60 * 60 * 1000;//1h
         let that = this;
-        that.$axios.post('http://localhost:8090/AncientMap/logout.action')
+        that.$axios.post('user/logout')
           .then(function(res){
           if (res.code == 200) {
             //弹窗提示登录成功

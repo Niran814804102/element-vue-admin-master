@@ -68,7 +68,7 @@ export const appRouter = [
       {
         meta: {
           title: '数据上图',
-          requireAuth: false
+          requireAuth: true
         },
         name: 'dataViewM',
         path: 'dataViewM',
@@ -77,7 +77,7 @@ export const appRouter = [
       },{
         meta: {
           title: '数据探索',
-          requireAuth: false
+          requireAuth: true
         },
         name: 'dataExplorerM',
         path: 'dataExplorerM',
@@ -107,7 +107,7 @@ export const appRouter = [
       {
         meta: {
           title: '所有项目',
-          requireAuth: false
+          requireAuth: true
         },
         name: 'allProject',
         path: 'allProject',
@@ -127,7 +127,7 @@ export const appRouter = [
       {
         meta: {
           title: '地图项目',
-          requireAuth: false
+          requireAuth: true
         },
         name: 'dataDisplay',
         path: 'dataDisplay',
@@ -137,7 +137,7 @@ export const appRouter = [
       {
         meta: {
           title: '统计项目',
-          requireAuth: false
+          requireAuth: true
         },
         name: 'dataExplorer',
         path: 'dataExplorer',
