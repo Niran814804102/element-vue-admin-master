@@ -48,8 +48,6 @@
 </template>
 
 <script>
-  import vueEven from '../../resource/vueEvent.js';
-
   export default {
     name: "modelInfoDialog",
     data() {
@@ -87,7 +85,7 @@
       },
     },
     mounted() {
-      vueEven.$on('pob', (modelInfoVisible, artificatId) => {
+      this.$Bus.$on('pob', (modelInfoVisible, artificatId) => {
         this.modelInfoVisible = modelInfoVisible;
         this.artifactId = artificatId;
         this.getInfoData();

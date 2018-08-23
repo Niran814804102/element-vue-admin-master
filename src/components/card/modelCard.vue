@@ -38,8 +38,6 @@
 </template>
 
 <script>
-  import vueEven from "../../resource/vueEvent";
-
   export default {
     name: "modelCard",
     props: {
@@ -86,11 +84,11 @@
       openModelDialog(artifactId) {
         //TODO 打开地图编辑页面
         this.dialogVisible.v = true;
-        vueEven.$emit('pop', this.dialogVisible, this.artifactId);
+        this.$Bus.$emit('pop', this.dialogVisible, this.artifactId);
       },
       viewModelinfo:function (artifactId) {
         this.modelInfoVisible.v=true;
-        vueEven.$emit('pob', this.modelInfoVisible, this.artifactId);
+        this.$Bus.$emit('pob', this.modelInfoVisible, this.artifactId);
       },
       deleteModel: function () {
         let obj = this;

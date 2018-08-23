@@ -12,7 +12,6 @@
 
 <script>
   import myForm from '../form/modelForm';
-  import vueEven from '../../resource/vueEvent.js';
 
   export default {
     name: "model-dialog",
@@ -75,7 +74,7 @@
       },
     },
     mounted() {
-      vueEven.$on('pop', (dialogVisible, artificatId) => {
+      this.$Bus.$on('pop', (dialogVisible, artificatId) => {
         this.dialogVisible = dialogVisible;
         this.artifactId = artificatId;
         this.initParallelModel();
