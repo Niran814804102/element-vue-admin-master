@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import myForm from '../form/modelForm';
+  import myForm from '../form/model-form';
   import vueEven from '../../resource/vueEvent.js';
 
   export default {
@@ -45,7 +45,7 @@
         });
         if (this.$refs.myForm)
             this.$refs.myForm.reset();
-        },
+      },
       reset() {
         if (this.$refs.myForm)
           this.$refs.myForm.reset();

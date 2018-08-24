@@ -24,10 +24,10 @@
 </template>
 
 <script>
-  import modelCard from '../../components/card/modelCard.vue';
-  import modelDialog from '../../components/dialog/modelDialog.vue';
-  import signDialog from '../../components/dialog/signDialog.vue';
-  import modelInfoDialog from '../../components/dialog/modelInfoDialog.vue';
+  import modelCard from '../../components/card/model-card.vue';
+  import modelDialog from '../../components/dialog/model-dialog.vue';
+  import signDialog from '../../components/dialog/sign-dialog.vue';
+  import modelInfoDialog from '../../components/dialog/modelInfo-dialog.vue';
 
   export default {
     name: "modelcompute",

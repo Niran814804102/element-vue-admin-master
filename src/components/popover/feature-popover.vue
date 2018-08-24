@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import dataInfoTable from '../table/dataInfoTable.vue'
+  import dataInfoTable from '../table/dataInfo-table.vue'
 
   export default {
     name: "featurePopover",

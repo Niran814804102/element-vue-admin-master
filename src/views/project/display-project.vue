@@ -7,20 +7,20 @@
         style="width:200px;float:right;margin-right: 10px">
       </el-input>
       <!--<el-button-->
-        <!--icon="el-icon-menu"-->
-        <!--type="text"-->
-        <!--style="float:right;padding:12px 0px;color:gray;margin-left:10px"-->
-        <!--round-->
-        <!--@click="showCardView()">-->
-        <!--平铺-->
+      <!--icon="el-icon-menu"-->
+      <!--type="text"-->
+      <!--style="float:right;padding:12px 0px;color:gray;margin-left:10px"-->
+      <!--round-->
+      <!--@click="showCardView()">-->
+      <!--平铺-->
       <!--</el-button>-->
       <!--<el-button-->
-        <!--icon="el-icon-tickets"-->
-        <!--type="text"-->
-        <!--style="float:right;padding:12px 0px;color:gray"-->
-        <!--round-->
-        <!--@click="showListView()">-->
-        <!--列表-->
+      <!--icon="el-icon-tickets"-->
+      <!--type="text"-->
+      <!--style="float:right;padding:12px 0px;color:gray"-->
+      <!--round-->
+      <!--@click="showListView()">-->
+      <!--列表-->
       <!--</el-button>-->
     </el-row>
     <el-row>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import projectCard from '../../components/card/projectCard.vue'
+  import projectCard from '../../components/card/project-card.vue'
 
   export default {
     name: 'allproject',

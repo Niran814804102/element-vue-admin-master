@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import userForm from '../form/userForm.vue'
+  import userForm from '../form/user-form.vue'
 
   export default {
     name: "userDialog",

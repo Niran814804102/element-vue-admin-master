@@ -35,9 +35,9 @@
 </template>
 
 <style>
-  @import "./layout/css/layout.css";
-  @import "../style/dark.theme.css";
-  /*@import "../styles/chalk.theme.css";*/
+  @import "../../static/css/layout.css";
+  @import "../../static/css/dark.theme.css";
+  /*@import "../../static/css/chalk.theme.css";*/
 
   .el-header {
     background-color: #B3C0D1;
@@ -62,7 +62,7 @@
   import sidebar from './layout/sidebar.vue'
   import breadcrumb from './layout/breadcrumb.vue'
   import tabs from './layout/tabs.vue'
-  import alertModal from '../components/alert/alertModal.vue'
+  import alertModal from '../components/alert/alert-modal.vue'
 
   export default {
     components: {
@@ -99,9 +99,9 @@
   }
 </script>
 <style>
-  @import "./layout/css/layout.css";
-  @import "../style/dark.theme.css";
-  /*@import "../styles/chalk.theme.css";*/
+  @import "../../static/css/layout.css";
+  @import "../../static/css/dark.theme.css";
+  /*@import "../../static/css/chalk.theme.css";*/
 
   .el-header {
     background-color: #B3C0D1;

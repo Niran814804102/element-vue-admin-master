@@ -1,17 +1,17 @@
 import Main from '../views/index.vue'
 import Abstract from '../views/layout/abstract.vue'
-import PersonalData from '../views/home/personalData.vue'
-import PublicData from '../views/home/publicData.vue'
+import PersonalData from '../views/home/personal-data.vue'
+import PublicData from '../views/home/public-data.vue'
 import Login from '../views/login.vue'
 
-import DataExplore from '../views/project/dataExplore.vue'
-import ModelCompute from '../views/project/modelCompute.vue'
-import DataDisplay from '../views/project/dataDisplay.vue'
+import DataExplore from '../views/project/data-explore.vue'
+import ModelCompute from '../views/project/model-compute.vue'
+import DataDisplay from '../views/project/data-display.vue'
 
-import AllProject from '../views/project/allProject.vue'
-import ModelProject from '../views/project/modelProject.vue'
-import DisplayProject from '../views/project/displayProject.vue'
-import ExploreProject from '../views/project/exploreProject.vue'
+import AllProject from '../views/project/all-project.vue'
+import ModelProject from '../views/project/model-project.vue'
+import DisplayProject from '../views/project/display-project.vue'
+import ExploreProject from '../views/project/explore-project.vue'
 
 
 export const loginRouter = {
