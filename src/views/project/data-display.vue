@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import infoCard from '../../components/card/infoCard.vue'
+  import infoCard from '../../components/card/info-card.vue'
 
   export default {
       name: "dataview",

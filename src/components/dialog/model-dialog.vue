@@ -44,7 +44,7 @@
         });
         if (this.$refs.myForm)
             this.$refs.myForm.reset();
-        },
+      },
       reset() {
         if (this.$refs.myForm)
           this.$refs.myForm.reset();

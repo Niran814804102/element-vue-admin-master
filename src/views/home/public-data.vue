@@ -19,14 +19,14 @@
 </template>
 
 <script>
-  import infoCard from '../../components/card/infoCard'
-  import mapDialog from "../../components/dialog/mapDialog"
-  import dataDialog from "../../components/dialog/dataDialog"
-  import dataInfoDialog from "../../components/dialog/dataInfoDialog"
-  import dataPagination from "../../components/pagination/dataPagination"
+  import infoCard from '../../components/card/info-card'
+  import mapDialog from "../../components/dialog/map-dialog"
+  import dataDialog from "../../components/dialog/data-dialog"
+  import dataInfoDialog from "../../components/dialog/dataInfo-dialog"
+  import dataPagination from "../../components/pagination/data-pagination"
 
   export default {
-    name: "perData",
+    name: "pubData",
     data(){
       return {
         cards: null,
@@ -43,7 +43,7 @@
       "data-info-dialog": dataInfoDialog,
       "data-pagination": dataPagination
     },
-    watch:{
+    watch: {
       pageProps:{
         deep: true,
         handler(val, oldVal){
@@ -52,15 +52,15 @@
       }
     },
     methods: {
-      getDataByUserID: function(pageProps){
+      getData: function(pageProps){
         let that = this;
-        that.$axios.get('/user/data',
+        that.$axios.get('/data/list',
           { offset: (pageProps.currentPage - 1) * pageProps.pageSize,
             size: pageProps.pageSize
           }).then(function(res){
-          that.cards = res.body.data;
-          that.$Bus.$emit("totalSize", res.body.totalSize);
-        }).catch(function(err){console.log(err);})
+            that.cards = res.body.data;
+            that.$Bus.$emit("totalSize", res.body.totalSize);
+          }).catch(function(err){console.log(err);})
       }
     },
     created(){
@@ -68,11 +68,22 @@
       this.$Bus.$on("currentPage", (params)=>{this.pageProps.currentPage = params;});
     },
     mounted: function(){
-      this.getDataByUserID(this.pageProps)
+      this.getData(this.pageProps);
     }
   }
 </script>
 
 <style>
-
+  .container.grid-list-md .layout .flex {
+    padding: 10px 5px 10px 10px;
+  }
+  .custom-data-layout{
+    height: 100%;
+    width: 100%;
+  }
+  .custom-data-card{
+  }
+  .custom-data-pagination{
+    width: 100%;
+  }
 </style>

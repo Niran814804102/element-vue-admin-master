@@ -43,7 +43,7 @@
 </template>
 
 <script>
-    import MapDialog from "../dialog/mapDialog";
+    import MapDialog from "../dialog/map-dialog";
     export default {
       name: "proTable",
       components: {

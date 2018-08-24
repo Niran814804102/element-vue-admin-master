@@ -14,8 +14,8 @@
 </template>
 <script>
   import "../../../node_modules/openlayers/dist/ol-debug.js"
-  import basemapCard from "../card/basemapCard"
-  import featurePopover from "../popover/featurePopover"
+  import basemapCard from "../card/basemap-card"
+  import featurePopover from "../popover/feature-popover"
 
   export default {
     name: "map-dialog",

@@ -12,6 +12,6 @@ export default {
 
 <!--TODO import less-->
 <style rel="stylesheet/less" type="text/css" lang="less">
-  @import "./style/common.less";
+  @import "../static/css/common.less";
 
 </style>

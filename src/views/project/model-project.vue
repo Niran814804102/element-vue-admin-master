@@ -27,10 +27,10 @@
 </template>
 
 <script>
-  import modelprojectTable from '../../components/table/modelprojectTable'
-  import mapDialog from "../../components/dialog/mapDialog"
-  import dataDialog from "../../components/dialog/dataDialog"
-  import dataPagination from "../../components/pagination/dataPagination"
+  import modelprojectTable from '../../components/table/modelproject-table'
+  import mapDialog from "../../components/dialog/map-dialog"
+  import dataDialog from "../../components/dialog/data-dialog"
+  import dataPagination from "../../components/pagination/data-pagination"
 
   export default {
     name: 'modelProject',

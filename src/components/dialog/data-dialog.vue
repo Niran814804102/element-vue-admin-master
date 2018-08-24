@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import dataTable from '../table/dataTable.vue'
+  import dataTable from '../table/data-table.vue'
 
   export default {
     name: "dataDialog",

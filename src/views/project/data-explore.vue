@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import proTable from "../../components/table/proTable";
+    import proTable from "../../components/table/pro-table";
     export default {
       name: "dataexplore",
       components: {proTable},

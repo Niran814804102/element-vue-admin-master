@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import userDialog from "../../components/dialog/userDialog";
+  import userDialog from "../../components/dialog/user-dialog";
   import md5 from 'js-md5'
 
   export default {
